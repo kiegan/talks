@@ -1,0 +1,73 @@
+package_name,package_source,package_version,package_gitrepo,package_gitcommit,package_meta_checksum,user_computer,version_info
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,d922d8b,0740b30a571ea7e94ae4605f31a61680,"User S
+Desktop",newer
+x3ptools,Github,0.0.2.9000,heike/x3ptools,cdc96b8,c801bcef35f9f6d933d763ab21449c35,"User S
+Desktop",newer
+grooveFinder,Github,0.0.1,heike/grooveFinder,3743c74,0acd7fe6abea5efa256691fee4538fbf,"User S
+Desktop",newest
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User S
+Desktop",newest
+bulletxtrctr,local,0.2.0,NA,NA,4f288c2899f2e8d03e129a5537c5a1ac,"User S
+Server",local
+x3ptools,Github,0.0.2.9000,heike/x3ptools,b9a4b23,bfdb74a107adfb5357da04ff1ba10792,"User S
+Server",older
+grooveFinder,local,0.0.1,NA,NA,b346a9cfd646e16bad676e795a27c8ea,"User S
+Server",local
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User S
+Server",newest
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,d2f28b9,56db7cc57fa181d5b167871f381ddf31,"User S
+Laptop",older
+x3ptools,Github,0.0.2.9000,heike/x3ptools,b9a4b23,bfdb74a107adfb5357da04ff1ba10792,"User S
+Laptop",older
+grooveFinder,local,0.0.1,NA,NA,b346a9cfd646e16bad676e795a27c8ea,"User S
+Laptop",local
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User S
+Laptop",newest
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,d2f28b9,56db7cc57fa181d5b167871f381ddf31,"User C
+Laptop",older
+x3ptools,Github,0.0.2.9000,heike/x3ptools,cdc96b8,c801bcef35f9f6d933d763ab21449c35,"User C
+Laptop",newer
+grooveFinder,local,0.0.1,NA,NA,b346a9cfd646e16bad676e795a27c8ea,"User C
+Laptop",local
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User C
+Laptop",newest
+bulletxtrctr,local,0.2.0,NA,NA,4f288c2899f2e8d03e129a5537c5a1ac,"User H
+Laptop",local
+x3ptools,Github,0.0.2.9000,heike/x3ptools,cdc96b8,c801bcef35f9f6d933d763ab21449c35,"User H
+Laptop",newer
+grooveFinder,Github,0.0.1,heike/grooveFinder,3743c74,0acd7fe6abea5efa256691fee4538fbf,"User H
+Laptop",newest
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User H
+Laptop",newest
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,d922d8b,0740b30a571ea7e94ae4605f31a61680,"User K
+Laptop",newer
+x3ptools,Github,0.0.2.9000,heike/x3ptools,cdc96b8,c801bcef35f9f6d933d763ab21449c35,"User K
+Laptop",newer
+grooveFinder,Github,0.0.1,heike/grooveFinder,3743c74,0acd7fe6abea5efa256691fee4538fbf,"User K
+Laptop",newest
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User K
+Laptop",newest
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,fd179c0,277c1e2ee3392a9ccb098d2e3d2031e0,"User K
+Server",newest
+x3ptools,Github,0.0.2.9000,heike/x3ptools,cdc96b8,c801bcef35f9f6d933d763ab21449c35,"User K
+Server",newer
+grooveFinder,Github,0.0.1,heike/grooveFinder,3743c74,0acd7fe6abea5efa256691fee4538fbf,"User K
+Server",newest
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User K
+Server",newest
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,1f11855,11ab9ca7c1fa0cdb47540674949b4df7,"User Y
+Laptop",oldest
+x3ptools,Github,0.0.2.9000,heike/x3ptools,1d97027,42cf2378c5433866d2f85a949c3736fc,"User Y
+Laptop",oldest
+grooveFinder,Github,0.0.1,heike/grooveFinder,f1e0d6b,d038ed3251ae763777b88a7d6f587b8a,"User Y
+Laptop",oldest
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User Y
+Laptop",newest
+bulletxtrctr,Github,0.2.0,heike/bulletxtrctr,c9c4e81,58b4aace0b3d598bdb4bd86345291115,"User G
+Laptop",newest
+x3ptools,Github,0.0.2.9000,heike/x3ptools,c35ad84,9751cb69d59b1991c3368f395428d1a9,"User G
+Laptop",newest
+grooveFinder,Github,0.0.1,heike/grooveFinder,3743c74,0acd7fe6abea5efa256691fee4538fbf,"User G
+Laptop",newest
+bulletcp,Github,1.0.0,nategarton13/bulletcp,19b53e3,4697109e7ebaa26dd1db7cbf1954bfd6,"User G
+Laptop",newest

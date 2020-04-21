@@ -1,0 +1,542 @@
+---
+title: "![:scale 90%](images/this-is-fine-manager.jpg) Managing Computational Reproducibility in a Shifting R Package Landscape"
+author: "Kiegan Rice (advised by Heike Hofmann)"
+institute: "ISU Graphics Group"
+date: "April 24, 2020"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+<style>
+
+/* colors: #EEB422, #8B0000, #191970, #00a8cc */
+a, a > code {
+  color: #EEB422;
+  text-decoration: none;
+}
+
+.remark-slide-content {
+  background-color: #FFFFFF;
+  border-top: 80px solid #191970;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em
+}
+
+.inverse {
+  background-color: #191970;
+  border-top: 80px solid #191970;
+  text-shadow: none;
+	background-position: 50% 75%;
+  background-size: 150px;
+}
+
+.remark-slide-content > h1 {
+  font-family: 'Goudy Old Style';
+  font-weight: normal;
+  font-size: 45px;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #FFFFFF;
+}
+
+.title-slide {
+  background-color: #FFFFFF;
+  border-top: 15px solid #FFFFFF;
+  background-image: none;
+}
+
+.title-slide > h1  {
+  color: #111111;
+  font-size: 40px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 80px;
+}
+.title-slide > h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #111111;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 35px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide > h3  {
+  color: #111111;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -20px;
+}
+
+body {
+  font-family: 'Goudy Old Style';
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+</style>
+
+```{css, echo = FALSE}
+.tiny{font-size: 30%}
+.small{font-size: 50%}
+.medium{font-size: 75%}
+
+.left-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 59%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+```{r setup, echo = FALSE, message = FALSE, warning = F}
+# Packages
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(manager)
+library(emo)
+
+# R markdown options
+opts_chunk$set(echo = FALSE, dpi = 200, cache = TRUE)
+```
+
+# What is Computational Reproducibility?  
+
+## The short answer:
+
+--
+
+![](images/darkest_timeline.gif)
+
+---
+
+# What is Computational Reproducibility? 
+
+## The long answer:
+
+--
+
+There are lots of facets!  
+
+--
+
+For a good overview of several approaches to computational reproducibility, see the [ROpenSci reproducibility guide](https://ropensci.github.io/reproducibility-guide/sections/introduction/). 
+
+--
+
+1. Literate programming and reporting  
+    - Creating self-contained documents that include the code used to generate results and figures.  
+    - The largest step forward in this direction in recent history (for R users) has been the creation of [`knitr`](https://yihui.org/knitr/) by Yihui Xie. 
+2. Numerical reproducibility of results 
+    - Code of any kind used to complete an analysis or generate results  
+    - Reproduction of analysis or results across users/machines, or over time  
+    
+Often, (1) helps with *transparency* of methodology in research, while (2) helps with *consistency* of methodology.  
+
+---
+
+# Computational Reproducibility in R  
+
+R has a language model that makes it uniquely frustrating to manage computational reproducibility.   
+
+--
+
+**`base` R**   
+   - provides base language model  
+   - data structures (logical, character, double, factor, vector, list, matrix, data.frame, etc.)  
+   - framework for object manipulation (`$`, `[]`, `[[]]`, etc.)  
+   - framework for function syntax (arguments, body, return object, etc.)  
+   - basic functionality: (`for`, `while`, `apply`, `ifelse`, etc.)  
+   - also includes some packages (e.g., `stats`, that complete data analysis)  
+
+--
+
+**user-developed packages**
+   - many data analysis and data science capabilities are available through packages
+   - `randomForest`, `lme4`, `tidyverse`, `knitr`....  
+   
+--
+
+Packages are subject to change (this *includes* base packages like `stats`).  
+
+*Note: This framework exists in Python, too, but not SAS.*  
+
+---
+
+# Computational Reproducibility in R  
+
+There are a few things to note about the package framework  
+
+**R packages can change over time**  
+
+  - Package developers can change anything they want in their own packages
+  - [CRAN (Comprehensive R Archive Network)](https://cran.r-project.org/) provides a way for users to install packages
+  - CRAN packages go through a review process, but versions do still change over time  
+  - GitHub versions of many popular packages also exist (usually between CRAN releases)   
+
+**R package versioning is user/machine-specific**  
+
+  - It is up to the user to install and upgrade packages  
+  - Different users can have different sets of packages AND different versions of those packages  
+  - Functionality then differs across users and machines  
+  - If installing from CRAN, will install most recent release  
+    
+So what does this mean practically for data analysis?  
+
+
+---
+
+# Computational Reproducibility in R  
+
+Suppose we have a data analysis pipeline like so: 
+
+```{r, echo = F, warning = F, message = F, out.width = '\\textwidth'}
+knitr::include_graphics("images/pipeline_v1_update.png")
+```
+
+--
+
+Now suppose that the underlying code changes: 
+
+```{r, echo = F, warning = F, message = F, out.width = '\\textwidth'}
+knitr::include_graphics("images/pipeline_coding_update.png")
+```
+
+We now have four possible variants of our quantitative result, depending on how the code changes affect our process.  
+
+---
+
+class: inverse, middle, center
+
+# Existing Reproducibility Approaches in R  
+
+
+---
+
+# Package Versioning Packages `r emo::ji("package")`
+
+**`checkpoint` package** [(Revolution Analytics)](https://github.com/RevolutionAnalytics/checkpoint)  
+  - stored versions of CRAN mirror from every day 
+  - can insert a "checkpoint" in scripts for users  
+  - users then use all packages from CRAN on day of checkpoint  
+
+**`packrat` package** [(RStudio)](https://rstudio.github.io/packrat/)
+  - private package library `r emo::ji("package")` `r emo::ji("book")`  
+  - works on a project level, creating a library for that R project  
+  - interacts with projects/scripts  
+  - (*personal opinion*): bulky and makes projects a little hard to use  
+  - really awesome way to create a project-specific library!  
+  
+**`pkgnet` package** [(Uptake)](https://uptake.github.io/pkgnet/)
+  - creates "package reports" 
+  - package dependency network (visual and data file)
+  - function relationship/dependency network (visual and data file)  
+  - this tool is very cool 
+  
+---
+
+# What is missing? 
+
+All the packages mentioned are meant for **static** package versioning.  
+
+  - Meant to store/track packages used *at a particular point in time*.  
+  - Storing and maintaining a computational environment is an important aspect of computational reproducibility!  
+  - Does not allow for changes in packages across machines and over time
+  - Ensures the same version (usually an old version) of a package will be used. 
+  
+We propose an alternate approach which takes advantage of new developments and improvements in packages... 
+
+**Adaptive computational reproducibility!!**  
+
+
+
+
+---
+
+class: inverse, middle, center
+
+# Our Approach  
+
+
+---
+
+# Adaptive Computational Reproducibility  
+
+We take a two-step approach:  
+
+1. Define and refine the scope of package dependency for a script or project.  
+  - This lives somewhere in the space between `pkgnet` and `packrat`. 
+  - Focuses on taking and visualizing **inventories** of packages and their dependencies  
+  - Assess the level of vulnerability a script has to changes 
+  
+
+2. Compare package dependency networks over time and across users/machines  
+  - Identify specific package differences between inventories  
+  - Identify places in a script where differences are used  
+  - Gives users a chance to identify differences *before* the code breaks  
+
+To explain this approach, we will look at a brief example.  
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+Consider the following data analysis process that makes use of five R packages:  
+
+```{r, out.width = '\\textwidth'}
+knitr::include_graphics("images/pipeline_small_rfuncs.png")
+```
+
+--
+
+We can take these five packages, and get a *package inventory* using the `manager` package (`r emo::ji("coder")``r emo::ji("package")``r emo::ji("coder")`): 
+
+```{r, echo = T, eval = F}
+devtools::install_github("kiegan/manager")
+library(manager)
+project_inventory <- take_inventory(packages = c("tidyr", "stringr", 
+                                                 "purrr", "dplyr", 
+                                                 "randomForest"))
+```
+
+--
+
+We can then visualize that inventory... 
+
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+```{r, echo = F, eval = T}
+project_inventory <- readRDS("data/kiegan_inventory.rda")
+```
+
+```{r, echo = T, eval = T, fig.width = 9, fig.height = 5, warning = F, message = F}
+plot_inventory(project_inventory)
+```
+
+
+
+---
+
+# Quick side note `r emo::ji("eyes")`  
+
+```{r, echo = F, eval = T}
+tidyverse_inventory <- readRDS("data/tidyverse_inventory.rda")
+```
+
+```{r, echo = T, eval = T, fig.width = 9, fig.height = 5, warning = F, message = F}
+plot_inventory(tidyverse_inventory)
+```
+
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+**We can see a few things:**  
+
+1. `take_inventory` and `plot_inventory` together are a quick and easy way to get at your vulnerabilities
+2. Your projects are probably more vulnerable to package changes than you realize!  
+  - *anecdotally*, I know several people who have had packages disrupted by a "level 3" or "level 4" change.  
+3. You maybe probably definitely shouldn't just call `library(tidyverse)` if you want to make your project reproducible. Try to define specific packages you want to use to refine the scope!   
+
+**A few things to note:**   
+
+1. Inventories are taken using an iterative level-by-level approach  
+  - not meant to present an entire network of all connections  
+    - `pkgnet` can do this for one package!  
+  - if a package is already in the "tree" at a higher level, it isn't included again.  
+  - meant to enumerate all vulnerabilities, not identify all connections.  
+2. Inventories only focus on Depends and Imports! 
+3. Inventories catalog all package objects, so that we can compare them... 
+
+
+
+---
+
+# Step 2: Compare inventories    
+
+We can make use of catalogued package objects to compare package inventories to find: 
+
+  - **nominal differences**: differences in package versions (CRAN versions, git commits, etc.)  
+  - **practical differences**: differences in package objects across versions!  
+
+We care more about **practical differences**, and we can identify them automatically using the `compare_inventory` function.  
+
+
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+```{r, fig.width = 1, fig.height = .5, out.width=150}
+knitr::include_graphics("images/tidyr-hex.png") 
+```
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+```{r, fig.width = 1, fig.height = .5, out.width=150}
+knitr::include_graphics("images/bulletxtrctr-hex.png") 
+knitr::include_graphics("images/grooveFinder-hex.png") 
+knitr::include_graphics("images/x3ptools-hex.png")
+```
+
+---
+
+# `bulletxtrctr` `r emo::ji("package")` background  
+
+`bulletxtrctr` is one of several packages developed by a team of researchers at the Center for Statistics and Applications in Forensic Evidence (CSAFE) at Iowa State.  
+
+It is meant to automatically complete forensic evidence comparison, using high-resolution images of bullet evidence.  
+
+The package works in concert with three other packages: `x3ptools`, `grooveFinder`, and `bulletcp` to complete data analysis of captured `x3p` files:  
+
+```{r, out.width = '\\textwidth'}
+knitr::include_graphics("images/pipeline-packages.png")
+```
+
+---
+
+# `bulletxtrctr` `r emo::ji("package")` background  
+
+The suite of packages is both **used** and **developed** by a small-ish team of researchers. This means:  
+
+1. The packages are under active development and subject to change  
+2. Team members may have different versions of packages at any given time  
+3. Analyses run by different users on different machines (or at different times), are vulnerable to changes.  
+
+We can first look at the package dependency tree for one user (*full disclosure: it's me*)  
+
+
+---
+
+# `bulletxtrctr` `r emo::ji("package")` background  
+
+```{r, echo = F, eval = T}
+bulletxtrctr_inventory <- readRDS("data/kiegan_bulletxtrctr_inventory.rda")
+```
+
+```{r, echo = T, eval = T, fig.width = 9, fig.height = 5, warning = F, message = F}
+plot_inventory(bulletxtrctr_inventory)
+```
+
+
+---
+
+# `bulletxtrctr` study set-up    
+
+But what we really want to study is the nominal and practical differences across users on the team.  
+
+I asked researchers on the bullet team to use the `manager` package to take an inventory of the `bulletxtrctr` dependency network and send me the resulting inventories. I got:  
+
+  - 9 different inventories 
+  - 6 users (one user on 3 machines, another user on 2 machines)  
+
+
+
+---
+
+# Bullet Package Versions  
+
+
+All package versions are either GitHub or local.  
+
+
+```{r, warning = F, echo = F, message = F, fig.align = 'center', fig.width = 9, fig.height = 4}
+bullet_package_versions <- read_csv("data/bullet_package_versions.csv")
+bullet_package_versions %>%
+  ggplot() + 
+  geom_tile(aes(x = package_name, y = user_computer, 
+                fill = version_info), height = 0.9, width = 0.9, 
+            alpha = 0.9) + 
+  theme_bw() + 
+  scale_fill_manual(name = "Version Info", breaks = c("newest", "newer", "older", "oldest", "local"),
+                     values = c("grey90", "grey60", "grey30", "black", "red4")) + 
+  coord_flip() + 
+  #theme(aspect.ratio = 4/9) + 
+  labs(y = "", x = "Package Name", title = "Package version by user and machine") 
+
+```
+
+
+
+---
+
+class: inverse, middle, center
+
+# Wrapping Up  
+
+---
+
+# Conclusions and Future Work  
+
+**Conclusions**  
+  - your code might be more vulnerable than you think!  
+  - our tools provide a way to quickly assess things and identify changes  
+  - team collaboration 
+  - identify changes *before* they break your code  
+
+**Ironies That I Am Aware Of**  
+  - the `manager` package relies on some tidyverse packages 
+
+**Future Work**  
+  - making the `manager` package less dependent on tidyverse packages
+  - script mapping to identify a script's "flow" and where a potential code change starts affecting things  
+  - visuals to better compare two dependency trees  
+    - including a way to look at how it would change if you removed a package dependency  
+  - C/C++ code is difficult to get around
+    - when it is compiled, it gets a user-specific "address" - always different  
+    
+
+---
+
+class: inverse, middle, center
+
+# Questions?    
+
+
+
+
+

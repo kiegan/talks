@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>:scale 90% Managing Computational Reproducibility in a Shifting R Package Landscape</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kiegan Rice (advised by Heike Hofmann)" />
+    <meta name="date" content="2020-04-24" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <img src="images/this-is-fine-manager.jpg" alt=":scale 90%" /> Managing Computational Reproducibility in a Shifting R Package Landscape
+### Kiegan Rice (advised by Heike Hofmann)
+### ISU Graphics Group
+### April 24, 2020
+
+---
+
+
+&lt;style&gt;
+
+/* colors: #EEB422, #8B0000, #191970, #00a8cc */
+a, a &gt; code {
+  color: #EEB422;
+  text-decoration: none;
+}
+
+.remark-slide-content {
+  background-color: #FFFFFF;
+  border-top: 80px solid #191970;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em
+}
+
+.inverse {
+  background-color: #191970;
+  border-top: 80px solid #191970;
+  text-shadow: none;
+	background-position: 50% 75%;
+  background-size: 150px;
+}
+
+.remark-slide-content &gt; h1 {
+  font-family: 'Goudy Old Style';
+  font-weight: normal;
+  font-size: 45px;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #FFFFFF;
+}
+
+.title-slide {
+  background-color: #FFFFFF;
+  border-top: 15px solid #FFFFFF;
+  background-image: none;
+}
+
+.title-slide &gt; h1  {
+  color: #111111;
+  font-size: 40px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 80px;
+}
+.title-slide &gt; h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #111111;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 35px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide &gt; h3  {
+  color: #111111;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -20px;
+}
+
+body {
+  font-family: 'Goudy Old Style';
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+&lt;/style&gt;
+
+&lt;style type="text/css"&gt;
+.tiny{font-size: 30%}
+.small{font-size: 50%}
+.medium{font-size: 75%}
+
+.left-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 59%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+
+
+# What is Computational Reproducibility?  
+
+## The short answer:
+
+--
+
+![](images/darkest_timeline.gif)
+
+---
+
+# What is Computational Reproducibility? 
+
+## The long answer:
+
+--
+
+There are lots of facets!  
+
+--
+
+For a good overview of several approaches to computational reproducibility, see the [ROpenSci reproducibility guide](https://ropensci.github.io/reproducibility-guide/sections/introduction/). 
+
+--
+
+1. Literate programming and reporting  
+    - Creating self-contained documents that include the code used to generate results and figures.  
+    - The largest step forward in this direction in recent history (for R users) has been the creation of [`knitr`](https://yihui.org/knitr/) by Yihui Xie. 
+2. Numerical reproducibility of results 
+    - Code of any kind used to complete an analysis or generate results  
+    - Reproduction of analysis or results across users/machines, or over time  
+    
+Often, (1) helps with *transparency* of methodology in research, while (2) helps with *consistency* of methodology.  
+
+---
+
+# Computational Reproducibility in R  
+
+R has a language model that makes it uniquely frustrating to manage computational reproducibility.   
+
+--
+
+**`base` R**   
+   - provides base language model  
+   - data structures (logical, character, double, factor, vector, list, matrix, data.frame, etc.)  
+   - framework for object manipulation (`$`, `[]`, `[[]]`, etc.)  
+   - framework for function syntax (arguments, body, return object, etc.)  
+   - basic functionality: (`for`, `while`, `apply`, `ifelse`, etc.)  
+   - also includes some packages (e.g., `stats`, that complete data analysis)  
+
+--
+
+**user-developed packages**
+   - many data analysis and data science capabilities are available through packages
+   - `randomForest`, `lme4`, `tidyverse`, `knitr`....  
+   
+--
+
+Packages are subject to change (this *includes* base packages like `stats`).  
+
+*Note: This framework exists in Python, too, but not SAS.*  
+
+---
+
+# Computational Reproducibility in R  
+
+There are a few things to note about the package framework  
+
+**R packages can change over time**  
+
+  - Package developers can change anything they want in their own packages
+  - [CRAN (Comprehensive R Archive Network)](https://cran.r-project.org/) provides a way for users to install packages
+  - CRAN packages go through a review process, but versions do still change over time  
+  - GitHub versions of many popular packages also exist (usually between CRAN releases)   
+
+**R package versioning is user/machine-specific**  
+
+  - It is up to the user to install and upgrade packages  
+  - Different users can have different sets of packages AND different versions of those packages  
+  - Functionality then differs across users and machines  
+  - If installing from CRAN, will install most recent release  
+    
+So what does this mean practically for data analysis?  
+
+
+---
+
+# Computational Reproducibility in R  
+
+Suppose we have a data analysis pipeline like so: 
+
+&lt;img src="images/pipeline_v1_update.png" width="\textwidth" /&gt;
+
+--
+
+Now suppose that the underlying code changes: 
+
+&lt;img src="images/pipeline_coding_update.png" width="\textwidth" /&gt;
+
+We now have four possible variants of our quantitative result, depending on how the code changes affect our process.  
+
+---
+
+class: inverse, middle, center
+
+# Existing Reproducibility Approaches in R  
+
+
+---
+
+# Package Versioning Packages 📦
+
+**`checkpoint` package** [(Revolution Analytics)](https://github.com/RevolutionAnalytics/checkpoint)  
+  - stored versions of CRAN mirror from every day 
+  - can insert a "checkpoint" in scripts for users  
+  - users then use all packages from CRAN on day of checkpoint  
+
+**`packrat` package** [(RStudio)](https://rstudio.github.io/packrat/)
+  - private package library 📦 📖  
+  - works on a project level, creating a library for that R project  
+  - interacts with projects/scripts  
+  - (*personal opinion*): bulky and makes projects a little hard to use  
+  - really awesome way to create a project-specific library!  
+  
+**`pkgnet` package** [(Uptake)](https://uptake.github.io/pkgnet/)
+  - creates "package reports" 
+  - package dependency network (visual and data file)
+  - function relationship/dependency network (visual and data file)  
+  - this tool is very cool 
+  
+---
+
+# What is missing? 
+
+All the packages mentioned are meant for **static** package versioning.  
+
+  - Meant to store/track packages used *at a particular point in time*.  
+  - Storing and maintaining a computational environment is an important aspect of computational reproducibility!  
+  - Does not allow for changes in packages across machines and over time
+  - Ensures the same version (usually an old version) of a package will be used. 
+  
+We propose an alternate approach which takes advantage of new developments and improvements in packages... 
+
+**Adaptive computational reproducibility!!**  
+
+
+
+
+---
+
+class: inverse, middle, center
+
+# Our Approach  
+
+
+---
+
+# Adaptive Computational Reproducibility  
+
+We take a two-step approach:  
+
+1. Define and refine the scope of package dependency for a script or project.  
+  - This lives somewhere in the space between `pkgnet` and `packrat`. 
+  - Focuses on taking and visualizing **inventories** of packages and their dependencies  
+  - Assess the level of vulnerability a script has to changes 
+  
+
+2. Compare package dependency networks over time and across users/machines  
+  - Identify specific package differences between inventories  
+  - Identify places in a script where differences are used  
+  - Gives users a chance to identify differences *before* the code breaks  
+
+To explain this approach, we will look at a brief example.  
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+Consider the following data analysis process that makes use of five R packages:  
+
+&lt;img src="images/pipeline_small_rfuncs.png" width="\textwidth" /&gt;
+
+--
+
+We can take these five packages, and get a *package inventory* using the `manager` package (👨‍💻📦👨‍💻): 
+
+
+```r
+devtools::install_github("kiegan/manager")
+library(manager)
+project_inventory &lt;- take_inventory(packages = c("tidyr", "stringr", 
+                                                 "purrr", "dplyr", 
+                                                 "randomForest"))
+```
+
+--
+
+We can then visualize that inventory... 
+
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+
+
+
+```r
+plot_inventory(project_inventory)
+```
+
+![](graphics-group-manager_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+# Quick side note 👀  
+
+
+
+
+```r
+plot_inventory(tidyverse_inventory)
+```
+
+![](graphics-group-manager_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+**We can see a few things:**  
+
+1. `take_inventory` and `plot_inventory` together are a quick and easy way to get at your vulnerabilities
+2. Your projects are probably more vulnerable to package changes than you realize!  
+  - *anecdotally*, I know several people who have had packages disrupted by a "level 3" or "level 4" change.  
+3. You maybe probably definitely shouldn't just call `library(tidyverse)` if you want to make your project reproducible. Try to define specific packages you want to use to refine the scope!   
+
+**A few things to note:**   
+
+1. Inventories are taken using an iterative level-by-level approach  
+  - not meant to present an entire network of all connections  
+    - `pkgnet` can do this for one package!  
+  - if a package is already in the "tree" at a higher level, it isn't included again.  
+  - meant to enumerate all vulnerabilities, not identify all connections.  
+2. Inventories only focus on Depends and Imports! 
+3. Inventories catalog all package objects, so that we can compare them... 
+
+
+
+---
+
+# Step 2: Compare inventories    
+
+We can make use of catalogued package objects to compare package inventories to find: 
+
+  - **nominal differences**: differences in package versions (CRAN versions, git commits, etc.)  
+  - **practical differences**: differences in package objects across versions!  
+
+We care more about **practical differences**, and we can identify them automatically using the `compare_inventory` function.  
+
+
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+&lt;img src="images/tidyr-hex.png" width="150" /&gt;
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+&lt;img src="images/bulletxtrctr-hex.png" width="150" /&gt;&lt;img src="images/grooveFinder-hex.png" width="150" /&gt;&lt;img src="images/x3ptools-hex.png" width="150" /&gt;
+
+---
+
+# `bulletxtrctr` 📦 background  
+
+`bulletxtrctr` is one of several packages developed by a team of researchers at the Center for Statistics and Applications in Forensic Evidence (CSAFE) at Iowa State.  
+
+It is meant to automatically complete forensic evidence comparison, using high-resolution images of bullet evidence.  
+
+The package works in concert with three other packages: `x3ptools`, `grooveFinder`, and `bulletcp` to complete data analysis of captured `x3p` files:  
+
+&lt;img src="images/pipeline-packages.png" width="\textwidth" /&gt;
+
+---
+
+# `bulletxtrctr` 📦 background  
+
+The suite of packages is both **used** and **developed** by a small-ish team of researchers. This means:  
+
+1. The packages are under active development and subject to change  
+2. Team members may have different versions of packages at any given time  
+3. Analyses run by different users on different machines (or at different times), are vulnerable to changes.  
+
+We can first look at the package dependency tree for one user (*full disclosure: it's me*)  
+
+
+---
+
+# `bulletxtrctr` 📦 background  
+
+
+
+
+```r
+plot_inventory(bulletxtrctr_inventory)
+```
+
+![](graphics-group-manager_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+
+---
+
+# `bulletxtrctr` 📦 background  
+
+But what we really want to study is the nominal and practical differences across users on the team.  
+
+
+
+---
+
+# Bullet Package Versions  
+
+
+All package versions are either GitHub or local.  
+
+
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
