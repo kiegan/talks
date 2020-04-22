@@ -1,0 +1,257 @@
+package_name,package_version,package_meta_checksum,n_unique,package_source,package_gitrepo,package_gitcommit,user_computer,checksum_num
+ggplot2,3.3.0.9000,0cdeb7e4f8ecd90348eca4eb47c4a1d9,5,Github,tidyverse/ggplot2,b41e1b9,"User S
+Desktop",Newest
+ggplot2,3.3.0.9000,c8b288a0d5be8ba5b01f5dfefd6d5d98,5,Github,tidyverse/ggplot2,a7b1520,"User H
+Laptop",Newer
+ggplot2,3.3.0,c80bc2bb782ee12494968425513529f9,5,CRAN,NA,NA,"User C
+Laptop",Middle
+ggplot2,3.3.0,c80bc2bb782ee12494968425513529f9,5,CRAN,NA,NA,"User K
+Laptop",Middle
+ggplot2,3.3.0,c80bc2bb782ee12494968425513529f9,5,CRAN,NA,NA,"User G
+Laptop",Middle
+ggplot2,3.2.1.9000,66fa548eaccce43320ce74991614b7f2,5,Github,tidyverse/ggplot2,d362ac0,"User Y
+Laptop",Older
+ggplot2,3.2.1,e3c71ceb23c4818218c45cd2a4450c38,5,CRAN,NA,NA,"User S
+Server",Oldest
+ggplot2,3.2.1,e3c71ceb23c4818218c45cd2a4450c38,5,CRAN,NA,NA,"User S
+Laptop",Oldest
+ggplot2,3.2.1,e3c71ceb23c4818218c45cd2a4450c38,5,CRAN,NA,NA,"User K
+Server",Oldest
+tidyr,1.0.2,790486840e91d3841a33d750a9515710,4,CRAN,NA,NA,"User S
+Desktop",Newest
+tidyr,1.0.2,790486840e91d3841a33d750a9515710,4,CRAN,NA,NA,"User C
+Laptop",Newest
+tidyr,1.0.2,790486840e91d3841a33d750a9515710,4,CRAN,NA,NA,"User H
+Laptop",Newest
+tidyr,1.0.2,790486840e91d3841a33d750a9515710,4,CRAN,NA,NA,"User G
+Laptop",Newest
+tidyr,1.0.0,81466faed311b32fbc77c15d84d6694b,4,CRAN,NA,NA,"User S
+Server",Newer
+tidyr,1.0.0,81466faed311b32fbc77c15d84d6694b,4,CRAN,NA,NA,"User K
+Laptop",Newer
+tidyr,1.0.0,81466faed311b32fbc77c15d84d6694b,4,CRAN,NA,NA,"User K
+Server",Newer
+tidyr,0.8.99.9000,85353f1c0c3b20a2c21fa463e2a36d54,4,Github,hadley/tidyr,069eb36,"User S
+Laptop",Middle
+tidyr,0.8.3,3e9fb0955c227ba493fc62d8dfdecedb,4,CRAN,NA,NA,"User Y
+Laptop",Older
+dplyr,0.8.5,5606284cb18ac5ee6b0289195a83a8d1,2,CRAN,NA,NA,"User S
+Desktop",Newest
+dplyr,0.8.5,5606284cb18ac5ee6b0289195a83a8d1,2,CRAN,NA,NA,"User C
+Laptop",Newest
+dplyr,0.8.5,5606284cb18ac5ee6b0289195a83a8d1,2,CRAN,NA,NA,"User H
+Laptop",Newest
+dplyr,0.8.5,5606284cb18ac5ee6b0289195a83a8d1,2,CRAN,NA,NA,"User K
+Laptop",Newest
+dplyr,0.8.5,5606284cb18ac5ee6b0289195a83a8d1,2,CRAN,NA,NA,"User G
+Laptop",Newest
+dplyr,0.8.3,5cb7011489e822d51a1cc08300cefbb1,2,CRAN,NA,NA,"User S
+Server",Newer
+dplyr,0.8.3,5cb7011489e822d51a1cc08300cefbb1,2,CRAN,NA,NA,"User S
+Laptop",Newer
+dplyr,0.8.3,5cb7011489e822d51a1cc08300cefbb1,2,CRAN,NA,NA,"User K
+Server",Newer
+dplyr,0.8.3,5cb7011489e822d51a1cc08300cefbb1,2,CRAN,NA,NA,"User Y
+Laptop",Newer
+zoo,1.8-7,a90c2aa579a3d8e8b838ae7d9311ddc2,2,CRAN,NA,NA,"User S
+Desktop",Newest
+zoo,1.8-7,a90c2aa579a3d8e8b838ae7d9311ddc2,2,CRAN,NA,NA,"User H
+Laptop",Newest
+zoo,1.8-7,a90c2aa579a3d8e8b838ae7d9311ddc2,2,CRAN,NA,NA,"User K
+Laptop",Newest
+zoo,1.8-7,a90c2aa579a3d8e8b838ae7d9311ddc2,2,CRAN,NA,NA,"User K
+Server",Newest
+zoo,1.8-7,a90c2aa579a3d8e8b838ae7d9311ddc2,2,CRAN,NA,NA,"User G
+Laptop",Newest
+zoo,1.8-6,36146eaab56de3fdf3416b0a54f2f218,2,CRAN,NA,NA,"User S
+Server",Newer
+zoo,1.8-6,36146eaab56de3fdf3416b0a54f2f218,2,CRAN,NA,NA,"User S
+Laptop",Newer
+zoo,1.8-6,36146eaab56de3fdf3416b0a54f2f218,2,CRAN,NA,NA,"User C
+Laptop",Newer
+zoo,1.8-6,36146eaab56de3fdf3416b0a54f2f218,2,CRAN,NA,NA,"User Y
+Laptop",Newer
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User S
+Desktop",Newest
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User S
+Server",Newest
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User C
+Laptop",Newest
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User H
+Laptop",Newest
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User K
+Laptop",Newest
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User K
+Server",Newest
+purrr,0.3.3,1c79526c0236cc1eef1cb7f653adc76f,2,CRAN,NA,NA,"User G
+Laptop",Newest
+purrr,0.3.2,3b13e24f0807ef565ae196c774e183dd,2,CRAN,NA,NA,"User S
+Laptop",Newer
+purrr,0.3.2,3b13e24f0807ef565ae196c774e183dd,2,CRAN,NA,NA,"User Y
+Laptop",Newer
+digest,0.6.25,b9af6837bb39b4e1376956cfaa382930,4,CRAN,NA,NA,"User S
+Desktop",Newest
+digest,0.6.25,b9af6837bb39b4e1376956cfaa382930,4,CRAN,NA,NA,"User S
+Laptop",Newest
+digest,0.6.25,b9af6837bb39b4e1376956cfaa382930,4,CRAN,NA,NA,"User C
+Laptop",Newest
+digest,0.6.25,b9af6837bb39b4e1376956cfaa382930,4,CRAN,NA,NA,"User H
+Laptop",Newest
+digest,0.6.25,b9af6837bb39b4e1376956cfaa382930,4,CRAN,NA,NA,"User K
+Laptop",Newest
+digest,0.6.25,b9af6837bb39b4e1376956cfaa382930,4,CRAN,NA,NA,"User G
+Laptop",Newest
+digest,0.6.24,100031aaeab501bd39c7c2e58251a5e2,4,CRAN,NA,NA,"User S
+Server",Newer
+digest,0.6.23,cd848b7973e85cbff25cb8bb805a7cdb,4,CRAN,NA,NA,"User K
+Server",Middle
+digest,0.6.20,b0cdb7ae08d16036f6ddfe7cb620d804,4,CRAN,NA,NA,"User Y
+Laptop",Older
+glue,1.4.0,741af08c62e9e1cafcaf124acc9f9deb,3,CRAN,NA,NA,"User S
+Desktop",Newest
+glue,1.4.0,741af08c62e9e1cafcaf124acc9f9deb,3,CRAN,NA,NA,"User C
+Laptop",Newest
+glue,1.4.0,741af08c62e9e1cafcaf124acc9f9deb,3,CRAN,NA,NA,"User H
+Laptop",Newest
+glue,1.4.0,741af08c62e9e1cafcaf124acc9f9deb,3,CRAN,NA,NA,"User G
+Laptop",Newest
+glue,1.3.1.9000,53c737c9db6ce5cf5378a71d8d7de2db,3,Github,tidyverse/glue,7131fc3,"User S
+Server",Newer
+glue,1.3.1.9000,53c737c9db6ce5cf5378a71d8d7de2db,3,Github,tidyverse/glue,7131fc3,"User S
+Laptop",Newer
+glue,1.3.1,e3d70601e5010db32d305a77ce2f3dab,3,CRAN,NA,NA,"User K
+Laptop",Middle
+glue,1.3.1,e3d70601e5010db32d305a77ce2f3dab,3,CRAN,NA,NA,"User K
+Server",Middle
+glue,1.3.1,e3d70601e5010db32d305a77ce2f3dab,3,CRAN,NA,NA,"User Y
+Laptop",Middle
+isoband,0.2.1,b4338143cf697f1f064f74793b60831f,2,CRAN,NA,NA,"User S
+Desktop",Newest
+isoband,0.2.1,b4338143cf697f1f064f74793b60831f,2,CRAN,NA,NA,"User C
+Laptop",Newest
+isoband,0.2.1,b4338143cf697f1f064f74793b60831f,2,CRAN,NA,NA,"User G
+Laptop",Newest
+isoband,0.2.0,01686fe74ecb0b4aaa3f4fd686d2cf4a,2,CRAN,NA,NA,"User H
+Laptop",Newer
+isoband,0.2.0,01686fe74ecb0b4aaa3f4fd686d2cf4a,2,CRAN,NA,NA,"User K
+Laptop",Newer
+tibble,3.0.0,21fafe48a4fd6f79b6316e95b2756438,2,CRAN,NA,NA,"User S
+Desktop",Newest
+tibble,3.0.0,21fafe48a4fd6f79b6316e95b2756438,2,CRAN,NA,NA,"User C
+Laptop",Newest
+tibble,3.0.0,21fafe48a4fd6f79b6316e95b2756438,2,CRAN,NA,NA,"User H
+Laptop",Newest
+tibble,3.0.0,21fafe48a4fd6f79b6316e95b2756438,2,CRAN,NA,NA,"User G
+Laptop",Newest
+tibble,2.1.3,1154951dbe89cc4bc3017beb3a309a64,2,CRAN,NA,NA,"User S
+Server",Newer
+tibble,2.1.3,1154951dbe89cc4bc3017beb3a309a64,2,CRAN,NA,NA,"User S
+Laptop",Newer
+tibble,2.1.3,1154951dbe89cc4bc3017beb3a309a64,2,CRAN,NA,NA,"User K
+Laptop",Newer
+tibble,2.1.3,1154951dbe89cc4bc3017beb3a309a64,2,CRAN,NA,NA,"User K
+Server",Newer
+tibble,2.1.3,1154951dbe89cc4bc3017beb3a309a64,2,CRAN,NA,NA,"User Y
+Laptop",Newer
+Rcpp,1.0.4.6,0502798c3dc7ebc101fb408f0a5b9be5,4,CRAN,NA,NA,"User S
+Desktop",Newest
+Rcpp,1.0.4.6,0502798c3dc7ebc101fb408f0a5b9be5,4,CRAN,NA,NA,"User C
+Laptop",Newest
+Rcpp,1.0.4.6,0502798c3dc7ebc101fb408f0a5b9be5,4,CRAN,NA,NA,"User G
+Laptop",Newest
+Rcpp,1.0.4,733b33dc64834918dcdb0a3c728edafe,4,CRAN,NA,NA,"User H
+Laptop",Newer
+Rcpp,1.0.3,858375625c2aa7db18cc0c64e5a1dc0f,4,CRAN,NA,NA,"User S
+Laptop",Middle
+Rcpp,1.0.3,858375625c2aa7db18cc0c64e5a1dc0f,4,CRAN,NA,NA,"User K
+Laptop",Middle
+Rcpp,1.0.3,858375625c2aa7db18cc0c64e5a1dc0f,4,CRAN,NA,NA,"User K
+Server",Middle
+Rcpp,1.0.2,c943d8a62281d85d9913b46bfe442db8,4,CRAN,NA,NA,"User S
+Server",Older
+Rcpp,1.0.2,c943d8a62281d85d9913b46bfe442db8,4,CRAN,NA,NA,"User Y
+Laptop",Older
+vctrs,0.2.4,7018091932378c24b41eb227f9360c58,5,CRAN,NA,NA,"User S
+Desktop",Newest
+vctrs,0.2.4,7018091932378c24b41eb227f9360c58,5,CRAN,NA,NA,"User C
+Laptop",Newest
+vctrs,0.2.4,7018091932378c24b41eb227f9360c58,5,CRAN,NA,NA,"User H
+Laptop",Newest
+vctrs,0.2.4,7018091932378c24b41eb227f9360c58,5,CRAN,NA,NA,"User K
+Laptop",Newest
+vctrs,0.2.4,7018091932378c24b41eb227f9360c58,5,CRAN,NA,NA,"User G
+Laptop",Newest
+vctrs,0.2.3,9a7fa7b99293e7582bf83a27d5d20439,5,CRAN,NA,NA,"User S
+Laptop",Newer
+vctrs,0.2.2,6776a9e1d376757fdc34cc7c0dbaa88d,5,CRAN,NA,NA,"User S
+Server",Middle
+vctrs,0.2.1,409a75049091f0bc1d984fda4e1f429a,5,CRAN,NA,NA,"User K
+Server",Older
+vctrs,0.2.0,02846360543b7b331a8610e5d148f831,5,CRAN,NA,NA,"User Y
+Laptop",Oldest
+lifecycle,0.2.0,585c296380b8e1252415d1ae662338da,2,CRAN,NA,NA,"User S
+Desktop",Newest
+lifecycle,0.2.0,585c296380b8e1252415d1ae662338da,2,CRAN,NA,NA,"User C
+Laptop",Newest
+lifecycle,0.2.0,585c296380b8e1252415d1ae662338da,2,CRAN,NA,NA,"User H
+Laptop",Newest
+lifecycle,0.2.0,585c296380b8e1252415d1ae662338da,2,CRAN,NA,NA,"User K
+Laptop",Newest
+lifecycle,0.2.0,585c296380b8e1252415d1ae662338da,2,CRAN,NA,NA,"User G
+Laptop",Newest
+lifecycle,0.1.0,b3d0bb6da246dab4a1c3c72c796525b0,2,CRAN,NA,NA,"User S
+Server",Newer
+lifecycle,0.1.0,b3d0bb6da246dab4a1c3c72c796525b0,2,CRAN,NA,NA,"User S
+Laptop",Newer
+lifecycle,0.1.0,b3d0bb6da246dab4a1c3c72c796525b0,2,CRAN,NA,NA,"User K
+Server",Newer
+rgl,0.100.50,455f3ff6839345bbfd87e37bf75785d0,2,CRAN,NA,NA,"User K
+Laptop",Newest
+rgl,0.100.50,455f3ff6839345bbfd87e37bf75785d0,2,CRAN,NA,NA,"User G
+Laptop",Newest
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User S
+Desktop",Newer
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User S
+Server",Newer
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User S
+Laptop",Newer
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User C
+Laptop",Newer
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User H
+Laptop",Newer
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User K
+Server",Newer
+rgl,0.100.30,04e2077739dac9fd835ae374f55ccd68,2,CRAN,NA,NA,"User Y
+Laptop",Newer
+TTR,0.23-6,2cbcadb5aaa36961ddb4b7c0b087b116,3,CRAN,NA,NA,"User S
+Desktop",Newest
+TTR,0.23-6,2cbcadb5aaa36961ddb4b7c0b087b116,3,CRAN,NA,NA,"User H
+Laptop",Newest
+TTR,0.23-6,2cbcadb5aaa36961ddb4b7c0b087b116,3,CRAN,NA,NA,"User K
+Laptop",Newest
+TTR,0.23-6,2cbcadb5aaa36961ddb4b7c0b087b116,3,CRAN,NA,NA,"User K
+Server",Newest
+TTR,0.23-6,2cbcadb5aaa36961ddb4b7c0b087b116,3,CRAN,NA,NA,"User G
+Laptop",Newest
+TTR,0.23-5,57b6fa46f2c77dd634434ef573ac2ae7,3,CRAN,NA,NA,"User S
+Server",Newer
+TTR,0.23-5,57b6fa46f2c77dd634434ef573ac2ae7,3,CRAN,NA,NA,"User C
+Laptop",Newer
+TTR,0.23-4,d212fea891e5ae2ab1d5188e56daf274,3,CRAN,NA,NA,"User S
+Laptop",Middle
+TTR,0.23-4,d212fea891e5ae2ab1d5188e56daf274,3,CRAN,NA,NA,"User Y
+Laptop",Middle
+plyr,1.8.5,cc0dc3b7d845b74aa58935e48c21bee1,2,CRAN,NA,NA,"User S
+Desktop",Newest
+plyr,1.8.5,cc0dc3b7d845b74aa58935e48c21bee1,2,CRAN,NA,NA,"User H
+Laptop",Newest
+plyr,1.8.5,cc0dc3b7d845b74aa58935e48c21bee1,2,CRAN,NA,NA,"User K
+Server",Newest
+plyr,1.8.4,bdd6af6ebaa0c94869dc9054febbd0bb,2,CRAN,NA,NA,"User S
+Server",Newer
+plyr,1.8.4,bdd6af6ebaa0c94869dc9054febbd0bb,2,CRAN,NA,NA,"User S
+Laptop",Newer
+plyr,1.8.4,bdd6af6ebaa0c94869dc9054febbd0bb,2,CRAN,NA,NA,"User C
+Laptop",Newer
+plyr,1.8.4,bdd6af6ebaa0c94869dc9054febbd0bb,2,CRAN,NA,NA,"User Y
+Laptop",Newer

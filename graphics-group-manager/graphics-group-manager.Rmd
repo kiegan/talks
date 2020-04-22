@@ -596,15 +596,16 @@ I asked researchers on the bullet team to use the `manager` package to take an i
 
   - 9 different inventories 
   - 6 users (one user on 3 machines, another user on 2 machines)  
+  
+We can investigate first the nominal differences: 
+  - what versions of each package do team members have?  
 
+First, we look at the four bullet packages.   
 
 
 ---
 
 # Bullet Package Versions  
-
-
-All package versions are either GitHub or local.  
 
 
 ```{r, warning = F, echo = F, message = F, fig.align = 'center', fig.width = 9, fig.height = 4}
@@ -623,6 +624,79 @@ bullet_package_versions %>%
 
 ```
 
+.medium[**Insights:**  
+  - Only two machines have the same set of versions of the four packages (User K-Laptop and User S-Desktop)  
+  - This is only the four bullet packages, but there are 100 packages total in the `bulletxtrctr` package dependency tree.
+  - Of the 96 non-bullet packages in the tree, 73 have at least two versions across the machines involved. 
+]
+
+---
+
+# Other Package Versions  
+
+
+```{r, warning = F, echo = F, message = F, fig.align = 'center', fig.width = 9, fig.height = 8, out.width = "77%"}
+nonbullet_package_meta <- read_csv("data/nonbullet_package_versions.csv")
+
+nonbullet_package_meta %>%
+  mutate(checksum_num = factor(checksum_num, levels = c("Newest", "Newer", "Middle", "Older", "Oldest"))) %>%
+  ggplot() + 
+  geom_tile(aes(x = user_computer, y = package_name, 
+                fill = checksum_num, color = package_source), 
+            width = 0.85, height = 0.85, alpha = 0.9, size = 1) +
+  theme_bw() + 
+  #facet_grid(rows = "package_name", scales = "free", space = "free") + 
+  scale_fill_manual(name = "Package\nversion", 
+                    values = c("white", "grey80", "grey60", "grey20", "black")) + 
+  scale_color_manual(name = "Package\nsource",
+                     values = c("black", "goldenrod2")) + 
+  theme(plot.subtitle = element_text(face = "italic")) + 
+  labs(x = "", y = "Object name", title = "Package version by user and machine", 
+       subtitle = "for 20 of 73 packages which differ") + 
+  geom_text(aes(x = user_computer, y = package_name, label = package_version),
+            size = 3) + 
+  geom_text(aes(x = user_computer, y = package_name, label = package_version), 
+            color = "white",size = 3, 
+            data = nonbullet_package_meta %>% filter((checksum_num == "Older" | checksum_num == "Oldest")))
+  
+```
+
+---
+
+# Bullet Project Package Versions  
+
+So far we have only seen **nominal** differences, but what we have already seen shows a lot of variability! 
+
+What is more important is the **practical** differences.  
+
+
+---
+
+# Bullet Packages: Practical Differences  
+
+```{r, message = F, warning = F, fig.height = 8, fig.width = 9, out.width = "80%"}
+
+bullet_object_versions <- read_csv("data/bullet_package_object_versions.csv")
+bullet_object_versions %>%
+  ggplot() + 
+  geom_tile(aes(x = user_computer, y = object_name, 
+                fill = checksum_num, color = factor(checksum_num_param)), 
+            width = 0.82, height = 0.82, size = 1, alpha = 0.9) +
+  theme_bw() + 
+  facet_grid(rows = "package_name", scales = "free", space = "free") + 
+  scale_fill_manual(name = "Function\nversion", 
+                    values = c("white", "grey80", "grey60", "grey30", "black")) + 
+  scale_color_manual(name = "Parameters\nversion", breaks = c("1", "2", "3"), 
+                     values = c("royalblue4", "darkred", "goldenrod2")) + 
+  theme(plot.subtitle = element_text(face = "italic")) + 
+  labs(x = "", y = "Object name", title = "Object version by user and machine", 
+       subtitle = "For package objects with differences") + 
+  geom_text(aes(x = user_computer, y = object_name, label = checksum_num),
+            size = 3, data = bullet_object_versions %>% filter(checksum_num != "A")) + 
+  geom_text(aes(x = user_computer, y = object_name, label = checksum_num),
+            size = 3, color = "white", 
+            data = bullet_object_versions %>% filter((checksum_num == "D" | checksum_num == "E")))
+```
 
 
 ---

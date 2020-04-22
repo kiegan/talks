@@ -572,7 +572,11 @@ I asked researchers on the bullet team to use the `manager` package to take an i
 
   - 9 different inventories 
   - 6 users (one user on 3 machines, another user on 2 machines)  
+  
+We can investigate first the nominal differences: 
+  - what versions of each package do team members have?  
 
+First, we look at the four bullet packages.   
 
 
 ---
@@ -580,11 +584,35 @@ I asked researchers on the bullet team to use the `manager` package to take an i
 # Bullet Package Versions  
 
 
-All package versions are either GitHub or local.  
-
-
 &lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
+.medium[**Insights:**  
+  - Only two machines have the same set of versions of the four packages (User K-Laptop and User S-Desktop)  
+  - This is only the four bullet packages, but there are 100 packages total in the `bulletxtrctr` package dependency tree.
+  - Of the 96 non-bullet packages in the tree, 73 have at least two versions across the machines involved. 
+]
+
+---
+
+# Other Package Versions  
+
+
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-23-1.png" width="77%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Bullet Project Package Versions  
+
+So far we have only seen **nominal** differences, but what we have already seen shows a lot of variability! 
+
+What is more important is the **practical** differences.  
+
+
+---
+
+# Bullet Packages: Practical Differences  
+
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-24-1.png" width="80%" /&gt;
 
 
 ---
