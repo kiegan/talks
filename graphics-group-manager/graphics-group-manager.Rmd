@@ -406,6 +406,69 @@ We can make use of catalogued package objects to compare package inventories to 
 
 We care more about **practical differences**, and we can identify them automatically using the `compare_inventory` function.  
 
+The `compare_inventory` function uses strategically-placed **MD5 checksums** to summarize pieces of the inventory, such as:  
+
+1. package meta-information (name, version, source, and github repo/commit)  
+2. list of package dependencies 
+3. package objects meta-information (object name, object checksum, parameter checksum, object type, etc.) 
+4. package object checksum  
+5. package object parameter checksum  
+
+This is computationally much faster than comparing large objects, and lets us quickly filter out packages and objects which are identical across inventories and versions.  
+
+---
+
+# Step 2: Compare inventories    
+
+Consider two users who take inventories using our five packages (`tidyr`, `stringr`, `purrr`, `dplyr`, `randomForest`).  
+
+```{r, echo = F, warning = F, message = F}
+kiegan_inventory <- readRDS("data/kiegan_inventory.rda")
+amy_inventory <- readRDS("data/amy_inventory.rda")
+```
+
+```{r, echo = T, warning = F}
+kiegan_vs_amy <- compare_inventory(inventory1 = kiegan_inventory,
+                                   inventory2 = amy_inventory,
+                                   summary_file = "data/kiegan_vs_amy.txt")
+```
+
+We get three results: 
+
+1. a text summary saved to "summary_file"
+2. a `$table` option which includes a row for each different object and some summary columns 
+3. a `$objects` option which includes a row for each different object and all relevant info, including the deparsed objects from both inventories for easy comparison.  
+
+
+---
+
+# Step 2: Compare inventories    
+
+Text summary:  
+
+```{r, echo = F, warning = F, message = F, out.width = "80%"}
+knitr::include_graphics("images/kiegan-vs-amy.png")
+```
+
+---
+
+# Step 2: Compare inventories    
+
+`$table` object:  
+
+```{r, echo = T, warning = F, message = F}
+head(kiegan_vs_amy$table)
+```
+
+---
+
+# Step 2: Compare inventories    
+
+`$objects` object:  
+
+```{r, echo = T, warning = F, message = F}
+head(kiegan_vs_amy$objects)
+```
 
 
 

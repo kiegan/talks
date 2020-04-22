@@ -401,6 +401,99 @@ We can make use of catalogued package objects to compare package inventories to 
 
 We care more about **practical differences**, and we can identify them automatically using the `compare_inventory` function.  
 
+The `compare_inventory` function uses strategically-placed **MD5 checksums** to summarize pieces of the inventory, such as:  
+
+1. package meta-information (name, version, source, and github repo/commit)  
+2. list of package dependencies 
+3. package objects meta-information (object name, object checksum, parameter checksum, object type, etc.) 
+4. package object checksum  
+5. package object parameter checksum  
+
+This is computationally much faster than comparing large objects, and lets us quickly filter out packages and objects which are identical across inventories and versions.  
+
+---
+
+# Step 2: Compare inventories    
+
+Consider two users who take inventories using our five packages (`tidyr`, `stringr`, `purrr`, `dplyr`, `randomForest`).  
+
+
+
+
+```r
+kiegan_vs_amy &lt;- compare_inventory(inventory1 = kiegan_inventory,
+                                   inventory2 = amy_inventory,
+                                   summary_file = "data/kiegan_vs_amy.txt")
+```
+
+We get three results: 
+
+1. a text summary saved to "summary_file"
+2. a `$table` option which includes a row for each different object and some summary columns 
+3. a `$objects` option which includes a row for each different object and all relevant info, including the deparsed objects from both inventories for easy comparison.  
+
+
+---
+
+# Step 2: Compare inventories    
+
+Text summary:  
+
+&lt;img src="images/kiegan-vs-amy.png" width="80%" /&gt;
+
+---
+
+# Step 2: Compare inventories    
+
+`$table` object:  
+
+
+```r
+head(kiegan_vs_amy$table)
+```
+
+```
+## # A tibble: 6 x 6
+##   package_name object_name object_presence  object_changes  obj_same params_same
+##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;           &lt;lgl&gt;    &lt;lgl&gt;      
+## 1 cli          is_ansi_tty Object in both … Objects change… FALSE    TRUE       
+## 2 digest       digest      Object in both … Objects change… FALSE    TRUE       
+## 3 dplyr        contains    Object in both … Both object an… FALSE    FALSE      
+## 4 dplyr        ends_with   Object in both … Both object an… FALSE    FALSE      
+## 5 dplyr        enquos      Object in both … Objects change… FALSE    TRUE       
+## 6 dplyr        everything  Object in both … Both object an… FALSE    FALSE
+```
+
+---
+
+# Step 2: Compare inventories    
+
+`$objects` object:  
+
+
+```r
+head(kiegan_vs_amy$objects)
+```
+
+```
+## # A tibble: 6 x 22
+##   package_name object_name object_presence object_changes obj_same params_same
+##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;          &lt;lgl&gt;    &lt;lgl&gt;      
+## 1 cli          is_ansi_tty Object in both… Objects chang… FALSE    TRUE       
+## 2 digest       digest      Object in both… Objects chang… FALSE    TRUE       
+## 3 dplyr        contains    Object in both… Both object a… FALSE    FALSE      
+## 4 dplyr        ends_with   Object in both… Both object a… FALSE    FALSE      
+## 5 dplyr        enquos      Object in both… Objects chang… FALSE    TRUE       
+## 6 dplyr        everything  Object in both… Both object a… FALSE    FALSE      
+## # … with 16 more variables: package_source_inv1 &lt;chr&gt;,
+## #   package_version_inv1 &lt;chr&gt;, package_gitrepo_inv1 &lt;chr&gt;,
+## #   package_gitcommit_inv1 &lt;chr&gt;, function_text_inv1 &lt;list&gt;,
+## #   fun_params_inv1 &lt;list&gt;, obj_checksum_inv1 &lt;chr&gt;,
+## #   params_checksum_inv1 &lt;chr&gt;, package_source_inv2 &lt;chr&gt;,
+## #   package_version_inv2 &lt;chr&gt;, package_gitrepo_inv2 &lt;chr&gt;,
+## #   package_gitcommit_inv2 &lt;chr&gt;, function_text_inv2 &lt;list&gt;,
+## #   fun_params_inv2 &lt;list&gt;, obj_checksum_inv2 &lt;chr&gt;, params_checksum_inv2 &lt;chr&gt;
+```
 
 
 
@@ -425,7 +518,7 @@ It is meant to help users create **tidy** data:
   
 `tidyr` is a widely-used package, with monthly downloads in the hundreds of thousands: 
 
-![](graphics-group-manager_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](graphics-group-manager_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -456,7 +549,7 @@ Consider the following example:
 compare_tidyr &lt;- compare_inventory(inventory1 = tidyr_083, inventory2 = tidyr_100)
 ```
 
-&lt;img src="images/tidyr_compare_summary.png" width="2040" /&gt;
+&lt;img src="images/tidyr_compare_summary.png" width="1840" /&gt;
 
 
 ---
@@ -559,7 +652,7 @@ We can first look at the package dependency tree for one user (*full disclosure:
 plot_inventory(bulletxtrctr_inventory)
 ```
 
-![](graphics-group-manager_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](graphics-group-manager_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -584,7 +677,7 @@ First, we look at the four bullet packages.
 # Bullet Package Versions  
 
 
-&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 .medium[**Insights:**  
   - Only two machines have the same set of versions of the four packages (User K-Laptop and User S-Desktop)  
@@ -597,7 +690,7 @@ First, we look at the four bullet packages.
 # Other Package Versions  
 
 
-&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-23-1.png" width="77%" style="display: block; margin: auto;" /&gt;
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-28-1.png" width="77%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -612,7 +705,7 @@ What is more important is the **practical** differences.
 
 # Bullet Packages: Practical Differences  
 
-&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-24-1.png" width="80%" /&gt;
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-29-1.png" width="80%" /&gt;
 
 
 ---
