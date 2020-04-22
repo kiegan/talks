@@ -718,7 +718,7 @@ nonbullet_package_meta %>%
                      values = c("black", "goldenrod2")) + 
   theme(plot.subtitle = element_text(face = "italic")) + 
   labs(x = "", y = "Object name", title = "Package version by user and machine", 
-       subtitle = "for 20 of 73 packages which differ") + 
+       subtitle = "for 15 of 73 packages which differ") + 
   geom_text(aes(x = user_computer, y = package_name, label = package_version),
             size = 3) + 
   geom_text(aes(x = user_computer, y = package_name, label = package_version), 
@@ -792,8 +792,13 @@ knitr::include_graphics("images/shadowy-place-r-packages.jpg")
   - team collaboration 
   - identify changes *before* they break your code  
 
+--
+
 **Ironies That I Am Aware Of**  
-  - the `manager` package relies on some `tidyverse` packages 
+  - the `manager` package relies on some `tidyverse` packages  
+  
+--
+
 
 **Future Work**  
   - making the `manager` package less dependent on `tidyverse` packages
