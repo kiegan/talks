@@ -11,7 +11,8 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
----
+---  
+
 
 <style>
 
@@ -118,6 +119,14 @@ body {
   float: right;
   padding-left: 1%;
 }
+
+.right-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: right;
+}
+
 ```
 
 ```{r setup, echo = FALSE, message = FALSE, warning = F}
@@ -410,6 +419,118 @@ class: inverse, middle, center
 knitr::include_graphics("images/tidyr-hex.png") 
 ```
 
+---
+
+# `tidyr` `r emo::ji("package")` background  
+
+**`tidyr`** is a package by [Hadley Wickham and Lionel Henry of RStudio](https://tidyr.tidyverse.org/), and part of the `tidyverse`.  
+
+It is meant to help users create **tidy** data:  
+  - each column is a variable
+  - each row is an observation  
+  - each cell contains a single value  
+  
+`tidyr` is a widely-used package, with monthly downloads in the hundreds of thousands: 
+
+```{r, echo = F, warning = F, message = F, fig.width = 9, fig.height = 3}
+#library(dlstats)
+#tidyr_cran <- cran_stats(c("tidyr", "dplyr", "ggplot2"))
+#write_csv(tidyr_cran, "data/tidyr_cran_downloads.csv")
+tidyr_cran <- read_csv("data/tidyr_cran_downloads.csv")
+tidyr_cran %>% 
+  filter(end != "2020-04-21") %>%
+  ggplot() + 
+  geom_line(aes(x = end, y = downloads, group = package, color = package)) + 
+  geom_point(aes(x = end, y = downloads, group = package, color = package, shape = package)) + 
+  theme_bw() + 
+  scale_color_manual(values = c("royalblue4", "darkred", "goldenrod2")) + 
+  labs(x = "Month and Year", y = "", title = "Monthly package downloads")
+```
+
+---
+
+# `tidyr` `r emo::ji("package")` changes  
+
+`tidyr` is also still subject to change relatively often: 
+  - two package versions released in 2019, one so far in 2020<sup>1</sup> 
+  - this is true for many tidyverse packages, and leaves people's code and packages vulnerable ...  
+  
+```{r, echo = F, warning = F, message = F}
+knitr::include_graphics("images/romain-dplyr-tweet.png")
+```
+
+Consider the following example: 
+  - user with version 0.8.3 (released Mar 2, 2019)  
+  - updates to version 1.0.0 (released Sep 13, 2019)  
+  - all other packages on computer unchanged  
+
+.footnote[[1] https://github.com/tidyverse/tidyr/releases]
+
+
+---
+
+# `tidyr` `r emo::ji("package")` changes  
+
+```{r, echo = F, eval = T, warning = F, message = F}
+tidyr_083 <- readRDS("data/kiegan_tidyr_only_083.rda")
+tidyr_100 <- readRDS("data/kiegan_tidyr_only_100.rda")
+compare_tidyr <- compare_inventory(inventory1 = tidyr_083, inventory2 = tidyr_100, summary_file = "data/tidyr_compare_summary.txt")
+```
+
+```{r, echo = T, warning = F, message = F, eval = F}
+compare_tidyr <- compare_inventory(inventory1 = tidyr_083, inventory2 = tidyr_100)
+```
+
+```{r, echo = F, warning = F, message = F}
+knitr::include_graphics("images/tidyr_compare_summary.png")
+```
+
+
+---
+
+# `tidyr` `r emo::ji("package")` changes  
+
+**Version 0.8.3** `nest()` function:  
+
+`ChickWeight %>% nest(-Diet) %>% glimpse()`  
+
+```{r, warning = F, message = F, eval = T, echo = F}
+ChickWeight %>% nest_legacy(-Diet) %>% glimpse()
+```
+
+--
+
+**Version 1.0.0** `nest()` function: 
+
+`ChickWeight %>% nest(-Diet) %>% glimpse()`<sup>1</sup>
+
+```{r, warning = F, message = F, eval = T, echo = F}
+ChickWeight %>% nest(-Diet) %>% glimpse()
+```
+
+--
+
+*Note the difference between the column names.*  
+
+.footnote[[1] Note that in the RStudio console, the version 1.0.0 code will throw an error and not run. RMarkdown files (papers and slides) seem to render it just fine, but with incorrect column name.]
+
+---
+
+# `tidyr` `r emo::ji("package")` conclusions  
+
+1. PSA: Check yo' scripts!  
+2. Syntax of `nest()` has changed  
+3. Second PSA: new functions have been introduced to replace `gather()` and `spread()` 
+  - (`pivot_longer` and `pivot_wider`)  
+4. These are the types of changes that can leave R users frustrated  
+  - install a new package version
+  - code is broken
+  - have to spend a bunch of time hunting down the problem 
+  - this happens on a regular basis!    
+  
+--
+
+Now, we will look at another example... 
 
 ---
 
@@ -432,6 +553,8 @@ knitr::include_graphics("images/x3ptools-hex.png")
 It is meant to automatically complete forensic evidence comparison, using high-resolution images of bullet evidence.  
 
 The package works in concert with three other packages: `x3ptools`, `grooveFinder`, and `bulletcp` to complete data analysis of captured `x3p` files:  
+
+--
 
 ```{r, out.width = '\\textwidth'}
 knitr::include_graphics("images/pipeline-packages.png")
@@ -519,10 +642,10 @@ class: inverse, middle, center
   - identify changes *before* they break your code  
 
 **Ironies That I Am Aware Of**  
-  - the `manager` package relies on some tidyverse packages 
+  - the `manager` package relies on some `tidyverse` packages 
 
 **Future Work**  
-  - making the `manager` package less dependent on tidyverse packages
+  - making the `manager` package less dependent on `tidyverse` packages
   - script mapping to identify a script's "flow" and where a potential code change starts affecting things  
   - visuals to better compare two dependency trees  
     - including a way to look at how it would change if you removed a package dependency  

@@ -21,6 +21,7 @@ class: center, middle, inverse, title-slide
 ---
 
 
+
 &lt;style&gt;
 
 /* colors: #EEB422, #8B0000, #191970, #00a8cc */
@@ -126,6 +127,14 @@ body {
   float: right;
   padding-left: 1%;
 }
+
+.right-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: right;
+}
+
 &lt;/style&gt;
 
 
@@ -403,6 +412,106 @@ class: inverse, middle, center
 
 &lt;img src="images/tidyr-hex.png" width="150" /&gt;
 
+---
+
+# `tidyr` 📦 background  
+
+**`tidyr`** is a package by [Hadley Wickham and Lionel Henry of RStudio](https://tidyr.tidyverse.org/), and part of the `tidyverse`.  
+
+It is meant to help users create **tidy** data:  
+  - each column is a variable
+  - each row is an observation  
+  - each cell contains a single value  
+  
+`tidyr` is a widely-used package, with monthly downloads in the hundreds of thousands: 
+
+![](graphics-group-manager_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+# `tidyr` 📦 changes  
+
+`tidyr` is also still subject to change relatively often: 
+  - two package versions released in 2019, one so far in 2020&lt;sup&gt;1&lt;/sup&gt; 
+  - this is true for many tidyverse packages, and leaves people's code and packages vulnerable ...  
+  
+&lt;img src="images/romain-dplyr-tweet.png" width="591" /&gt;
+
+Consider the following example: 
+  - user with version 0.8.3 (released Mar 2, 2019)  
+  - updates to version 1.0.0 (released Sep 13, 2019)  
+  - all other packages on computer unchanged  
+
+.footnote[[1] https://github.com/tidyverse/tidyr/releases]
+
+
+---
+
+# `tidyr` 📦 changes  
+
+
+
+
+```r
+compare_tidyr &lt;- compare_inventory(inventory1 = tidyr_083, inventory2 = tidyr_100)
+```
+
+&lt;img src="images/tidyr_compare_summary.png" width="2040" /&gt;
+
+
+---
+
+# `tidyr` 📦 changes  
+
+**Version 0.8.3** `nest()` function:  
+
+`ChickWeight %&gt;% nest(-Diet) %&gt;% glimpse()`  
+
+
+```
+## Rows: 4
+## Columns: 2
+## $ Diet &lt;fct&gt; 1, 2, 3, 4
+## $ data &lt;list&gt; [&lt;data.frame[220 x 3]&gt;, &lt;data.frame[120 x 3]&gt;, &lt;data.frame[120 …
+```
+
+--
+
+**Version 1.0.0** `nest()` function: 
+
+`ChickWeight %&gt;% nest(-Diet) %&gt;% glimpse()`&lt;sup&gt;1&lt;/sup&gt;
+
+
+```
+## Rows: 4
+## Columns: 2
+## $ ...1 &lt;fct&gt; 1, 2, 3, 4
+## $ data &lt;list&gt; [&lt;data.frame[220 x 3]&gt;, &lt;data.frame[120 x 3]&gt;, &lt;data.frame[120 …
+```
+
+--
+
+*Note the difference between the column names.*  
+
+.footnote[[1] Note that in the RStudio console, the version 1.0.0 code will throw an error and not run. RMarkdown files (papers and slides) seem to render it just fine, but with incorrect column name.]
+
+---
+
+# `tidyr` 📦 conclusions  
+
+1. PSA: Check yo' scripts!  
+2. Syntax of `nest()` has changed  
+3. Second PSA: new functions have been introduced to replace `gather()` and `spread()` 
+  - (`pivot_longer` and `pivot_wider`)  
+4. These are the types of changes that can leave R users frustrated  
+  - install a new package version
+  - code is broken
+  - have to spend a bunch of time hunting down the problem 
+  - this happens on a regular basis!    
+  
+--
+
+Now, we will look at another example... 
 
 ---
 
@@ -421,6 +530,8 @@ class: inverse, middle, center
 It is meant to automatically complete forensic evidence comparison, using high-resolution images of bullet evidence.  
 
 The package works in concert with three other packages: `x3ptools`, `grooveFinder`, and `bulletcp` to complete data analysis of captured `x3p` files:  
+
+--
 
 &lt;img src="images/pipeline-packages.png" width="\textwidth" /&gt;
 
@@ -448,14 +559,19 @@ We can first look at the package dependency tree for one user (*full disclosure:
 plot_inventory(bulletxtrctr_inventory)
 ```
 
-![](graphics-group-manager_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](graphics-group-manager_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 
 ---
 
-# `bulletxtrctr` 📦 background  
+# `bulletxtrctr` study set-up    
 
 But what we really want to study is the nominal and practical differences across users on the team.  
+
+I asked researchers on the bullet team to use the `manager` package to take an inventory of the `bulletxtrctr` dependency network and send me the resulting inventories. I got:  
+
+  - 9 different inventories 
+  - 6 users (one user on 3 machines, another user on 2 machines)  
 
 
 
@@ -467,7 +583,43 @@ But what we really want to study is the nominal and practical differences across
 All package versions are either GitHub or local.  
 
 
-&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="graphics-group-manager_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+class: inverse, middle, center
+
+# Wrapping Up  
+
+---
+
+# Conclusions and Future Work  
+
+**Conclusions**  
+  - your code might be more vulnerable than you think!  
+  - our tools provide a way to quickly assess things and identify changes  
+  - team collaboration 
+  - identify changes *before* they break your code  
+
+**Ironies That I Am Aware Of**  
+  - the `manager` package relies on some `tidyverse` packages 
+
+**Future Work**  
+  - making the `manager` package less dependent on `tidyverse` packages
+  - script mapping to identify a script's "flow" and where a potential code change starts affecting things  
+  - visuals to better compare two dependency trees  
+    - including a way to look at how it would change if you removed a package dependency  
+  - C/C++ code is difficult to get around
+    - when it is compiled, it gets a user-specific "address" - always different  
+    
+
+---
+
+class: inverse, middle, center
+
+# Questions?
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
