@@ -3,7 +3,7 @@
   <head>
     <title>:scale 90% Managing Computational Reproducibility in a Shifting R Package Landscape</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Kiegan Rice (advised by Heike Hofmann)" />
+    <meta name="author" content="Kiegan Rice (advised by Heike Hofmann and Ulrike Genschel)" />
     <meta name="date" content="2020-04-24" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
@@ -14,7 +14,7 @@
 class: center, middle, inverse, title-slide
 
 # <img src="images/this-is-fine-manager.jpg" alt=":scale 90%" /> Managing Computational Reproducibility in a Shifting R Package Landscape
-### Kiegan Rice (advised by Heike Hofmann)
+### Kiegan Rice (advised by Heike Hofmann and Ulrike Genschel)
 ### ISU Graphics Group
 ### April 24, 2020
 
@@ -303,9 +303,7 @@ We take a two-step approach:
 1. Define and refine the scope of package dependency for a script or project.  
   - This lives somewhere in the space between `pkgnet` and `packrat`. 
   - Focuses on taking and visualizing **inventories** of packages and their dependencies  
-  - Assess the level of vulnerability a script has to changes 
-  
-
+  - Assess the level of vulnerability a script has to changes  
 2. Compare package dependency networks over time and across users/machines  
   - Identify specific package differences between inventories  
   - Identify places in a script where differences are used  
@@ -528,8 +526,12 @@ It is meant to help users create **tidy** data:
 `tidyr` is also still subject to change relatively often: 
   - two package versions released in 2019, one so far in 2020&lt;sup&gt;1&lt;/sup&gt; 
   - this is true for many tidyverse packages, and leaves people's code and packages vulnerable ...  
+
+--
   
 &lt;img src="images/romain-dplyr-tweet.png" width="591" /&gt;
+
+--
 
 Consider the following example: 
   - user with version 0.8.3 (released Mar 2, 2019)  

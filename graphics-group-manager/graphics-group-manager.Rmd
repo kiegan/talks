@@ -1,6 +1,6 @@
 ---
 title: "![:scale 90%](images/this-is-fine-manager.jpg) Managing Computational Reproducibility in a Shifting R Package Landscape"
-author: "Kiegan Rice (advised by Heike Hofmann)"
+author: "Kiegan Rice (advised by Heike Hofmann and Ulrike Genschel)"
 institute: "ISU Graphics Group"
 date: "April 24, 2020"
 output:
@@ -311,9 +311,7 @@ We take a two-step approach:
 1. Define and refine the scope of package dependency for a script or project.  
   - This lives somewhere in the space between `pkgnet` and `packrat`. 
   - Focuses on taking and visualizing **inventories** of packages and their dependencies  
-  - Assess the level of vulnerability a script has to changes 
-  
-
+  - Assess the level of vulnerability a script has to changes  
 2. Compare package dependency networks over time and across users/machines  
   - Identify specific package differences between inventories  
   - Identify places in a script where differences are used  
@@ -520,10 +518,14 @@ tidyr_cran %>%
 `tidyr` is also still subject to change relatively often: 
   - two package versions released in 2019, one so far in 2020<sup>1</sup> 
   - this is true for many tidyverse packages, and leaves people's code and packages vulnerable ...  
+
+--
   
 ```{r, echo = F, warning = F, message = F}
 knitr::include_graphics("images/romain-dplyr-tweet.png")
 ```
+
+--
 
 Consider the following example: 
   - user with version 0.8.3 (released Mar 2, 2019)  
