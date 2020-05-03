@@ -118,6 +118,7 @@ body {
 .tiny{font-size: 30%}
 .small{font-size: 50%}
 .medium{font-size: 75%}
+.large{font-size: 110%}
 
 .left-code {
   width: 40%;
@@ -128,6 +129,11 @@ body {
   width: 59%;
   float: right;
   padding-left: 1%;
+}
+
+.left-text {
+  width: 59%;
+  float: left;
 }
 
 .right-code {
@@ -158,7 +164,7 @@ body {
 
 This work was partially funded by the Center for Statistics and Applications in Forensic Evidence (CSAFE) through Cooperative Agreement #70NANB15H176 between NIST and Iowa State University, which includes activities carried out at Carnegie Mellon University, University of California Irvine, University of Virginia and Duke University.  
 
---
+
 
 ### Other assistance  
 
@@ -175,20 +181,22 @@ This work was partially funded by the Center for Statistics and Applications in 
 
 &lt;br /&gt;
 
-- Defining Reproducibility in Data Analysis  
-- Analysis of Forensic Firearms Evidence  
-  - Background and Vocabulary  
-  - Automated Data Analysis Process  
-- Measuring Repeatability and Reproducibility  
-- Study Design and Data Collection  
-- Modeling Approach  
-  - Signature-level  
-  - Pairwise-level  
-- Results  
-- Conclusions  
-  - Discussion  
-  - Future Work  
+- Reproducibility in Data Analysis  
 
+&lt;br /&gt;
+- Forensic Firearms Analysis  
+
+&lt;br /&gt; 
+
+- Study Design and Data Collection   
+
+&lt;br /&gt; 
+
+- Modeling Approach   
+
+&lt;br /&gt;
+
+- Results and Conclusions  
 
 
 ---
@@ -203,8 +211,8 @@ class: inverse, middle, center
 # Data Analysis as a Process   
 
 Any data analysis can be conceptualized as a **pipeline**&lt;sup&gt;1&lt;/sup&gt;.  
-
-A data pipeline is sequence of *linear, sequential actions* applied to *raw data* to achieve a result.  
+  - linear, sequential actions   
+  - raw data to result  
 
 
 .footnote[[1] (Buja, Asimov, Hurley, and McDonald, 1988)] 
@@ -224,9 +232,9 @@ A data pipeline is sequence of *linear, sequential actions* applied to *raw data
 # Data Analysis as a Process   
 
 Any data analysis can be conceptualized as a **pipeline**&lt;sup&gt;1&lt;/sup&gt;.  
+  - linear, sequential actions   
+  - raw data to result  
 
-A data pipeline is sequence of *linear, sequential actions* applied to *raw data* to achieve a result.  
-  
 
 .footnote[[1] (Buja, Asimov, Hurley, et al., 1988)] 
 
@@ -242,9 +250,7 @@ A data pipeline is sequence of *linear, sequential actions* applied to *raw data
 # Variation in Data Analysis   
 
 
-Working with data involves uncertainty in several ways: 
-
---
+&lt;br /&gt;  
 
 (1) varying input (*variation in data measurement*)  
 (2)  
@@ -262,7 +268,7 @@ Working with data involves uncertainty in several ways:
 
 # Variation in Data Analysis   
 
-Working with data involves uncertainty in several ways: 
+&lt;br /&gt;  
 
 (1) varying input (*variation in data measurement*)  
 (2) varying methods (*decisions by the statistician*)  
@@ -282,7 +288,7 @@ Working with data involves uncertainty in several ways:
 # Variation in Data Analysis   
 
   
-Working with data involves uncertainty in several ways: 
+&lt;br /&gt;  
 
 (1) varying input (*variation in data measurement*)  
 (2) varying methods (*decisions by the statistician*)  
@@ -300,21 +306,16 @@ Working with data involves uncertainty in several ways:
 # Process Reproducibility  
 
 
-To study whether a data analysis is **reproducible**, we can measure the variability of **quantitative process output** with varying inputs and varying methods employed.     
+**Is this process reproducible?**  
+  - variability of quantitative output   
+  - applies to multiple *types* of variation  
 
 &lt;br /&gt; 
 --
-.center[
-We apply this approach to a large-scale data analysis process:  
-
-**automatic bullet matching in forensic firearms analysis**  
-
-]
-
-&lt;br /&gt;
+**Application to large-scale data analysis process**  
+  - bullet matching in forensic firearms analysis  
 
 
-.medium[Note: The work completed in the dissertation includes a study of three types of process variation: varying data, varying methods, and varying code. Here, we focus on varying data input.]
 
 ---
 
@@ -326,25 +327,28 @@ class: inverse, middle, center
 
 # Bullets as Forensic Evidence   
 
+&lt;br /&gt; 
+`$$\begin{array}{rcl}
+\textbf{microimperfections in barrel} &amp; \to &amp; \mbox{engraved patterns on bullet}\\
+\mbox{lands} &amp; \to &amp; \mbox{land engraved areas (LEAs)}\\
+\mbox{6 lands} &amp; \to &amp; \mbox{6 LEAs}\\
+\end{array}$$`
 
-When a gun is fired, microimperfections inside the barrel engrave patterns on the surface of a bullet.  
-
-Sections of the bullet that make contact with **lands** inside the barrel are called **land engraved areas (LEAs)**, and have **land impressions** engraved on their surface.  
-
-Traditionally rifled gun barrels have 6 lands, which leave bullets with 6 LEAs. 
+&lt;br /&gt;  
 
 .center[
 &lt;img src="images/scanning-stage0.png" width="400px" /&gt;&lt;img src="images/bullet-sketch-whitespace.png" width="300px" /&gt;
 ]
 
-Forensic examiners can compare resulting **striation patterns** on LEAs from different bullets to make a determination as to whether two bullets were fired through the same gun barrel.  
+&lt;br /&gt; 
+.center[striation patterns compared on two LEAs]  
 
 
 ---
 
 # Bullets as Forensic Evidence   
 
-A LEA up close:  
+&lt;br /&gt;
 .center[
 &lt;img src="images/bullet-lea-area-markings.png" width="900px" /&gt;
 ]
@@ -354,22 +358,23 @@ A LEA up close:
 
 # Criticisms of Forensic Firearms Analysis   
 
-Comparing striation patterns to determine whether two bullets originate from the *same source* or *different sources* is based on two assumptions: 
+**Question of interest**: same source or different source  
+**Assumptions**: 
+  - consistency: a gun will leave same striation pattern on each bullet over time  
+  - uniqueness: no two guns will produce the same striation patterns  
 
-1. **consistency**: a gun will leave nearly identical marks on each bullet over time
-2. **uniqueness**: no two guns will produce the same striation patters  
-
-
-Recently, two major reports have found a lack of peer-reviewed scientific research to support these assumptions&lt;sup&gt;2&lt;/sup&gt; &lt;sup&gt;3&lt;/sup&gt;.  
+**Recent criticisms**&lt;sup&gt;2&lt;/sup&gt; &lt;sup&gt;3&lt;/sup&gt;:  
+  - lack of peer-reviewed scientific research  
+  - lack of large-scale studies  
+  - quantifiable error rates  
+  
+**Proposed solution**: image-analysis algorithms for bullet comparison
 
 .footnote[
 [2] (National Research Council, 2009)  
 [3] (President's Council of Advisors on Science and Technology, 2016)  
 ]  
 
-Both reports criticized a lack of large-scale studies to identify error rates for examinations.  
-
-*Proposed solution*: development of automated image-analysis algorithms for comparison of striation patterns on bullet LEAs.  
 
 
 ---
@@ -391,7 +396,8 @@ The Hare et al. method processes 3D scans by:
   3. removing bullet curvature  
   4. smoothing  
 
-The result is a 2D **LEA signature** that represents the striation pattern present on a bullet's surface.  
+Result: **2D LEA signature** 
+  - represents striation pattern  
 ]
 
 .right-plot[
@@ -402,22 +408,19 @@ The result is a 2D **LEA signature** that represents the striation pattern prese
 
 # Bullet Analysis as a Process  
 
-We can conceptualize the Hare et al. process as a pipeline:  
+Hare et al. process as pipeline:  
 
 &lt;img src="images/pipeline/pipeline_bullet_update.png" width="800px" /&gt;
 
 &lt;br /&gt;
 
---
-The process relies on the translation of a physical bullet into a 3D scan, and the processing steps applied.  
+**Is the process reproducible?**  
 
-We therefore study the sensitivity of the process to the data collection process:  
+--
+
 &lt;br /&gt;
 
---
-
-
-&lt;img src="images/pipeline/pipeline_inputs_bullets_update.png" width="800px" /&gt;
+&lt;img src="images/pipeline/pipeline_inputs_bullets_update2.png" width="800px" /&gt;
 
 
 
@@ -434,12 +437,11 @@ class: inverse, middle, center
 
 **Gauge Repeatability and Reproducibility** studies are used in engineering to test a measurement system.  
 
-Gauge R&amp;R studies focus on taking *repeated measurements* to estimate:  
-
-1. **repeatability** of measurements under the same environmental conditions  
-  - measurements of the same object by the same operator  
-2. **reproducibility** of measurements under different environmental conditions
-  - measurements of the same object by different operators  
+Gauge R&amp;R studies focus on *repeated measurements*  
+  1. **repeatability** of measurements under the same environmental conditions  
+    - same object, same operator  
+  2. **reproducibility** of measurements under different environmental conditions
+    - same object, different operators  
 
 
 
@@ -449,18 +451,16 @@ Gauge R&amp;R studies focus on taking *repeated measurements* to estimate:
 
 Let `\(y_{ijk}\)` be the measured value of part `\(i\)`, taken by operator `\(j\)`, at repetition `\(k\)`.  
 
-The model is:  
 
 `$$y_{ijk} = \mu + \alpha_{i} + \beta_{j} + \alpha\beta_{ij} + \epsilon_{ijk}$$`
 
-where  
+with fixed, unknown process mean `\(\mu\)` and random effects 
 
 
 `$$\begin{array}{rl}
-\mu &amp; \quad \mbox{is the fixed, unknown process measurement average}, \\ 
-\alpha_i &amp; \quad \mbox{is a random effect for Part}\ i,\ \mbox{following a}\ N(0, \sigma^2_{\alpha}), \\
-\beta_j &amp;\quad \mbox{is a random effect for Operator}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\alpha\beta_{ij} &amp; \quad \mbox{is a random effect for Part}\ i-\mbox{Operator}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\alpha\beta})  \\
+\alpha_i &amp; \quad \mbox{for Part}\ i,\ \mbox{following a}\ N(0, \sigma^2_{\alpha}), \\
+\beta_j &amp;\quad \mbox{for Operator}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
+\alpha\beta_{ij} &amp; \quad \mbox{for Part}\ i\times\mbox{Operator}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\alpha\beta})  \\
 \epsilon_{ijk} &amp; \quad \mbox{is measurement error across repetitions},\ \mbox{following a}\ N(0, \sigma^2).
 \end{array}$$`
 
@@ -469,7 +469,24 @@ We assume:
 - all `\(\alpha_i,\ \beta_j,\ \alpha\beta_{ij},\ \epsilon_{ijk}\)` are independent random variables  
 - `\(\sigma^2_{\alpha},\ \sigma^2_{\beta},\ \sigma^2_{\alpha\beta},\ \sigma^2\)` are variance components   
 
-.medium[Note: the "operator" effect often can represent devices/machines, or simply any differing environmental conditions.]
+---
+
+# Gauge Repeatability and Reproducibility  
+
+Variance components from the model can be summarized by two quantities:  
+
+.center[
+`\(\sigma_{\mbox{repeatability}} = \sqrt{\sigma^2},\)`  
+
+measurement error for *fixed environmental conditions*.  
+
+&lt;br /&gt; 
+
+`\(\sigma_{\mbox{reproducibility}} = \sqrt{\sigma^2_{\beta} + \sigma^2_{\alpha\beta}},\)`  
+
+
+variability in environmental conditions *for a fixed object*.  
+]
 
 ---
 
@@ -482,46 +499,46 @@ class: inverse, middle, center
 
 # Three-Factor Study Design       
 
+.left-text[
+Consider barrel-lands to be the objects we are measuring.  
+
 **Parts**: bullets  
 
-- Multiple bullets fired through the same gun barrel  
-- Striation marks on bullet LEAs are pattern we want to be reproduced  
-- Striation patterns for matching LEAs expected to be *similar*, but not *identical*  
+- fired through the same gun barrel  
+- striation mark is pattern we want reproduced   
+- LEAs from same barrel *similar*, but not *identical*  
 
---
 
 **Operators**: microscope operators  
 
-- Microscope operators must stage each bullet LEA  
-- Go through training, but data collection still has significant human involvement  
+- responsible for physical staging  
 
---
 
 **Devices**: microscopes  
 
-- High-resolution scanning process depends on measurement tool  
-- Are there systemic differences in how LEAs are measured by different machines?  
-
---
-
 **Repetition**  
 
-- Repeated scans under the same environmental conditions (same bullet, operator, and microscope)  
+- scans of same barrel-land in same conditions (same bullet, operator, and microscope)  
+]
+
+
+.right-code[
+&lt;br /&gt;
+&lt;img src="images/barrel-cropped-annotated.png" width="500px" /&gt;
+]
 
 ---
 
-# Scope of Study  
+# Scale of Study  
 
-We were physically limited in number of operators and machines. 
-
+&lt;br /&gt;  
 - **machines**: 2 Sensofar Confocal Light Microscopes  
 - **operators**: 8 trained undergraduate microscope operators  
 - **bullets**: 9 bullets 
-  - bullets originate from three distinct barrels, which we coded
-  - interested in within-barrel comparisons
-  - we will have three sets of results, one for each barrel  
+  - 3 bullets from 3 barrels each  
+  - each barrel considered separately when modeling  
   
-.medium[
+
 `$$\begin{array}{rccc}
 \hline
 \mbox{Coded Name}             &amp; \mbox{Test Set Name}   &amp; \mbox{Barrel Type}     &amp; \mbox{Ammunition Details} \\ \hline
@@ -529,15 +546,11 @@ We were physically limited in number of operators and machines.
 \textbf{Barrel Pink}   &amp; \mbox{Houston set 3}   &amp; \mbox{Ruger LCP}       &amp; \mbox{American Eagle 124-grain 9mm copper} \\
 \textbf{Barrel Blue}   &amp; \mbox{LAPD}            &amp; \mbox{Beretta 92 F/FS} &amp; \mbox{Winchester 115-grain 9mm copper}  \\ \hline
 \end{array}$$`
-]
 
+&lt;br /&gt;  
 - **repetitions**: 3-5 repetitions for each set of environmental conditions  
-  - operators instructed to complete at least 3 repetitions 
-  - repetition over time, divided into rounds
   - one round: one scan of each bullet LEA on each machine  
-  
-
-.medium[Note: each bullet has 6 individual LEAs. One round of scans for one bullet on one machine produces 6 LEA scans.]
+  - operators completed at least 3 rounds  
 
 ---
 
@@ -545,36 +558,8 @@ We were physically limited in number of operators and machines.
 
 We collected the following number of repetitions for each study factor combination:  
 
-.medium[
-`$$\begin{array}{cccccccccc}
-\mbox{Bullet} &amp; \mbox{Machine} &amp; \textbf{Op. A} &amp; \textbf{Op. B} &amp; \textbf{Op. C} &amp; \textbf{Op. D} &amp; \textbf{Op. E} &amp; \textbf{Op. F} &amp; \textbf{Op. G} &amp;\textbf{Op. H}  \\ \hline
-\textbf{Orange 1} &amp; Sneox1 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ 
-&amp;                               Sneox2 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Orange 2} &amp; Sneox1 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Orange 3} &amp; Sneox1 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Pink 1} &amp; Sneox1 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Pink 2} &amp; Sneox1 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Pink 3} &amp; Sneox1 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp; 3  &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Blue 1} &amp; Sneox1 &amp;    &amp; 5  &amp;   &amp;   &amp; 5  &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp;    &amp; 5  &amp;   &amp;   &amp; 5  &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Blue 2} &amp; Sneox1 &amp;    &amp; 5  &amp;   &amp;   &amp; 5  &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp;    &amp; 5  &amp;   &amp;   &amp; 5  &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\textbf{Blue 3} &amp; Sneox1 &amp;    &amp; 5  &amp;   &amp;   &amp; 5  &amp; 5 &amp; 5 &amp; 5 \\
-&amp;                               Sneox2 &amp;    &amp; 5  &amp;   &amp;   &amp; 5  &amp; 5 &amp; 5 &amp; 5 \\ \hline
-\end{array}$$`
-]
----
+Slide here about data structure of x and z.  
 
-# Data Exposition    
-
-.center[
-&lt;img src="images/variability/signatures-blue-land6.png" width="500px" /&gt;&lt;img src="images/variability/signatures-orange-land2.png" width="500px" /&gt;&lt;img src="images/variability/signatures-pink-land4.png" width="500px" /&gt;
-]
 
 ---
 
@@ -585,6 +570,16 @@ We collected the following number of repetitions for each study factor combinati
 --
 
 &lt;img src="images/variability/blue-land1-expo.png" width="250px" /&gt;&lt;img src="images/variability/blue-land2-expo.png" width="250px" /&gt;&lt;img src="images/variability/blue-land3-expo.png" width="250px" /&gt;&lt;img src="images/variability/blue-land4-expo.png" width="250px" /&gt;&lt;img src="images/variability/blue-land5-expo.png" width="250px" /&gt;
+
+
+
+---
+
+# Data Exposition    
+
+.center[
+&lt;img src="images/variability/signatures-orange-land2.png" width="800px" /&gt;&lt;img src="images/variability/signatures-pink-land4.png" width="800px" /&gt;
+]
 
 
 
@@ -619,7 +614,7 @@ class: inverse, middle, center
 
 # Signature-level model      
 
-A traditional three-factor Gauge R&amp;R random effects model for our study design as follows.  
+Three-factor Gauge R&amp;R random effects model:    
 
 Let `\(z_{jkmn}\)` be the measured response for bullet `\(j\)`, operator `\(k\)`, machine `\(m\)`, and repetition `\(n\)`. 
 
@@ -628,48 +623,59 @@ z_{jkmn} &amp; = \mu + \beta_j + \omega_k + \gamma_m + \beta\omega_{jk} + \beta\
 \beta\gamma\omega_{jkm} + \epsilon_{jkmn},
 \end{array}$$`
 
-where
+with fixed, unknown process mean `\(\mu\)` and random effects
 
 .medium[
 `$$\begin{array}{rl}
-\mu &amp; \quad \mbox{is a fixed, unknown process mean}, \\
-\beta_{j} &amp; \quad \mbox{is a random effect for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\omega_{k} &amp;\quad \mbox{is a random effect for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
-\gamma_{m} &amp; \quad \mbox{is a random effect for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
-\beta\omega_{jk} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
-\beta\gamma_{jm} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma})  \\
-\omega\gamma_{km} &amp; \quad \mbox{is a random effect for Operator}\ k-\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
-\beta\omega\gamma_{jkm} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Operator}\ k-\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
+\beta_{j} &amp; \quad \mbox{for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
+\omega_{k} &amp;\quad \mbox{for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
+\gamma_{m} &amp; \quad \mbox{for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
+\beta\omega_{jk} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
+\beta\gamma_{jm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma})  \\
+\omega\gamma_{km} &amp; \quad \mbox{for Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
+\beta\omega\gamma_{jkm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
 \epsilon_{jkmn} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
 \end{array}$$`
 ]
 
 --
 
-We will discuss several adaptations to this model for modeling variability at the bullet signature level:  
+Several adaptations to this model at the LEA signature level:  
 
-1. mean structure  
-2. including location  
+1. location-based mean structure  
+2. accounting for location  
 3. removing dependence by subsampling  
 
 ---
 
 # Signature-level model      
 
-**1. mean structure**  
+**1. location-based mean structure:** `\(\mu = \mu_L + \alpha_{Li}\)`  
+
+.center[
+&lt;img src="images/variability/signatures-blue-land6.png" width="700px" /&gt;&lt;img src="images/variability/signatures-centered-blue-land6.png" width="700px" /&gt;
+] 
+
+
+---
+
+# Signature-level model      
+
+**2. accounting for location**  
+
+.center[
+&lt;img src="images/variability/mean-structure-modeling-plot2.png" width="800px" /&gt;
+]
+
+---
+
+# Signature-level model      
+
+**3. removing data dependence**   
 
 .center[
 &lt;img src="images/variability/signatures-blue-land6.png" width="700px" /&gt;&lt;img src="images/variability/signatures-centered-blue-land6.png" width="700px" /&gt;
 ]
----
-
-# Signature-level model      
-
-**2. including location**  
-
-.center[
-&lt;img src="images/variability/mean-structure-modeling-plot.png" width="700px" /&gt;
-]
 
 ---
 
@@ -677,19 +683,7 @@ We will discuss several adaptations to this model for modeling variability at th
 
 **3. removing data dependence**   
 
-.medium[Due to the inherent structure of the data, measured height values] `\(z_i\)` .medium[at] `\(x_i\)` .medium[locations near one another are dependent on one another:]  
-
-.center[
-&lt;img src="images/variability/signatures-blue-land6.png" width="600px" /&gt;&lt;img src="images/variability/signatures-centered-blue-land6.png" width="600px" /&gt;
-]
-
----
-
-# Signature-level model      
-
-**3. removing data dependence**   
-
-.medium[We can plot autocorrelation functions (ACF) for signatures to investigate the extent of dependence:]  
+Autocorrelation functions (ACF) for signatures show extent of dependence:
 
 .center[
 &lt;img src="images/variability/basic-acf-plot.png" width="400px" /&gt;&lt;img src="images/variability/oneline-acf-plot.png" width="400px" /&gt;
@@ -702,7 +696,7 @@ We will discuss several adaptations to this model for modeling variability at th
 
 **3. removing data dependence**   
 
-.medium[We can plot autocorrelation functions (ACF) for signatures to investigate the extent of dependence:]  
+Autocorrelation functions (ACF) for signatures show extent of dependence:
 
 .center[
 &lt;img src="images/variability/acf-three-examples.png" width="600px" /&gt;
@@ -713,26 +707,81 @@ We will discuss several adaptations to this model for modeling variability at th
 
 # Signature-level model      
 
-.medium[To address this, we propose modeling variability using a subsampled set of data, sampling data at every] `\(100^{th}\)` `\(x_i\)` .medium[location,] `\(x_\tilde{i}\)`:  
+Sampling data at every `\(100^{th}\)` `\(x_i\)` location:  
 
---
 
 .center[
-&lt;img src="images/variability/signature-subsampling-one-phase-plot.png" width="550px" /&gt;
+&lt;img src="images/variability/signature-subsampling-one-phase-plot2.png" width="600px" /&gt;
 ]
-
 
 
 ---
 
 # Signature-level model      
 
-.medium[Subsampling results in a major data reduction; we can account for this loss and uncertainty by fitting multiple *phased* models: ]
+Sampling data at every `\(100^{th}\)` `\(x_i\)` location:  
 
---
 
 .center[
-&lt;img src="images/variability/ten-phase-subsampling-explainer-2.png" width="525px" /&gt;
+&lt;img src="images/variability/one_phase_locations.png" width="900px" /&gt;
+]
+
+---
+
+# Signature-level model      
+
+Sampling data at every `\(100^{th}\)` `\(x_i\)` location:  
+
+
+.center[
+&lt;img src="images/variability/signature-subsampling-one-phase-plot2.png" width="600px" /&gt;
+]
+
+
+---
+
+# Signature-level model      
+
+Sampling data at every `\(100^{th}\)` `\(x_i\)` location:  
+
+
+.center[
+&lt;img src="images/variability/one_phase_data.png" width="900px" /&gt;
+]
+
+---
+
+# Signature-level model      
+
+Sampling data at every `\(100^{th}\)` `\(x_i\)` location:  
+
+
+.center[
+&lt;img src="images/variability/signature-subsampling-one-phase-plot2.png" width="600px" /&gt;
+]
+
+
+---
+
+# Signature-level model      
+
+Sampling data at every `\(100^{th}\)` `\(x_i\)` location:  
+
+
+.center[
+&lt;img src="images/variability/one_phase_resids.png" width="900px" /&gt;
+]
+
+Major data reduction when subsampling.  
+
+
+---
+
+# Signature-level model      
+
+
+.center[
+&lt;img src="images/variability/ten-phase-subsampling-explainer-2.png" width="570px" /&gt;
 ]
 
 ---
@@ -741,166 +790,29 @@ We will discuss several adaptations to this model for modeling variability at th
 
 The final signature-level model is then as follows. 
 
-Let `\(z_{BLijkmn}\)` be the measured height value for Barrel-Land BL, subsampled location `\(\tilde{i}\)`, bullet `\(j\)`, operator `\(k,\)` machine `\(m,\)` and scan repetition `\(n\)`. 
+Let `\(z_{Lijkmn}\)` be the measured height value for Barrel-Land L, subsampled location `\(i\)`, bullet `\(j\)`, operator `\(k,\)` machine `\(m,\)` and scan repetition `\(n\)`. 
 
 `$$\begin{array}{rl}
-z_{BL\tilde{i}jkmn} &amp; = \mu + \alpha_{BL\tilde{i}} + \alpha\beta_{BL\tilde{i}j} + \alpha\omega_{BL\tilde{i}k} + \alpha\gamma_{BL\tilde{i}m} + \\
-&amp; \quad \quad \alpha\beta\omega_{BL\tilde{i}jk} + \alpha\beta\gamma_{BL\tilde{i}jm} + \alpha\omega\gamma_{BL\tilde{i}km} + \alpha\beta\gamma\omega_{BL\tilde{i}jkm} + \epsilon_{BL\tilde{i}jkmn}
+z_{Lijkmn} &amp; = \mu_L + \alpha_{Li} + \alpha\beta_{Lij} + \alpha\omega_{Lik} + \alpha\gamma_{Lim} + \\
+&amp; \quad \quad \alpha\beta\omega_{Lijk} + \alpha\beta\gamma_{Lijm} + \alpha\omega\gamma_{Likm} + \alpha\beta\gamma\omega_{Lijkm} + \epsilon_{Lijkmn}
 \end{array}$$`
 
-where 
+with fixed, unknown process mean for a land `\(\mu_L\)`, location-based mean `\(\alpha_{Li}\)`, and random effects 
 
 .medium[
 `$$\begin{array}{rl}
-\mu &amp; \quad \mbox{is a fixed, unknown process measurement mean}, \\
-\alpha_{BL\tilde{i}} &amp; \quad \mbox{is a fixed measurement average for Barrel-Land}\ BL\ \mbox{at subsampled}\ x\ \mbox{location}\ \tilde{i}, \\
-\alpha\beta_{BL\tilde{i}j} &amp; \quad \mbox{is a random effect for Bullet}\ j\ \mbox{by location}\ BL\tilde{i},\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\alpha\omega_{BL\tilde{i}k} &amp;\quad \mbox{is a random effect for Operator}\ k\ \mbox{by location}\ BL\tilde{i},\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
-\alpha\gamma_{BL\tilde{i}m} &amp; \quad \mbox{is a random effect for Machine}\ m\  \mbox{by location}\ BL\tilde{i},\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
-\alpha\beta\omega_{BL\tilde{i}jk} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Operator}\ k\ \mbox{by location}\ BL\tilde{i},\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
-\alpha\beta\gamma_{BL\tilde{i}jm} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Machine}\ m\ \mbox{by location}\ BL\tilde{i},\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma}) \\ \alpha\omega\gamma_{BL\tilde{i}km} &amp; \quad \mbox{is a random effect for Operator}\ k-\mbox{Machine} \ m\ \mbox{by location}\ BL\tilde{i},\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
-\alpha\beta\omega\gamma_{BL\tilde{i}jkm} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Operator}\ k-\mbox{Machine}\ m\ \mbox{by location}\ BL\tilde{i},\\
+\alpha\beta_{Lij} &amp; \quad \mbox{for Bullet}\ j\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
+\alpha\omega_{Lik} &amp;\quad \mbox{for Operator}\ k\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
+\alpha\gamma_{Lim} &amp; \quad \mbox{for Machine}\ m\  \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
+\alpha\beta\omega_{Lijk} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
+\alpha\beta\gamma_{Lijm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma}) \\ \alpha\omega\gamma_{Likm} &amp; \quad \mbox{for Operator}\ k\times\mbox{Machine} \ m\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
+\alpha\beta\omega\gamma_{Lijkm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m\ \mbox{by location}\ Li,\\
 &amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
-\epsilon_{BL\tilde{i}jkmn} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2). \\
+\epsilon_{Lijkmn} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2). \\
 \end{array}$$`
 ]
 
-.medium[We assume each random effect is an independent random variable.]
-
----
-
-# Pairwise-level model      
-
-We can again begin with the traditional three-factor Gauge R&amp;R random effects model for our study design.  
-
-Let `\(z_{jkmn}\)` be the measured response for bullet `\(j\)`, operator `\(k\)`, machine `\(m\)`, and repetition `\(n\)`. 
-
-`$$\begin{array}{rl}
-z_{jkmn} &amp; = \mu + \beta_j + \omega_k + \gamma_m + \beta\omega_{jk} + \beta\gamma_{jm} + \omega\gamma_{km} +
-\beta\gamma\omega_{jkm} + \epsilon_{jkmn},
-\end{array}$$`
-
-where
-
-.medium[
-`$$\begin{array}{rl}
-\mu &amp; \quad \mbox{is a fixed, unknown process mean}, \\
-\beta_{j} &amp; \quad \mbox{is a random effect for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\omega_{k} &amp;\quad \mbox{is a random effect for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
-\gamma_{m} &amp; \quad \mbox{is a random effect for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
-\beta\omega_{jk} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
-\beta\gamma_{jm} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma})  \\
-\omega\gamma_{km} &amp; \quad \mbox{is a random effect for Operator}\ k-\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
-\beta\omega\gamma_{jkm} &amp; \quad \mbox{is a random effect for Bullet}\ j-\mbox{Operator}\ k-\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
-\epsilon_{jkmn} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
-\end{array}$$`
-]
-
---
-
-Here, we need to make an adaptation to the grouping and index structure...  
-
-
-
----
-
-# Pairwise-level model      
-
-We can't index similarity scores simply by `\(z_{jkmn}\)`: bullet `\(j\)`, operator `\(k\)`, machine `\(m\)`, and repetition `\(n\)`, because similarity scores are *pairwise*, and involve multiple levels.  
-  - bullet 1 - operator 1 - machine 1 - repetition 1  
-  - bullet 3 - operator 2 - machine 1 - repetition 3  
-
-For similarity scores, we therefore index by *level pairing*.  
-
-For example, instead of bullet `\(j\)`, we have bullet pairing `\((j)'\)`:  
-  - Bullets `\(j = 1, 2, 3\)`
-  - Bullet pairing `\((j)' = (1-1), (1-2), (1-3), (2-2), (2-3), (3-3)\)`  
-
-We then have similarity score `\(z_{(j)'(k)'(m)'(n)'}\)` which compares two signatures with bullet pairing `\((j)'\)`, operator pairing `\((k)'\)`, machine pairing `\((m)'\)`, and repetition pair `\((n)'\)`.  
-
-
-  
----
-
-# Pairwise-level model      
-
-
-.left-code[
-We also expect scores and score distributions to differ by which LEAs are being compared:  
-  - Same-source comparisons should have high scores near 1
-  - Different-source comparisons should have lower scores 
-  - Different-source comparisons are not all different *in the same way*  
-  
-]
-
---
-
-.right-plot[
-.center[
-&lt;img src="images/variability/pairwise-score-distributions.png" width="400px" /&gt;
-]
-]
-
-
----
-
-# Pairwise-level model      
-
-
-.left-code[
-We also expect scores and score distributions to differ by which LEAs are being compared:  
-  - Same-source comparisons should have high scores near 1
-  - Different-source comparisons should have lower scores 
-  - Different-source comparisons are not all different *in the same way*  
-  
-To account for this, we use the barrel-land pairing as a mean structure and fit three separate models:   
-
-1. Same-source pairs only   
-2. Different-source pairs only  
-3. All pairs, pooled  
-  
-]
-
-
-.right-plot[
-.center[
-&lt;img src="images/variability/pairwise-score-distributions-centered.png" width="400px" /&gt;
-]
-]
-
----
-
-# Pairwise-level model  
-
-`$$\begin{array}{rl}
-z_{(BL)'(j)'(k)'(m)'(n)'} &amp; = \mu + \alpha_{(BL)'} + \alpha\beta_{(BL)'(j)'} + \alpha\omega_{(BL)'(k)'} + \alpha\gamma_{(BL)'(m)'} + \alpha\beta\omega_{(BL)'(j)'(k)'} \\
-&amp;   \quad \quad +\ \alpha\beta\gamma_{(BL)'(j)'(m)'} + \alpha\omega\gamma_{(BL)'(k)'(m)'}+ \alpha\beta\omega\gamma_{(BL)'(j)'(k)'(m)'} + \epsilon,
-\end{array}$$`
-
-where 
-
-.medium[
-`$$\begin{array}{rl}
-\mu &amp; \quad \mbox{is a fixed, unknown similarity score mean}, \\
-\alpha_{(BL)'} &amp; \quad \mbox{is a fixed measurement average for Barrel-Land pairing}\ (BL)', \\
-\alpha\beta_{(BL)'(j)'} &amp; \quad \mbox{is a random effect for Bullet pairing}\ (j)'\ \mbox{by Barrel-Land pairing}\ (BL)',\\
-&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\beta)'})\\
-\alpha\omega_{(BL)'(k)'} &amp;\quad \mbox{is a random effect for Operator pairing}\ (k)'\ \mbox{by Barrel-Land pairing}\ (BL)',\\
-&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\omega)'}) \\
-\alpha\gamma_{(BL)'(m)'} &amp; \quad \mbox{is a random effect for Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (BL)',\\
-&amp; \quad \quad \quad\mbox{following a}\ N(0, \sigma^2_{(\gamma)'}) \\
-\alpha\beta\omega_{(BL)'(j)'(k)'} &amp; \quad \mbox{is a random effect for Bullet pairing}\ (j)'-\mbox{Operator pairing}\ (k)'\\
-&amp; \quad \quad \quad \mbox{by Barrel-Land pairing}\ (BL)', \mbox{following a}\ N(0, \sigma^2_{(\beta\omega)'})  \\
-\alpha\beta\gamma_{(BL)'(j)'(m)'} &amp; \quad \mbox{is a random effect for Bullet pairing}\ (j)'-\mbox{Machine pairing}\ (m)'\\
-&amp; \quad \quad \mbox{by Barrel-Land pairing}\ (BL)'\, \mbox{following a}\ N(0, \sigma^2_{(\beta\gamma)'}) \\
-\alpha\omega\gamma_{(BL)'(k)'(m)'} &amp; \quad \mbox{is a random effect for Operator pairing}\ (k)'-\mbox{Machine pairing}\ (m)'\\
-&amp; \quad \quad \quad \mbox{by Barrel-Land pairing}\ (BL)', \mbox{following a}\ N(0, \sigma^2_{(\omega\gamma)'})  \\
-\alpha\beta\omega\gamma_{(BL)'(j)'(k)'(m)'} &amp; \quad \mbox{is a random effect for Bullet pairing}\ (j)'-\mbox{Operator pairing}\ (k)'-\\
-&amp; \quad \quad \quad \mbox{-Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (BL)',\ \\
-&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\beta\omega\gamma)'})  \\
-\epsilon_{(BL)'(j)'(k)'(m)'(n)'} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2).
-\end{array}$$`
-]
+We assume each random effect is an independent random variable.  
 
 ---
 
@@ -912,13 +824,12 @@ class: inverse, middle, center
 
 # Signature-level results: Barrel Orange  
 
-.medium[We fit ten phased models and report the distribution of estimated variance components across the ten phases.]   
+Ten phased models, distribution of estimated variance components across the ten phases   
 
 .center[
 &lt;img src="images/variability/orange-sig-model-results.png" width="700px" /&gt;
 ]
 
-.medium[We note that there are certain barrel-lands that have unusually high bullet effects. We can remove any lands that have tank rash and investigate how that changes our estimates.]
 
 ---
 
@@ -934,7 +845,7 @@ Tank rash occurs when a bullet strikes the sides or bottom of a water recovery t
 
 # Signature-level results: Barrel Orange  
 
-.medium[We fit ten phased models and report the distribution of estimated variance components across the ten phases.]    
+Ten phased models, distribution of estimated variance components across the ten phases   
 
 .center[
 &lt;img src="images/variability/orange-sig-model-results-tr.png" width="750px" /&gt;
@@ -944,19 +855,18 @@ Tank rash occurs when a bullet strikes the sides or bottom of a water recovery t
 
 # Signature-level results: Barrel Pink  
 
-.medium[We fit ten phased models and report the distribution of estimated variance components across the ten phases.]   
+Ten phased models, distribution of estimated variance components across the ten phases   
 
 .center[
 &lt;img src="images/variability/pink-sig-model-results.png" width="700px" /&gt;
 ]
 
-.medium[We note that there are again certain barrel-lands that have unusually high bullet effects due to tank rash. ]
 
 ---
 
 # Signature-level results: Barrel Pink  
 
-.medium[We fit ten phased models and report the distribution of estimated variance components across the ten phases.]   
+Ten phased models, distribution of estimated variance components across the ten phases   
 
 .center[
 &lt;img src="images/variability/pink-sig-model-results-tr.png" width="700px" /&gt;
@@ -968,7 +878,7 @@ Tank rash occurs when a bullet strikes the sides or bottom of a water recovery t
 
 # Signature-level results: Barrel Blue  
 
-.medium[We fit ten phased models and report the distribution of estimated variance components across the ten phases.]   
+Ten phased models, distribution of estimated variance components across the ten phases   
 
 .center[
 &lt;img src="images/variability/blue-sig-model-results.png" width="700px" /&gt;
@@ -978,8 +888,6 @@ Tank rash occurs when a bullet strikes the sides or bottom of a water recovery t
 ---
 
 # Signature-level results: All Barrels  
-
-Summary tables here of sigma rep and sigma repr for the three barrels (when excluding any tank rash).  
 
 .pull-left[
 Barrel Orange 
@@ -1026,28 +934,21 @@ Barrel Blue
 \end{array}$$`
 ]
 ]
----
-
-# Pairwise-level results: All Barrels  
-
-We present results for all three barrels and all three pairwise models. 
-
-.center[
-&lt;img src="images/variability/pairwise-results-image.png" width="900px" /&gt;
-]
 
 
 ---
 
 class: inverse, middle, center
 
-# Wrapping Up  
-
+# Conclusions  
 
 ---
 
-# Conclusions and Future Work  
+# Process Insights  
 
+---
+
+# Future Work  
 
 
 ---

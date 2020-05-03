@@ -1,0 +1,530 @@
+---
+title: "Closed-Door Committee Discussion" 
+author: "Kiegan Rice"
+institute: "Iowa State University Department of Statistics"
+date: "May 5, 2020"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---  
+
+
+<style>
+
+/* colors: #EEB422, #8B0000, #CDC9C9, #00a8cc */
+a, a > code {
+  color: #EEB422;
+  text-decoration: none;
+}
+
+.remark-slide-content {
+  background-color: #FFFFFF;
+  border-top: 80px solid #CDC9C9;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em
+}
+
+.inverse {
+  background-color: #CDC9C9;
+  border-top: 80px solid #CDC9C9;
+  text-shadow: none;
+	background-position: 50% 75%;
+  background-size: 150px;
+}
+
+.remark-slide-content > h1 {
+  font-family: 'Goudy Old Style';
+  font-weight: normal;
+  font-size: 45px;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #8B0000;
+}
+
+
+.title-slide {
+  background-image: url(images/title-background.png);
+  background-size: cover;
+  border-top: 0px solid #8B0000;
+}
+
+.title-slide > h1  {
+  color: #FFFFFF;
+  font-size: 35px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding-top: 180px;
+}
+
+.title-slide > h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #FFFFFF;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 35px;
+  text-align: center;
+  margin-left: 15px;
+}
+.title-slide > h3  {
+  color: #FFFFFF;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 15px;
+  margin-bottom: -20px;
+}
+
+body {
+  font-family: 'Goudy Old Style';
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+</style>
+
+```{css, echo = FALSE}
+.tiny{font-size: 30%}
+.small{font-size: 50%}
+.medium{font-size: 75%}
+.large{font-size: 110%}
+
+.left-code {
+  width: 40%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 59%;
+  float: right;
+  padding-left: 1%;
+}
+
+.left-text {
+  width: 59%;
+  float: left;
+}
+
+.right-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: right;
+}
+
+.img{
+  position: absolute;
+  top: 50%;
+  margin-right: 15px;
+  transform: translateY(-50%);
+}
+
+```
+
+```{r setup, echo = FALSE, message = FALSE, warning = F}
+# Packages
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(manager)
+library(emo)
+
+#colors: 
+# #EEB422 is goldenrod2, #8B0000 is darkred, #CDC9C9 is snow3, #00a8cc
+
+# R markdown options
+opts_chunk$set(echo = FALSE, dpi = 200, cache = TRUE)
+```
+
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           cite.style = "authoryear")
+myBib <- ReadBib("refs1.bib", check = FALSE)
+
+```
+
+
+---
+
+class: inverse, middle, center
+
+# Defining Reproducibility in Data Analysis  
+
+
+---
+
+# Data Analysis as a Process   
+
+Any data analysis can be conceptualized as a **pipeline**<sup>1</sup>.  
+  - linear, sequential actions   
+  - raw data to result  
+
+
+.footnote[[1] `r Cite(myBib, "buja")`] 
+
+--
+
+  
+    
+.center[.img[
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_basic.png")
+```
+]]
+
+
+
+---
+
+# Data Analysis as a Process   
+
+Any data analysis can be conceptualized as a **pipeline**<sup>1</sup>.  
+  - linear, sequential actions   
+  - raw data to result  
+
+
+.footnote[[1] `r Cite(myBib, "buja")`] 
+
+.center[.img[
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_v1_update.png")
+```
+]]  
+
+
+
+
+---
+
+# Variation in Data Analysis   
+
+
+<br />  
+
+(1) varying input (*variation in data measurement*)  
+(2)  
+(3)  
+
+<br />
+
+
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_inputs_update.png")
+```
+
+
+
+
+---
+
+# Variation in Data Analysis   
+
+<br />  
+
+(1) varying input (*variation in data measurement*)  
+(2) varying methods (*decisions by the statistician*)  
+(3)
+
+<br />
+
+
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_processing_update.png")
+```
+
+
+
+
+
+---
+
+# Variation in Data Analysis   
+
+  
+<br />  
+
+(1) varying input (*variation in data measurement*)  
+(2) varying methods (*decisions by the statistician*)  
+(3) **varying code** (*differences in underlying software packages*)  
+
+<br />
+
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_coding_update.png")
+```
+
+
+---
+
+# Bullet Analysis as a Process  
+
+Hare et al. process as pipeline:  
+
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_bullet_update.png")
+```
+
+<br />
+
+**Is the process reproducible?**  
+
+--
+
+<br />
+
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_coding_bullets_update.png")
+```
+
+
+---
+
+class: inverse, middle, center
+
+# Statistical Modeling Approach   
+
+
+---
+
+# Two stages of modeling  
+
+.center[**2D LEA signatures**  
+
+
+```{r, echo = F, warning = F, message = F, out.width = '600px'}
+knitr::include_graphics("images/variability/signatures-blue-land6.png")
+```
+]
+
+--
+
+.center[
+**Pairwise similarity scores**  
+
+```{r, echo = F, warning = F, message = F, out.width = '600px'}
+knitr::include_graphics("images/variability/two-sigs-aligned.png")
+```
+]
+
+
+---
+
+class: inverse, middle, center
+
+# Pairwise modeling approach       
+
+---
+
+# Pairwise-level model      
+
+Three-factor Gauge R&R random effects model for our study design.  
+
+Let $z_{jkmn}$ be the measured response for bullet $j$, operator $k$, machine $m$, and repetition $n$. 
+
+$$\begin{array}{rl}
+z_{jkmn} & = \mu + \beta_j + \omega_k + \gamma_m + \beta\omega_{jk} + \beta\gamma_{jm} + \omega\gamma_{km} +
+\beta\gamma\omega_{jkm} + \epsilon_{jkmn},
+\end{array}$$
+
+with a fixed, unknown process mean $\mu$ and random effects
+
+.medium[
+$$\begin{array}{rl}
+\beta_{j} & \quad \mbox{for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
+\omega_{k} &\quad \mbox{for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
+\gamma_{m} & \quad \mbox{for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
+\beta\omega_{jk} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
+\beta\gamma_{jm} & \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma})  \\
+\omega\gamma_{km} & \quad \mbox{for Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
+\beta\omega\gamma_{jkm} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
+\epsilon_{jkmn} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
+\end{array}$$
+]
+
+--
+
+Here, we need to make an adaptation to the grouping and index structure...  
+
+
+
+---
+
+# Pairwise-level model      
+
+We can't index similarity scores simply by $z_{jkmn}$: bullet $j$, operator $k$, machine $m$, and repetition $n$, because similarity scores are *pairwise*, and involve multiple levels.  
+  - bullet 1 - operator 1 - machine 1 - repetition 1  
+  - bullet 3 - operator 2 - machine 1 - repetition 3  
+
+For similarity scores, we therefore index by *level pairing*.  
+
+For example, instead of bullet $j$, we have bullet pairing $(j)'$:  
+  - Bullets $j = 1, 2, 3$
+  - Bullet pairing $(j)' = (1-1), (1-2), (1-3), (2-2), (2-3), (3-3)$  
+
+We then have similarity score $z_{(j)'(k)'(m)'(n)'}$ which compares two signatures with bullet pairing $(j)'$, operator pairing $(k)'$, machine pairing $(m)'$, and repetition pair $(n)'$.  
+
+
+  
+---
+
+# Pairwise-level model      
+
+
+.left-code[
+We also expect scores and score distributions to differ by which LEAs are being compared:  
+  - Same-source comparisons should have high scores near 1
+  - Different-source comparisons should have lower scores 
+  - Different-source comparisons are not all different *in the same way*  
+  
+]
+
+--
+
+.right-plot[
+.center[
+```{r, echo = F, warning = F, message = F, out.width = '400px'}
+knitr::include_graphics("images/variability/pairwise-score-distributions.png")
+```
+]
+]
+
+
+---
+
+# Pairwise-level model      
+
+
+.left-code[
+We also expect scores and score distributions to differ by which LEAs are being compared:  
+  - Same-source comparisons should have high scores near 1
+  - Different-source comparisons should have lower scores 
+  - Different-source comparisons are not all different *in the same way*  
+  
+To account for this, we use the barrel-land pairing as a mean structure and fit three separate models:   
+
+1. Same-source pairs only   
+2. Different-source pairs only  
+3. All pairs, pooled  
+  
+]
+
+
+.right-plot[
+.center[
+```{r, echo = F, warning = F, message = F, out.width = '400px'}
+knitr::include_graphics("images/variability/pairwise-score-distributions-centered.png")
+```
+]
+]
+
+---
+
+# Pairwise-level model  
+
+$$\begin{array}{rl}
+z_{(L)'(j)'(k)'(m)'(n)'} & = \mu + \alpha_{(L)'} + \alpha\beta_{(L)'(j)'} + \alpha\omega_{(L)'(k)'} + \alpha\gamma_{(L)'(m)'} + \alpha\beta\omega_{(L)'(j)'(k)'} \\
+&   \quad \quad +\ \alpha\beta\gamma_{(L)'(j)'(m)'} + \alpha\omega\gamma_{(L)'(k)'(m)'}+ \alpha\beta\omega\gamma_{(L)'(j)'(k)'(m)'} + \epsilon,
+\end{array}$$
+
+with fixed, unknown similarity mean $\mu$, fixed mean for barrel-land pairing $\alpha_{(L)'}$ and random effects
+
+.medium[
+$$\begin{array}{rl}
+\alpha\beta_{(L)'(j)'} & \quad \mbox{for Bullet pairing}\ (j)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
+& \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\beta)'})\\
+\alpha\omega_{(L)'(k)'} &\quad \mbox{for Operator pairing}\ (k)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
+& \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\omega)'}) \\
+\alpha\gamma_{(L)'(m)'} & \quad \mbox{for Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
+& \quad \quad \quad\mbox{following a}\ N(0, \sigma^2_{(\gamma)'}) \\
+\alpha\beta\omega_{(L)'(j)'(k)'} & \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Operator pairing}\ (k)'\\
+& \quad \quad \quad \mbox{by Barrel-Land pairing}\ (L)', \mbox{following a}\ N(0, \sigma^2_{(\beta\omega)'})  \\
+\alpha\beta\gamma_{(L)'(j)'(m)'} & \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Machine pairing}\ (m)'\\
+& \quad \quad \mbox{by Barrel-Land pairing}\ (L)'\, \mbox{following a}\ N(0, \sigma^2_{(\beta\gamma)'}) \\
+\alpha\omega\gamma_{(L)'(k)'(m)'} & \quad \mbox{for Operator pairing}\ (k)'\times\mbox{Machine pairing}\ (m)'\\
+& \quad \quad \quad \mbox{by Barrel-Land pairing}\ (L)', \mbox{following a}\ N(0, \sigma^2_{(\omega\gamma)'})  \\
+\alpha\beta\omega\gamma_{(L)'(j)'(k)'(m)'} & \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Operator pairing}\ (k)'\times\\
+& \quad \quad \quad \mbox{-Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (L)',\ \\
+& \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\beta\omega\gamma)'})  \\
+\epsilon_{(L)'(j)'(k)'(m)'(n)'} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2).
+\end{array}$$
+]
+
+
+---
+
+class: inverse, middle, center
+
+# Results     
+
+
+---
+
+# Pairwise-level results: All Barrels  
+
+We present results for all three barrels and all three pairwise models. 
+
+.center[
+```{r, echo = F, warning = F, message = F, out.width = '900px'}
+knitr::include_graphics("images/variability/pairwise-results-image.png")
+
+```
+]
+
+
+
+
+---
+
+class: inverse, middle, center
+
+# Wrapping Up  
+
+
+---
+
+# Conclusions and Future Work  
+
+
+
+---
+
+class: inverse, middle, center
+
+# Questions?    
+
+<!-- --- -->
+
+<!-- # References -->
+
+<!-- ```{r refs, echo=FALSE, results="asis"} -->
+<!-- PrintBibliography(myBib) -->
+<!-- ``` -->
+
+
+
+
