@@ -171,146 +171,6 @@ myBib <- ReadBib("refs1.bib", check = FALSE)
 
 ---
 
-class: inverse, middle, center
-
-# Defining Reproducibility in Data Analysis  
-
-
----
-
-# Data Analysis as a Process   
-
-Any data analysis can be conceptualized as a **pipeline**<sup>1</sup>.  
-  - linear, sequential actions   
-  - raw data to result  
-
-
-.footnote[[1] `r Cite(myBib, "buja")`] 
-
---
-
-  
-    
-.center[.img[
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_basic.png")
-```
-]]
-
-
-
----
-
-# Data Analysis as a Process   
-
-Any data analysis can be conceptualized as a **pipeline**<sup>1</sup>.  
-  - linear, sequential actions   
-  - raw data to result  
-
-
-.footnote[[1] `r Cite(myBib, "buja")`] 
-
-.center[.img[
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_v1_update.png")
-```
-]]  
-
-
-
-
----
-
-# Variation in Data Analysis   
-
-
-<br />  
-
-(1) varying input (*variation in data measurement*)  
-(2)  
-(3)  
-
-<br />
-
-
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_inputs_update.png")
-```
-
-
-
-
----
-
-# Variation in Data Analysis   
-
-<br />  
-
-(1) varying input (*variation in data measurement*)  
-(2) varying methods (*decisions by the statistician*)  
-(3)
-
-<br />
-
-
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_processing_update.png")
-```
-
-
-
-
-
----
-
-# Variation in Data Analysis   
-
-  
-<br />  
-
-(1) varying input (*variation in data measurement*)  
-(2) varying methods (*decisions by the statistician*)  
-(3) **varying code** (*differences in underlying software packages*)  
-
-<br />
-
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_coding_update.png")
-```
-
-
----
-
-# Bullet Analysis as a Process  
-
-Hare et al. process as pipeline:  
-
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_bullet_update.png")
-```
-
-<br />
-
-**Is the process reproducible?**  
-
---
-
-<br />
-
-```{r, echo = F, warning = F, message = F, out.width = '800px'}
-knitr::include_graphics("images/pipeline/pipeline_coding_bullets_update.png")
-```
-
-
----
-
-class: inverse, middle, center
-
-# Statistical Modeling Approach   
-
-
----
-
 # Two stages of modeling  
 
 .center[**2D LEA signatures**  
@@ -498,32 +358,46 @@ knitr::include_graphics("images/variability/pairwise-results-image.png")
 
 
 
----
-
-class: inverse, middle, center
-
-# Wrapping Up  
-
-
----
-
-# Conclusions and Future Work  
-
-
 
 ---
 
 class: inverse, middle, center
 
-# Questions?    
+# Computational Reproducibility   
 
-<!-- --- -->
 
-<!-- # References -->
 
-<!-- ```{r refs, echo=FALSE, results="asis"} -->
-<!-- PrintBibliography(myBib) -->
-<!-- ``` -->
+---
+
+# Variation in Data Analysis   
+
+  
+<br />  
+
+(1) varying input (*variation in data measurement*)  
+(2) varying methods (*decisions by the statistician*)  
+(3) **varying code** (*differences in underlying software packages*)  
+
+<br />
+
+```{r, echo = F, warning = F, message = F, out.width = '800px'}
+knitr::include_graphics("images/pipeline/pipeline_coding_update.png")
+```
+
+---
+
+# What is Computational Reproducibility? 
+
+
+1. Literate programming and reporting  
+    - Self-contained documents - include the code used to generate results and figures.  
+    - [`knitr`](https://yihui.org/knitr/) by Yihui Xie  
+2. Numerical reproducibility of results 
+    - Code of any kind used to complete an analysis or generate results  
+    - Reproduction of analysis or results across users/machines, or over time  
+    
+(1) helps with *transparency* of methodology in research, (2) helps with *consistency* of methodology.  
+
 
 
 

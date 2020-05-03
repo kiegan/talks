@@ -592,9 +592,12 @@ $$\begin{array}{rccc}
 
 # Collected Data Description  
 
-We collected the following number of repetitions for each study factor combination:  
+Add scale of data (microns, 0.645 microns/pixel)
+Each extracted signature has the following structure:  
 
-Slide here about data structure of x and z.  
+```{r, echo = F, warning = F, message = F, out.width = '900px'}
+knitr::include_graphics("images/variability/sig-data-structure.png")
+```
 
 
 ---
@@ -1043,9 +1046,41 @@ class: inverse, middle, center
 
 # Process Insights  
 
+**Is the process reproducible?**  
+
+- *Yes!* Reproducibility standard deviation < 1 micron   
+- Engraving differences across bullets  
+- Differences across barrels  
+
+Barrel-Land differences  
+
+- Differences in reproducibility by Barrel-Land  
+- Pooled model provides overall summary  
+
+**Note**: Process depends on the steps in the "middle"  
+
+.center[
+```{r, echo = F, warning = F, message = F, out.width = '600px'}
+knitr::include_graphics("images/pipeline/pipeline_inputs_bullets_update2.png")
+```
+]
+
+
 ---
 
-# Future Work  
+# Additional Work  
+
+Pairwise-level modeling and results  
+
+Additional barrel types  
+ 
+Development of scan quality metrics  
+
+**Other types of reproducibility**  
+
+- Computational reproducibility concerns  
+- Differences in processing methods  
+
 
 
 ---
