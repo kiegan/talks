@@ -330,10 +330,48 @@ class: inverse, middle, center
 We present results for all three barrels and all three pairwise models. 
 
 .center[
-&lt;img src="images/variability/pairwise-results-image.png" width="900px" /&gt;
+&lt;img src="images/variability/pairwise-results-image2.png" width="900px" /&gt;
 ]
 
+---
 
+# Pairwise-level results: All Barrels  
+
+Scores are on a `\([0,1]\)` scale.  
+
+.pull-left[
+Barrel Orange 
+.medium[
+`$$\begin{array}{ccc}
+\mbox{Model}      &amp; \sigma_{repeatability} &amp; \sigma_{reproducibility} \\ \hline
+\textbf{Same-Source} &amp; \textit{0.155} &amp; \textit{0.092}\\ 
+\textbf{Different-Source}     &amp; \textit{0.087} &amp; \textit{0.040} \\ \hline 
+\textbf{All Pairings} &amp; \textit{0.103} &amp; \textit{0.059}\\ \hline
+\end{array}$$`
+]
+
+Barrel Pink
+.medium[
+`$$\begin{array}{ccc}
+\mbox{Model}      &amp; \sigma_{repeatability} &amp; \sigma_{reproducibility} \\ \hline
+\textbf{Same-Source}     &amp; \textit{0.209} &amp; \textit{0.104} \\ 
+\textbf{Different-Source}     &amp; \textit{0.117} &amp; \textit{0.039} \\ \hline
+\textbf{All Pairings} &amp; \textit{0.137} &amp; \textit{0.064} \\ \hline
+\end{array}$$`
+]
+]
+
+.pull-right[
+Barrel Blue
+.medium[
+`$$\begin{array}{ccc}
+\mbox{Model}      &amp; \sigma_{repeatability} &amp; \sigma_{reproducibility} \\ \hline
+\textbf{Same-Source}     &amp; 0.124 &amp; 0.046 \\ 
+\textbf{Different-Source}     &amp; 0.085 &amp; 0.038 \\\hline \hline
+\textbf{All Pairings}  &amp; 0.093 &amp; 0.040 \\ \hline
+\end{array}$$`
+]
+]
 
 
 
@@ -372,7 +410,128 @@ class: inverse, middle, center
     - Code of any kind used to complete an analysis or generate results  
     - Reproduction of analysis or results across users/machines, or over time  
     
-(1) helps with *transparency* of methodology in research, (2) helps with *consistency* of methodology.
+(1) helps with *transparency* of methodology in research, (2) helps with *consistency* of methodology.  
+
+
+---
+
+# Computational Reproducibility in R  
+
+
+**`base` R**   
+   - provides base language model  
+   - data structures, framework for object manipulation, function syntax  
+
+**user-developed packages**
+   - many data analysis and data science capabilities  
+   - `randomForest`, `lme4`, `tidyverse`, `knitr`....  
+
+**R packages can change over time**  
+
+  - CRAN (Comprehensive R Archive Network) 
+  - GitHub versions of many popular packages also exist    
+
+**R package versioning is user/machine-specific**  
+
+  - User must install and upgrade packages  
+  - Different sets of packages, different versions of those packages  
+
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+&lt;img src="images/bulletxtrctr-hex.png" width="150" /&gt;&lt;img src="images/grooveFinder-hex.png" width="150" /&gt;&lt;img src="images/x3ptools-hex.png" width="150" /&gt;
+
+---
+
+# `bulletxtrctr` 📦 background  
+
+`bulletxtrctr` is one of several packages developed by a team of researchers at the Center for Statistics and Applications in Forensic Evidence (CSAFE) at Iowa State.  
+
+Automated forensic evidence comparison, using high-resolution images of bullet evidence.  
+
+--
+
+&lt;img src="images/pipeline-packages.png" width="\textwidth" /&gt;
+
+---
+
+# `bulletxtrctr` package background  
+
+The suite of packages is both **used** and **developed** by a small-ish team of researchers. This means:  
+
+1. Under active development, subject to change  
+2. Team members may have different versions of packages   
+3. Analyses vulnerable to changes  
+
+We investigate:  
+
+- extent of package dependency for the project  
+- package versioning differences on a team  
+
+
+---
+
+# `bulletxtrctr` package background  
+
+
+
+
+```r
+plot_inventory(bulletxtrctr_inventory)
+```
+
+![](kiegan-private-seminar_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+---
+
+# `bulletxtrctr` study set-up    
+
+Researchers on the bullet team used our tools to take and send package inventories.   
+
+  - 9 different inventories 
+  - 6 users (one user on 3 machines, another user on 2 machines)  
+
+What versions of each package do team members have?  
+
+
+
+---
+
+# Bullet Package Versions  
+
+
+&lt;img src="kiegan-private-seminar_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Other Package Versions  
+
+
+&lt;img src="kiegan-private-seminar_files/figure-html/unnamed-chunk-13-1.png" width="77%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Bullet Packages: Practical Differences  
+
+&lt;img src="kiegan-private-seminar_files/figure-html/unnamed-chunk-14-1.png" width="80%" /&gt;
+
+
+---
+
+# Computational Reproducibility Conclusions  
+
+- package versioning can impact computational reproducibility  
+
+- collection and visualization of practical differences  
+
+- team-based collaboration vulnerable
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

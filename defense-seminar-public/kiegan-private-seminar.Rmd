@@ -350,12 +350,50 @@ We present results for all three barrels and all three pairwise models.
 
 .center[
 ```{r, echo = F, warning = F, message = F, out.width = '900px'}
-knitr::include_graphics("images/variability/pairwise-results-image.png")
+knitr::include_graphics("images/variability/pairwise-results-image2.png")
 
 ```
 ]
 
+---
 
+# Pairwise-level results: All Barrels  
+
+Scores are on a $[0,1]$ scale.  
+
+.pull-left[
+Barrel Orange 
+.medium[
+$$\begin{array}{ccc}
+\mbox{Model}      & \sigma_{repeatability} & \sigma_{reproducibility} \\ \hline
+\textbf{Same-Source} & \textit{0.155} & \textit{0.092}\\ 
+\textbf{Different-Source}     & \textit{0.087} & \textit{0.040} \\ \hline 
+\textbf{All Pairings} & \textit{0.103} & \textit{0.059}\\ \hline
+\end{array}$$
+]
+
+Barrel Pink
+.medium[
+$$\begin{array}{ccc}
+\mbox{Model}      & \sigma_{repeatability} & \sigma_{reproducibility} \\ \hline
+\textbf{Same-Source}     & \textit{0.209} & \textit{0.104} \\ 
+\textbf{Different-Source}     & \textit{0.117} & \textit{0.039} \\ \hline
+\textbf{All Pairings} & \textit{0.137} & \textit{0.064} \\ \hline
+\end{array}$$
+]
+]
+
+.pull-right[
+Barrel Blue
+.medium[
+$$\begin{array}{ccc}
+\mbox{Model}      & \sigma_{repeatability} & \sigma_{reproducibility} \\ \hline
+\textbf{Same-Source}     & 0.124 & 0.046 \\ 
+\textbf{Different-Source}     & 0.085 & 0.038 \\\hline \hline
+\textbf{All Pairings}  & 0.093 & 0.040 \\ \hline
+\end{array}$$
+]
+]
 
 
 
@@ -397,6 +435,192 @@ knitr::include_graphics("images/pipeline/pipeline_coding_update.png")
     - Reproduction of analysis or results across users/machines, or over time  
     
 (1) helps with *transparency* of methodology in research, (2) helps with *consistency* of methodology.  
+
+
+---
+
+# Computational Reproducibility in R  
+
+
+**`base` R**   
+   - provides base language model  
+   - data structures, framework for object manipulation, function syntax  
+
+**user-developed packages**
+   - many data analysis and data science capabilities  
+   - `randomForest`, `lme4`, `tidyverse`, `knitr`....  
+
+**R packages can change over time**  
+
+  - CRAN (Comprehensive R Archive Network) 
+  - GitHub versions of many popular packages also exist    
+
+**R package versioning is user/machine-specific**  
+
+  - User must install and upgrade packages  
+  - Different sets of packages, different versions of those packages  
+
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+```{r, fig.width = 1, fig.height = .5, out.width=150}
+knitr::include_graphics("images/bulletxtrctr-hex.png") 
+knitr::include_graphics("images/grooveFinder-hex.png") 
+knitr::include_graphics("images/x3ptools-hex.png")
+```
+
+---
+
+# `bulletxtrctr` `r emo::ji("package")` background  
+
+`bulletxtrctr` is one of several packages developed by a team of researchers at the Center for Statistics and Applications in Forensic Evidence (CSAFE) at Iowa State.  
+
+Automated forensic evidence comparison, using high-resolution images of bullet evidence.  
+
+--
+
+```{r, out.width = '\\textwidth'}
+knitr::include_graphics("images/pipeline-packages.png")
+```
+
+---
+
+# `bulletxtrctr` package background  
+
+The suite of packages is both **used** and **developed** by a small-ish team of researchers. This means:  
+
+1. Under active development, subject to change  
+2. Team members may have different versions of packages   
+3. Analyses vulnerable to changes  
+
+We investigate:  
+
+- extent of package dependency for the project  
+- package versioning differences on a team  
+
+
+---
+
+# `bulletxtrctr` package background  
+
+```{r, echo = F, eval = T}
+bulletxtrctr_inventory <- readRDS("data/kiegan_bulletxtrctr_inventory.rda")
+```
+
+```{r, echo = T, eval = T, fig.width = 9, fig.height = 5, warning = F, message = F}
+plot_inventory(bulletxtrctr_inventory)
+```
+
+
+---
+
+# `bulletxtrctr` study set-up    
+
+Researchers on the bullet team used our tools to take and send package inventories.   
+
+  - 9 different inventories 
+  - 6 users (one user on 3 machines, another user on 2 machines)  
+
+What versions of each package do team members have?  
+
+
+
+---
+
+# Bullet Package Versions  
+
+
+```{r, warning = F, echo = F, message = F, fig.align = 'center', fig.width = 9, fig.height = 4}
+bullet_package_versions <- read_csv("data/bullet_package_versions.csv")
+bullet_package_versions %>%
+  ggplot() + 
+  geom_tile(aes(x = package_name, y = user_computer, 
+                fill = version_info), height = 0.9, width = 0.9, 
+            alpha = 0.9) + 
+  theme_bw() + 
+  scale_fill_manual(name = "Version Info", breaks = c("newest", "newer", "older", "oldest", "local"),
+                     values = c("grey90", "grey60", "grey30", "black", "red4")) + 
+  coord_flip() + 
+  #theme(aspect.ratio = 4/9) + 
+  labs(y = "", x = "Package Name", title = "Package version by user and machine") 
+
+```
+
+
+---
+
+# Other Package Versions  
+
+
+```{r, warning = F, echo = F, message = F, fig.align = 'center', fig.width = 9, fig.height = 8, out.width = "77%"}
+nonbullet_package_meta <- read_csv("data/nonbullet_package_versions.csv")
+
+nonbullet_package_meta %>%
+  mutate(checksum_num = factor(checksum_num, levels = c("Newest", "Newer", "Middle", "Older", "Oldest"))) %>%
+  ggplot() + 
+  geom_tile(aes(x = user_computer, y = package_name, 
+                fill = checksum_num, color = package_source), 
+            width = 0.85, height = 0.85, alpha = 0.9, size = 1) +
+  theme_bw() + 
+  #facet_grid(rows = "package_name", scales = "free", space = "free") + 
+  scale_fill_manual(name = "Package\nversion", 
+                    values = c("white", "grey80", "grey60", "grey20", "black")) + 
+  scale_color_manual(name = "Package\nsource",
+                     values = c("black", "goldenrod2")) + 
+  theme(plot.subtitle = element_text(face = "italic")) + 
+  labs(x = "", y = "Object name", title = "Package version by user and machine", 
+       subtitle = "for 15 of 73 packages which differ") + 
+  geom_text(aes(x = user_computer, y = package_name, label = package_version),
+            size = 3) + 
+  geom_text(aes(x = user_computer, y = package_name, label = package_version), 
+            color = "white",size = 3, 
+            data = nonbullet_package_meta %>% filter((checksum_num == "Older" | checksum_num == "Oldest")))
+  
+```
+
+---
+
+# Bullet Packages: Practical Differences  
+
+```{r, message = F, warning = F, fig.height = 8, fig.width = 9, out.width = "80%"}
+
+bullet_object_versions <- read_csv("data/bullet_package_object_versions.csv")
+bullet_object_versions %>%
+  ggplot() + 
+  geom_tile(aes(x = user_computer, y = object_name, 
+                fill = checksum_num, color = factor(checksum_num_param)), 
+            width = 0.82, height = 0.82, size = 1, alpha = 0.9) +
+  theme_bw() + 
+  facet_grid(rows = "package_name", scales = "free", space = "free") + 
+  scale_fill_manual(name = "Function\nversion", 
+                    values = c("white", "grey80", "grey60", "grey30", "black")) + 
+  scale_color_manual(name = "Parameters\nversion", breaks = c("1", "2", "3"), 
+                     values = c("royalblue4", "darkred", "goldenrod2")) + 
+  theme(plot.subtitle = element_text(face = "italic")) + 
+  labs(x = "", y = "Object name", title = "Object version by user and machine", 
+       subtitle = "For package objects with differences") + 
+  geom_text(aes(x = user_computer, y = object_name, label = checksum_num),
+            size = 3, data = bullet_object_versions %>% filter(checksum_num != "A")) + 
+  geom_text(aes(x = user_computer, y = object_name, label = checksum_num),
+            size = 3, color = "white", 
+            data = bullet_object_versions %>% filter((checksum_num == "D" | checksum_num == "E")))
+```
+
+
+---
+
+# Computational Reproducibility Conclusions  
+
+- package versioning can impact computational reproducibility  
+
+- collection and visualization of practical differences  
+
+- team-based collaboration vulnerable  
 
 
 
