@@ -192,22 +192,22 @@ Three-factor Gauge R&amp;R random effects model for our study design.
 Let `\(z_{jkmn}\)` be the measured response for bullet `\(j\)`, operator `\(k\)`, machine `\(m\)`, and repetition `\(n\)`. 
 
 `$$\begin{array}{rl}
-z_{jkmn} &amp; = \mu + \beta_j + \omega_k + \gamma_m + \beta\omega_{jk} + \beta\gamma_{jm} + \omega\gamma_{km} +
-\beta\gamma\omega_{jkm} + \epsilon_{jkmn},
+z_{jkmn} &amp; = \mu + b_j + o_k + d_m + bo_{jk} + bd_{jm} + od_{km} +
+bod_{jkm} + e_{jkmn},
 \end{array}$$`
 
 with a fixed, unknown process mean `\(\mu\)` and random effects
 
 .medium[
 `$$\begin{array}{rl}
-\beta_{j} &amp; \quad \mbox{for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\omega_{k} &amp;\quad \mbox{for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
-\gamma_{m} &amp; \quad \mbox{for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
-\beta\omega_{jk} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
-\beta\gamma_{jm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma})  \\
-\omega\gamma_{km} &amp; \quad \mbox{for Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
-\beta\omega\gamma_{jkm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
-\epsilon_{jkmn} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
+b_{j} &amp; \quad \mbox{for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{b})\\
+o_{k} &amp;\quad \mbox{for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{o}) \\
+d_{m} &amp; \quad \mbox{for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{d}) \\
+bo_{jk} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{bo})  \\
+bd_{jm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{bd})  \\
+od_{km} &amp; \quad \mbox{for Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{od})  \\
+bod_{jkm} &amp; \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{bod})  \\
+e_{jkmn} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
 \end{array}$$`
 ]
 
@@ -221,17 +221,21 @@ Here, we need to make an adaptation to the grouping and index structure...
 
 # Pairwise-level model      
 
-We can't index similarity scores simply by `\(z_{jkmn}\)`: bullet `\(j\)`, operator `\(k\)`, machine `\(m\)`, and repetition `\(n\)`, because similarity scores are *pairwise*, and involve multiple levels.  
+`\(z_{jkmn}\)`: bullet `\(j\)`, operator `\(k\)`, machine `\(m\)`, and repetition `\(n\)`  
+
+similarity scores are *pairwise*, and involve multiple levels.  
   - bullet 1 - operator 1 - machine 1 - repetition 1  
   - bullet 3 - operator 2 - machine 1 - repetition 3  
 
-For similarity scores, we therefore index by *level pairing*.  
-
-For example, instead of bullet `\(j\)`, we have bullet pairing `\((j)'\)`:  
+*level pairing*: bullet `\(j \to\)` bullet pairing `\((j)'\)`:  
   - Bullets `\(j = 1, 2, 3\)`
   - Bullet pairing `\((j)' = (1-1), (1-2), (1-3), (2-2), (2-3), (3-3)\)`  
 
-We then have similarity score `\(z_{(j)'(k)'(m)'(n)'}\)` which compares two signatures with bullet pairing `\((j)'\)`, operator pairing `\((k)'\)`, machine pairing `\((m)'\)`, and repetition pair `\((n)'\)`.  
+Similarity score `\(z_{(j)'(k)'(m)'(n)'}\)`: compares two signatures 
+  - bullet pairing `\((j)'\)` 
+  - operator pairing `\((k)'\)`
+  - machine pairing `\((m)'\)`
+  - repetition pair `\((n)'\)`.  
 
 
   
@@ -241,9 +245,9 @@ We then have similarity score `\(z_{(j)'(k)'(m)'(n)'}\)` which compares two sign
 
 
 .left-code[
-We also expect scores and score distributions to differ by which LEAs are being compared:  
-  - Same-source comparisons should have high scores near 1
-  - Different-source comparisons should have lower scores 
+Scores and score distributions differ by which LEAs are being compared:  
+  - Same-source comparisons `\(\to\)` high scores near 1
+  - Different-source comparisons `\(\to\)` lower scores 
   - Different-source comparisons are not all different *in the same way*  
   
 ]
@@ -263,12 +267,12 @@ We also expect scores and score distributions to differ by which LEAs are being 
 
 
 .left-code[
-We also expect scores and score distributions to differ by which LEAs are being compared:  
-  - Same-source comparisons should have high scores near 1
-  - Different-source comparisons should have lower scores 
+Scores and score distributions differ by which LEAs are being compared:  
+  - Same-source comparisons `\(\to\)` high scores near 1
+  - Different-source comparisons `\(\to\)` lower scores 
   - Different-source comparisons are not all different *in the same way*  
   
-To account for this, we use the barrel-land pairing as a mean structure and fit three separate models:   
+Barrel-land pairing as a mean structure, fit three separate models:   
 
 1. Same-source pairs only   
 2. Different-source pairs only  
@@ -288,30 +292,30 @@ To account for this, we use the barrel-land pairing as a mean structure and fit 
 # Pairwise-level model  
 
 `$$\begin{array}{rl}
-z_{(L)'(j)'(k)'(m)'(n)'} &amp; = \mu + \alpha_{(L)'} + \alpha\beta_{(L)'(j)'} + \alpha\omega_{(L)'(k)'} + \alpha\gamma_{(L)'(m)'} + \alpha\beta\omega_{(L)'(j)'(k)'} \\
-&amp;   \quad \quad +\ \alpha\beta\gamma_{(L)'(j)'(m)'} + \alpha\omega\gamma_{(L)'(k)'(m)'}+ \alpha\beta\omega\gamma_{(L)'(j)'(k)'(m)'} + \epsilon,
+z_{(L)'(j)'(k)'(m)'(n)'} &amp; = \mu_{(L)'} + b_{(L)'(j)'} + o_{(L)'(k)'} + d_{(L)'(m)'} + bo_{(L)'(j)'(k)'} \\
+&amp;   \quad \quad +\ bd_{(L)'(j)'(m)'} + od_{(L)'(k)'(m)'}+ bod_{(L)'(j)'(k)'(m)'} + e,
 \end{array}$$`
 
-with fixed, unknown similarity mean `\(\mu\)`, fixed mean for barrel-land pairing `\(\alpha_{(L)'}\)` and random effects
+with fixed, unknown similarity score mean by barrel-land pairing `\(\mu_{(L)'}\)`, and random effects
 
 .medium[
 `$$\begin{array}{rl}
-\alpha\beta_{(L)'(j)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
-&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\beta)'})\\
-\alpha\omega_{(L)'(k)'} &amp;\quad \mbox{for Operator pairing}\ (k)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
-&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\omega)'}) \\
-\alpha\gamma_{(L)'(m)'} &amp; \quad \mbox{for Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
-&amp; \quad \quad \quad\mbox{following a}\ N(0, \sigma^2_{(\gamma)'}) \\
-\alpha\beta\omega_{(L)'(j)'(k)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Operator pairing}\ (k)'\\
-&amp; \quad \quad \quad \mbox{by Barrel-Land pairing}\ (L)', \mbox{following a}\ N(0, \sigma^2_{(\beta\omega)'})  \\
-\alpha\beta\gamma_{(L)'(j)'(m)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Machine pairing}\ (m)'\\
-&amp; \quad \quad \mbox{by Barrel-Land pairing}\ (L)'\, \mbox{following a}\ N(0, \sigma^2_{(\beta\gamma)'}) \\
-\alpha\omega\gamma_{(L)'(k)'(m)'} &amp; \quad \mbox{for Operator pairing}\ (k)'\times\mbox{Machine pairing}\ (m)'\\
-&amp; \quad \quad \quad \mbox{by Barrel-Land pairing}\ (L)', \mbox{following a}\ N(0, \sigma^2_{(\omega\gamma)'})  \\
-\alpha\beta\omega\gamma_{(L)'(j)'(k)'(m)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Operator pairing}\ (k)'\times\\
+b_{(L)'(j)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
+&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(b)'})\\
+o_{(L)'(k)'} &amp;\quad \mbox{for Operator pairing}\ (k)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
+&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(o)'}) \\
+d_{(L)'(m)'} &amp; \quad \mbox{for Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (L)',\\
+&amp; \quad \quad \quad\mbox{following a}\ N(0, \sigma^2_{(d)'}) \\
+bo_{(L)'(j)'(k)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Operator pairing}\ (k)'\\
+&amp; \quad \quad \quad \mbox{by Barrel-Land pairing}\ (L)', \mbox{following a}\ N(0, \sigma^2_{(bo)'})  \\
+bd_{(L)'(j)'(m)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Machine pairing}\ (m)'\\
+&amp; \quad \quad \mbox{by Barrel-Land pairing}\ (L)'\, \mbox{following a}\ N(0, \sigma^2_{(bd)'}) \\
+od_{(L)'(k)'(m)'} &amp; \quad \mbox{for Operator pairing}\ (k)'\times\mbox{Machine pairing}\ (m)'\\
+&amp; \quad \quad \quad \mbox{by Barrel-Land pairing}\ (L)', \mbox{following a}\ N(0, \sigma^2_{(od)'})  \\
+bod_{(L)'(j)'(k)'(m)'} &amp; \quad \mbox{for Bullet pairing}\ (j)'\times\mbox{Operator pairing}\ (k)'\times\\
 &amp; \quad \quad \quad \mbox{-Machine pairing}\ (m)'\ \mbox{by Barrel-Land pairing}\ (L)',\ \\
-&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(\beta\omega\gamma)'})  \\
-\epsilon_{(L)'(j)'(k)'(m)'(n)'} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2).
+&amp; \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{(bod)'})  \\
+e_{(L)'(j)'(k)'(m)'(n)'} &amp; \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2).
 \end{array}$$`
 ]
 

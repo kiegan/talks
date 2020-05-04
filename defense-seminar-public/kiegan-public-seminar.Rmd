@@ -592,8 +592,9 @@ $$\begin{array}{rccc}
 
 # Collected Data Description  
 
-Add scale of data (microns, 0.645 microns/pixel)
-Each extracted signature has the following structure:  
+Resolution: $0.645\ \mu m$/pixel  
+
+Equidistant $\mathbf{x}$ locations $x_i$, $i = 1, \dots, n_L$  
 
 ```{r, echo = F, warning = F, message = F, out.width = '900px'}
 knitr::include_graphics("images/variability/sig-data-structure.png")
@@ -674,22 +675,21 @@ Three-factor Gauge R&R random effects model:
 Let $z_{jkmn}$ be the measured response for bullet $j$, operator $k$, machine $m$, and repetition $n$. 
 
 $$\begin{array}{rl}
-z_{jkmn} & = \mu + \beta_j + \omega_k + \gamma_m + \beta\omega_{jk} + \beta\gamma_{jm} + \omega\gamma_{km} +
-\beta\gamma\omega_{jkm} + \epsilon_{jkmn},
+z_{jkmn} & = \mu + b_j + o_k + d_m + bo_{jk} + bd_{jm} + od_{km} + bod_{jkm} + e_{jkmn},
 \end{array}$$
 
 with fixed, unknown process mean $\mu$ and random effects
 
 .medium[
 $$\begin{array}{rl}
-\beta_{j} & \quad \mbox{for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\omega_{k} &\quad \mbox{for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
-\gamma_{m} & \quad \mbox{for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
-\beta\omega_{jk} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
-\beta\gamma_{jm} & \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma})  \\
-\omega\gamma_{km} & \quad \mbox{for Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
-\beta\omega\gamma_{jkm} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
-\epsilon_{jkmn} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
+b_{j} & \quad \mbox{for Bullet}\ j,\ \mbox{following a}\ N(0, \sigma^2_{b})\\
+o_{k} &\quad \mbox{for Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{o}) \\
+d_{m} & \quad \mbox{for Machine}\ m\,\ \mbox{following a}\ N(0, \sigma^2_{d}) \\
+bo_{jk} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k,\ \mbox{following a}\ N(0, \sigma^2_{bo})  \\
+bd_{jm} & \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{bd})  \\
+od_{km} & \quad \mbox{for Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{od})  \\
+bod_{jkm} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m,\ \mbox{following a}\ N(0, \sigma^2_{bod})  \\
+e_{jkmn} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2) \\
 \end{array}$$
 ]
 
@@ -705,7 +705,7 @@ Several adaptations to this model at the LEA signature level:
 
 # Signature-level model      
 
-**1. location-based mean structure:** $\mu = \mu_L + \alpha_{Li}$  
+**1. location-based mean structure:** $\mu = \mu_{i}$  
 
 .center[
 ```{r, echo = F, warning = F, message = F, out.width = '700px'}
@@ -866,35 +866,77 @@ knitr::include_graphics("images/variability/ten-phase-subsampling-explainer-2.pn
 ```
 ]
 
+
+
+
 ---
 
 # Signature-level model      
 
-The final signature-level model is then as follows. 
+Signature-level model for individual land $L$:   
 
-Let $z_{Lijkmn}$ be the measured height value for Barrel-Land L, subsampled location $i$, bullet $j$, operator $k,$ machine $m,$ and scan repetition $n$. 
+Let $z_{ijkmn}$ be the measured height value for subsampled location $i = 1, \dots, n_{L}$, bullet $j = 1, 2, 3$, operator $k = 1, \dots, 5, \dots 8$, machine $m = 1, 2$ and scan repetition $n = 1, 2, 3, 4, 5$. 
 
 $$\begin{array}{rl}
-z_{Lijkmn} & = \mu_L + \alpha_{Li} + \alpha\beta_{Lij} + \alpha\omega_{Lik} + \alpha\gamma_{Lim} + \\
-& \quad \quad \alpha\beta\omega_{Lijk} + \alpha\beta\gamma_{Lijm} + \alpha\omega\gamma_{Likm} + \alpha\beta\gamma\omega_{Lijkm} + \epsilon_{Lijkmn}
+z_{ijkmn} & = \mu_{i} + b_{ij} + o_{ik} + d_{im} + bo_{ijk} + bd_{ijm} + od_{ikm} + bod_{ijkm} + e_{ijkmn}
 \end{array}$$
 
-with fixed, unknown process mean for a land $\mu_L$, location-based mean $\alpha_{Li}$, and random effects 
+with fixed, location-based mean $\mu_{i}$, and random effects 
 
 .medium[
 $$\begin{array}{rl}
-\alpha\beta_{Lij} & \quad \mbox{for Bullet}\ j\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\beta})\\
-\alpha\omega_{Lik} &\quad \mbox{for Operator}\ k\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\omega}) \\
-\alpha\gamma_{Lim} & \quad \mbox{for Machine}\ m\  \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\gamma}) \\
-\alpha\beta\omega_{Lijk} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\beta\omega})  \\
-\alpha\beta\gamma_{Lijm} & \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\beta\gamma}) \\ \alpha\omega\gamma_{Likm} & \quad \mbox{for Operator}\ k\times\mbox{Machine} \ m\ \mbox{by location}\ Li,\ \mbox{following a}\ N(0, \sigma^2_{\omega\gamma})  \\
-\alpha\beta\omega\gamma_{Lijkm} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m\ \mbox{by location}\ Li,\\
-& \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{\beta\omega\gamma})  \\
-\epsilon_{Lijkmn} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2). \\
+b_{ij} & \quad \mbox{for Bullet}\ j\ \mbox{by location}\ i,\ \mbox{following a}\ N(0, \sigma^2_{b})\\
+o_{ik} &\quad \mbox{for Operator}\ k\ \mbox{by location}\ i,\ \mbox{following a}\ N(0, \sigma^2_{o}) \\
+d_{im} & \quad \mbox{for Machine}\ m\  \mbox{by location}\ i,\ \mbox{following a}\ N(0, \sigma^2_{d}) \\
+bo_{ijk} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\ \mbox{by location}\ i,\ \mbox{following a}\ N(0, \sigma^2_{bo})  \\
+bd_{ijm} & \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m\ \mbox{by location}\ i,\ \mbox{following a}\ N(0, \sigma^2_{bd}) \\ 
+od_{ikm} & \quad \mbox{for Operator}\ k\times\mbox{Machine} \ m\ \mbox{by location}\ i,\ \mbox{following a}\ N(0, \sigma^2_{od})  \\
+bod_{ijkm} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m\ \mbox{by location}\ i,\\
+& \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{bod})  \\
+e_{ijkmn} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2). \\
 \end{array}$$
 ]
 
 We assume each random effect is an independent random variable.  
+
+
+
+
+---
+
+
+# Signature-level model      
+
+Signature-level *pooled* model  
+
+Let $z_{\color{red}Lijkmn}$ be the measured height value for **Barrel-Land L** = $1, \dots, 6$, subsampled location $i = 1, \dots, n_{L}$, bullet $j = 1, 2, 3$, operator $k = 1, \dots, 5, \dots 8$, machine $m = 1, 2$ and scan repetition $n = 1, 2, 3, 4, 5$. 
+
+$$\begin{array}{rl}
+z_{\color{red}Lijkmn} & = \mu_{\color{red}Li} + b_{\color{red}Lij} + o_{\color{red}Lik} + d_{\color{red}Lim} + bo_{\color{red}Lijk} + bd_{\color{red}Lijm} + od_{\color{red}Likm} + bod_{\color{red}Lijkm} + e_{\color{red}Lijkmn}
+\end{array}$$
+
+with fixed, location-based mean for land L $\mu_{\color{red}Li}$, and random effects 
+
+.medium[
+$$\begin{array}{rl}
+b_{\color{red}Lij} & \quad \mbox{for Bullet}\ j\ \mbox{by location}\ \color{red}Li,\ \mbox{following a}\ N(0, \sigma^2_{b})\\
+o_{\color{red}Lik} &\quad \mbox{for Operator}\ k\ \mbox{by location}\ \color{red}Li,\ \mbox{following a}\ N(0, \sigma^2_{o}) \\
+d_{\color{red}Lim} & \quad \mbox{for Machine}\ m\  \mbox{by location}\ \color{red}Li,\ \mbox{following a}\ N(0, \sigma^2_{d}) \\
+bo_{\color{red}Lijk} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\ \mbox{by location}\ \color{red}Li,\ \mbox{following a}\ N(0, \sigma^2_{bo})  \\
+bd_{\color{red}Lijm} & \quad \mbox{for Bullet}\ j\times\mbox{Machine}\ m\ \mbox{by location}\ \color{red}Li,\ \mbox{following a}\ N(0, \sigma^2_{bd}) \\ 
+od_{\color{red}Likm} & \quad \mbox{for Operator}\ k\times\mbox{Machine} \ m\ \mbox{by location}\ \color{red}Li,\ \mbox{following a}\ N(0, \sigma^2_{od})  \\
+bod_{\color{red}Lijkm} & \quad \mbox{for Bullet}\ j\times\mbox{Operator}\ k\times\mbox{Machine}\ m\ \mbox{by location}\ \color{red}Li,\\
+& \quad \quad \quad \mbox{following a}\ N(0, \sigma^2_{bod})  \\
+e_{\color{red}Lijkmn} & \quad \mbox{is error across repetitions},\ \mbox{following a}\ N(0, \sigma^2). \\
+\end{array}$$
+]
+
+We assume each random effect is an independent random variable.  
+
+
+
+
+
 
 ---
 
