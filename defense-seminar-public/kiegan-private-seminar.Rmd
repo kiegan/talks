@@ -591,7 +591,7 @@ nonbullet_package_meta %>%
 
 # Bullet Packages: Practical Differences  
 
-```{r, message = F, warning = F, fig.height = 8, fig.width = 9, out.width = "80%"}
+```{r, message = F, warning = F, fig.height = 8, fig.width = 9, out.width = "78%"}
 
 bullet_object_versions <- read_csv("data/bullet_package_object_versions.csv")
 bullet_object_versions %>%
