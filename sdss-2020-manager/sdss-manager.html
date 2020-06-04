@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>A Paradigm for Managing Computational Reproducibility in a Changing Software Package Landscape</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kiegan Rice" />
+    <meta name="date" content="2020-06-04" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A Paradigm for Managing Computational Reproducibility in a Changing Software Package Landscape
+### Kiegan Rice
+### Symposium on Data Science and Statistics
+### June 4, 2020
+
+---
+
+
+
+&lt;style&gt;
+
+/* colors: #EEB422, #8B0000, #191970, #00a8cc */
+a, a &gt; code {
+  color: #EEB422;
+  text-decoration: none;
+}
+
+.remark-slide-content {
+  background-color: #FFFFFF;
+  border-top: 80px solid #696969;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em
+}
+
+.inverse {
+  background-color: #696969;
+  border-top: 80px solid #696969;
+  text-shadow: none;
+	background-position: 50% 75%;
+  background-size: 150px;
+}
+
+.remark-slide-content &gt; h1 {
+  font-family: 'Goudy Old Style';
+  font-weight: normal;
+  font-size: 45px;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #FFFFFF;
+}
+
+.title-slide {
+  background-color: #696969;
+  border-top: 15px solid #696969;
+  background-image: none;
+}
+
+.title-slide &gt; h1  {
+  color: #FFFFFF;
+  font-size: 40px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 80px;
+}
+.title-slide &gt; h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #FFFFFF;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 35px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide &gt; h3  {
+  color: #FFFFFF;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -20px;
+}
+
+body {
+  font-family: 'Goudy Old Style';
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Goudy Old Style';
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+&lt;/style&gt;
+
+&lt;style type="text/css"&gt;
+.tiny{font-size: 30%}
+.small{font-size: 50%}
+.medium{font-size: 75%}
+
+.left-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 59%;
+  float: right;
+  padding-left: 1%;
+}
+
+.right-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: right;
+}
+
+&lt;/style&gt;
+
+
+
+# Data Science and Computation   
+
+**Data science pipelines**  
+- Modularized, linear pipelines of sequential decisions  
+- Series of decisions applied to data  
+- Actions utilize underlying code  
+
+&lt;br /&gt;
+--
+
+&lt;img src="images/pipeline_v1_update.png" width="\textwidth" /&gt;
+
+&lt;br /&gt;
+--
+
+**Computational Reproducibility Question**  
+- Can a pipeline (and its results) be reproduced?  
+
+
+---
+
+# Defining Computational Reproducibility  
+
+**Literate programming and reporting**  
+  - Self-contained documents, containing code to generate results and figures  
+  - *transparency* of methodology  
+
+--
+
+**Numerical reproducibility of results**  
+  - Code used to generate results  
+  - Reproduce across users/machines, over time  
+  - *consistency* of methodology  
+
+--
+
+&lt;img src="images/pipeline_coding_update.png" width="\textwidth" /&gt;
+
+
+---
+
+# Computational Reproducibility in R  
+
+**R Language Model**  
+- base R: data structures, object manipulation, and function syntax. A few packages.   
+- user-developed packages: many data analysis and data science capabilities  
+  - e.g. `randomForest`, `lme4`, `tidyverse`, `knitr`  
+- packages subject to change   
+
+**R package versioning is user/machine-specific**  
+  - User must install and update packages  
+  - Different sets of packages, different versions of packages  
+  - Functionality differences across users and machines  
+  - CRAN (Comprehensive R Archive Network)  
+    - Review process  
+    - Versions change over time  
+
+What does this mean for reproducing analyses in R?  
+
+---
+
+class: inverse, middle, center
+
+# Existing Reproducibility Approaches in R  
+
+
+---
+
+# Package Versioning Packages  
+
+**`checkpoint` package** [(Revolution Analytics)](https://github.com/RevolutionAnalytics/checkpoint)  
+  - stored versions of CRAN mirror from every day 
+  - can insert a "checkpoint" in scripts for users  
+  - users then use all package versions from CRAN at checkpoint  
+
+**`packrat` package** [(RStudio)](https://rstudio.github.io/packrat/)
+  - private package library   
+  - works on a project level, creating a library for that R project  
+  - interacts with projects/scripts  
+  
+**`pkgnet` package** [(Uptake)](https://uptake.github.io/pkgnet/)
+  - creates "package reports" 
+  - package dependency network 
+    - interactive visualization and data table  
+  - function relationship/dependency network  
+    - interactive visualization and data table  
+  
+---
+
+# What is missing? 
+
+Prior approaches are meant for **static** package versioning.  
+
+  - Meant to document packages used *at a particular point in time*.  
+  - Storing and maintaining a computational environment    
+  - Changes across machines and over time
+  - Ensures the same version of a package will be used.  
+  
+We propose an alternate approach:  
+
+**adaptive computational reproducibility**  
+
+
+
+
+---
+
+class: inverse, middle, center
+
+# Adaptive Computational Reproducibility    
+
+---
+
+# Two-Step Approach  
+
+**Step 1**: Define and refine the scope of package dependency for a script or project.  
+  - This lives in the space between `pkgnet` and `packrat`. 
+  - Focuses on taking and visualizing **inventories** of packages and their dependencies  
+  - Assess the level of vulnerability a script has to changes  
+  
+&lt;br /&gt;
+
+**Step 2**: Compare package dependency networks over time and across users/machines  
+  - Identify specific package differences between inventories  
+  - Identify places in a script where differences are used  
+  - Gives users a chance to identify differences *before* the code breaks  
+
+&lt;br /&gt;
+Tools to take this approach in R: `manager` package  
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+Consider the following data analysis process that makes use of five R packages:  
+
+&lt;img src="images/pipeline_small_rfuncs.png" width="\textwidth" /&gt;
+
+--
+
+We can take these five packages, and get a *package inventory* using the `manager` package: 
+
+
+```r
+devtools::install_github("kiegan/manager")
+library(manager)
+project_inventory &lt;- take_inventory(packages = c("tidyr", "stringr", 
+                                                 "purrr", "dplyr", 
+                                                 "randomForest"))
+```
+
+--
+
+We can then visualize that inventory... 
+
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+
+
+
+```r
+plot_inventory(project_inventory)
+```
+
+![](sdss-manager_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+&lt;br /&gt; 
+&lt;br /&gt;
+**Taking inventory**:  
+
+1. Inventories are taken using an iterative level-by-level approach  
+  - not meant to present an entire network of all connections  
+    - `pkgnet` can do this for one package!  
+  - if a package is already in the dependency tree at a higher level, it isn't included again.  
+  - meant to enumerate all vulnerabilities, not identify all connections.  
+2. Inventories only focus on packages listed as Depends and Imports! 
+3. Inventories catalog all package objects  
+
+---
+
+# Step 1: Define and refine vulnerabilities  
+
+&lt;br /&gt; 
+&lt;br /&gt; 
+**A few notes:**  
+
+1. `take_inventory` and `plot_inventory` visualize scope of vulnerabilities  
+2. Projects are more vulnerable than just to changes in explicitly called packages  
+3. Reducing the number of packages used from the start will help reduce vulnerabilities  
+
+
+---
+
+# Quick side note   
+
+
+
+
+```r
+plot_inventory(tidyverse_inventory)
+```
+
+![](sdss-manager_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+# Step 2: Compare inventories    
+
+Use catalogued package objects to compare package inventories to find: 
+
+  - **nominal differences**: differences in package versions (CRAN versions, git commits, etc.)  
+  - **practical differences**: differences in package objects across versions!  
+
+`compare_inventory` function: strategically-placed **MD5 checksums** to summarize pieces of the inventory, such as:  
+
+1. package meta-information (name, version, source, and github repo/commit)  
+2. list of package dependencies 
+3. package objects meta-information (object name, object checksum, parameter checksum, object type, etc.) 
+4. package object checksum  
+5. package object parameter checksum  
+
+
+- computationally much faster than comparing large objects
+- can quickly filter out packages and objects which are identical across inventories and versions  
+
+
+---
+
+# Step 2: Compare inventories    
+
+Consider two users who take inventories using our five packages (`tidyr`, `stringr`, `purrr`, `dplyr`, `randomForest`).  
+
+
+
+
+```r
+kiegan_vs_amy &lt;- compare_inventory(inventory1 = kiegan_inventory,
+                                   inventory2 = amy_inventory,
+                                   summary_file = "data/kiegan_vs_amy.txt")
+```
+
+We get three results: 
+
+1. a text summary saved to "summary_file"
+2. a `$table` object: row for each different object and some summary columns 
+3. a `$objects` object: row for each different object and additional info 
+  - deparsed objects from both inventories   
+  
+&lt;br /&gt;  
+
+Requires two independent inventories to be taken and loaded at the same time.  
+
+
+---
+
+# Step 2: Compare inventories    
+
+Text summary:  
+
+&lt;img src="images/kiegan-vs-amy.png" width="80%" /&gt;
+
+---
+
+# Step 2: Compare inventories    
+
+`$objects` object:  
+
+
+```r
+head(kiegan_vs_amy$objects)
+```
+
+```
+## # A tibble: 6 x 22
+##   package_name object_name object_presence object_changes obj_same params_same
+##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;          &lt;lgl&gt;    &lt;lgl&gt;      
+## 1 cli          is_ansi_tty Object in both… Objects chang… FALSE    TRUE       
+## 2 digest       digest      Object in both… Objects chang… FALSE    TRUE       
+## 3 dplyr        contains    Object in both… Both object a… FALSE    FALSE      
+## 4 dplyr        ends_with   Object in both… Both object a… FALSE    FALSE      
+## 5 dplyr        enquos      Object in both… Objects chang… FALSE    TRUE       
+## 6 dplyr        everything  Object in both… Both object a… FALSE    FALSE      
+## # … with 16 more variables: package_source_inv1 &lt;chr&gt;,
+## #   package_version_inv1 &lt;chr&gt;, package_gitrepo_inv1 &lt;chr&gt;,
+## #   package_gitcommit_inv1 &lt;chr&gt;, function_text_inv1 &lt;list&gt;,
+## #   fun_params_inv1 &lt;list&gt;, obj_checksum_inv1 &lt;chr&gt;,
+## #   params_checksum_inv1 &lt;chr&gt;, package_source_inv2 &lt;chr&gt;,
+## #   package_version_inv2 &lt;chr&gt;, package_gitrepo_inv2 &lt;chr&gt;,
+## #   package_gitcommit_inv2 &lt;chr&gt;, function_text_inv2 &lt;list&gt;,
+## #   fun_params_inv2 &lt;list&gt;, obj_checksum_inv2 &lt;chr&gt;, params_checksum_inv2 &lt;chr&gt;
+```
+
+
+
+---
+
+class: inverse, middle, center
+
+# Case Study  
+
+&lt;img src="images/tidyr-hex.png" width="150" /&gt;
+
+---
+
+# `tidyr` background  
+
+**`tidyr`** is a package by [Hadley Wickham and Lionel Henry of RStudio](https://tidyr.tidyverse.org/), and part of the `tidyverse`.  
+
+It is meant to help users create **tidy** data:  
+  - each column is a variable
+  - each row is an observation  
+  - each cell contains a single value  
+  
+`tidyr` is a widely-used package, with monthly downloads in the hundreds of thousands: 
+
+![](sdss-manager_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+---
+
+# `tidyr` changes  
+
+`tidyr` is also still subject to change relatively often: 
+  - two package versions released in 2019, one so far in 2020&lt;sup&gt;1&lt;/sup&gt; 
+  - this is true for many tidyverse packages, and leaves people's code and packages vulnerable ...  
+
+
+&lt;br /&gt; 
+
+--
+
+Consider the following example: 
+  - user with version 0.8.3 (released Mar 2, 2019)  
+  - updates to version 1.0.0 (released Sep 13, 2019)  
+  - all other packages on computer unchanged  
+
+.footnote[[1] https://github.com/tidyverse/tidyr/releases]
+
+
+---
+
+# `tidyr` changes  
+
+
+
+
+```r
+compare_tidyr &lt;- compare_inventory(inventory1 = tidyr_083, inventory2 = tidyr_100)
+```
+
+&lt;img src="images/tidyr_compare_summary.png" width="1840" /&gt;
+
+
+---
+
+# `tidyr` changes  
+
+**Version 0.8.3** `nest()` function:  
+
+`ChickWeight %&gt;% nest(-Diet) %&gt;% glimpse()`  
+
+
+```
+## Rows: 4
+## Columns: 2
+## $ Diet &lt;fct&gt; 1, 2, 3, 4
+## $ data &lt;list&gt; [&lt;data.frame[220 x 3]&gt;, &lt;data.frame[120 x 3]&gt;, &lt;data.frame[120 …
+```
+
+--
+
+**Version 1.0.0** `nest()` function: 
+
+`ChickWeight %&gt;% nest(-Diet) %&gt;% glimpse()`&lt;sup&gt;1&lt;/sup&gt;
+
+
+```
+## Rows: 4
+## Columns: 2
+## $ ...1 &lt;fct&gt; 1, 2, 3, 4
+## $ data &lt;list&gt; [&lt;data.frame[220 x 3]&gt;, &lt;data.frame[120 x 3]&gt;, &lt;data.frame[120 …
+```
+
+--
+
+*Note the difference between the column names.*  
+
+.footnote[[1] Note that in the RStudio console, the version 1.0.0 code will throw an error and not run. RMarkdown files (papers and slides) seem to render it just fine, but with incorrect column name.]
+
+---
+
+# `tidyr` conclusions  
+
+&lt;br /&gt; 
+- Syntax of `nest()` has changed  
+
+&lt;br /&gt; 
+
+- Developers provide release notes and warning messages  
+
+&lt;br /&gt;  
+- Can still break your code!  
+  
+---
+
+class: inverse, middle, center
+
+# Wrapping Up  
+
+
+---
+
+# Conclusions and Future Work  
+
+**Conclusions**  
+  - data science pipelines might be more vulnerable than you realize   
+  - our tools provide a way to quickly assess things and identify changes  
+  - identify changes *before* they break your code  
+
+--
+
+
+**Future Work**  
+  - making the `manager` package less dependent on `tidyverse` packages
+  - script mapping to identify a script's "flow" and where a potential code change starts affecting things  
+  - visuals to better compare two dependency trees  
+    - how removing a package dependency would change dependency tree   
+  - C/C++ code is difficult to get around
+    - when it is compiled, it gets a user-specific "address" - always different  
+    
+    
+
+
+---
+
+class: inverse, middle, center
+
+# Thank You!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
