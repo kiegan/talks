@@ -1,6 +1,6 @@
 ---
 title: "A Paradigm for Managing Computational Reproducibility in a Changing Software Package Landscape"
-author: "Kiegan Rice"
+author: "Kiegan Rice and Heike Hofmann"
 institute: "Symposium on Data Science and Statistics"
 date: "June 4, 2020"
 output:
@@ -149,7 +149,6 @@ opts_chunk$set(echo = FALSE, dpi = 200, cache = TRUE)
 - Actions utilize underlying code  
 
 <br />
---
 
 ```{r, echo = F, warning = F, message = F, out.width = '\\textwidth'}
 knitr::include_graphics("images/pipeline_v1_update.png")
@@ -223,8 +222,7 @@ class: inverse, middle, center
 **`packrat` package** [(RStudio)](https://rstudio.github.io/packrat/)
   - private package library   
   - works on a project level, creating a library for that R project  
-  - interacts with projects/scripts  
-  
+
 **`pkgnet` package** [(Uptake)](https://uptake.github.io/pkgnet/)
   - creates "package reports" 
   - package dependency network 
@@ -240,8 +238,8 @@ Prior approaches are meant for **static** package versioning.
 
   - Meant to document packages used *at a particular point in time*.  
   - Storing and maintaining a computational environment    
-  - Changes across machines and over time
-  - Ensures the same version of a package will be used.  
+  - Ensures the same version of a package will be used  
+  - Doesn't take advantage of changes and innovations  
   
 We propose an alternate approach:  
 
@@ -267,7 +265,7 @@ class: inverse, middle, center
   
 <br />
 
-**Step 2**: Compare package dependency networks over time and across users/machines  
+**Step 2**: Compare package inventories over time and across users/machines  
   - Identify specific package differences between inventories  
   - Identify places in a script where differences are used  
   - Gives users a chance to identify differences *before* the code breaks  
@@ -322,27 +320,15 @@ plot_inventory(project_inventory)
 
 <br /> 
 <br />
+
 **Taking inventory**:  
 
-1. Inventories are taken using an iterative level-by-level approach  
+1. Using an iterative level-by-level approach  
   - not meant to present an entire network of all connections  
-    - `pkgnet` can do this for one package!  
+      - `pkgnet` can do this for one package!  
   - if a package is already in the dependency tree at a higher level, it isn't included again.  
-  - meant to enumerate all vulnerabilities, not identify all connections.  
-2. Inventories only focus on packages listed as Depends and Imports! 
+2. Inventories only focus on packages listed as Depends and Imports  
 3. Inventories catalog all package objects  
-
----
-
-# Step 1: Define and refine vulnerabilities  
-
-<br /> 
-<br /> 
-**A few notes:**  
-
-1. `take_inventory` and `plot_inventory` visualize scope of vulnerabilities  
-2. Projects are more vulnerable than just to changes in explicitly called packages  
-3. Reducing the number of packages used from the start will help reduce vulnerabilities  
 
 
 ---
@@ -365,20 +351,18 @@ plot_inventory(tidyverse_inventory)
 
 Use catalogued package objects to compare package inventories to find: 
 
-  - **nominal differences**: differences in package versions (CRAN versions, git commits, etc.)  
-  - **practical differences**: differences in package objects across versions!  
+  - **nominal differences**  
+  - **practical differences**  
 
-`compare_inventory` function: strategically-placed **MD5 checksums** to summarize pieces of the inventory, such as:  
+Strategically-placed **MD5 checksums** to summarize pieces of the inventory:  
 
-1. package meta-information (name, version, source, and github repo/commit)  
-2. list of package dependencies 
-3. package objects meta-information (object name, object checksum, parameter checksum, object type, etc.) 
-4. package object checksum  
-5. package object parameter checksum  
+- package meta-information  
+- package objects 
+- package object parameters  
 
-
+<br />
 - computationally much faster than comparing large objects
-- can quickly filter out packages and objects which are identical across inventories and versions  
+- can quickly identify packages and objects which are not identical    
 
 
 ---
@@ -474,9 +458,9 @@ tidyr_cran %>%
 
 # `tidyr` changes  
 
-`tidyr` is also still subject to change relatively often: 
-  - two package versions released in 2019, one so far in 2020<sup>1</sup> 
-  - this is true for many tidyverse packages, and leaves people's code and packages vulnerable ...  
+`tidyr` is also still subject to change relatively often:  
+  - two package versions released in 2019, one so far in 2020<sup>1</sup>  
+  - this is true for many tidyverse packages, and leaves people's code and packages vulnerable   
 
 
 <br /> 
@@ -564,20 +548,24 @@ class: inverse, middle, center
 # Conclusions and Future Work  
 
 **Conclusions**  
-  - data science pipelines might be more vulnerable than you realize   
-  - our tools provide a way to quickly assess things and identify changes  
   - identify changes *before* they break your code  
+    - changes to packages over time  
+    - differences in package versions across machines  
+  - our tools provide a way to quickly assess things and identify changes  
+  - team collaboration or reproducibility over time  
+
 
 --
 
 
 **Future Work**  
   - making the `manager` package less dependent on `tidyverse` packages
-  - script mapping to identify a script's "flow" and where a potential code change starts affecting things  
-  - visuals to better compare two dependency trees  
-    - how removing a package dependency would change dependency tree   
   - C/C++ code is difficult to get around
-    - when it is compiled, it gets a user-specific "address" - always different  
+    - when it is compiled, it gets a user-specific "address"   
+  - **interactivity**: 
+    - script mapping: identify how scripts use functions and the relationship between them  
+    - comparing two dependency trees  
+    - remove a package dependency - how much does that simplify the tree?
     
     
 
