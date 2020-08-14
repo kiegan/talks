@@ -400,7 +400,7 @@ Requires two independent inventories to be taken and loaded at the same time.
 
 Text summary:  
 
-```{r, echo = F, warning = F, message = F, out.width = "80%"}
+```{r, echo = F, warning = F, message = F, out.width=700}
 knitr::include_graphics("images/kiegan-vs-amy.png")
 ```
 
