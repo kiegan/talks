@@ -1,6 +1,8 @@
 # Talks
 Repository of slides for talks given by me, Kiegan Rice. 
 
+Mar 25 20221: [These aren't the plots you are looking for: interactive data viz using the r2d3 package](https://kiegan.github.io/talks/graphics-group-r2d3/graphics-gropu-r2d3.html), ISU Graphics Group <br> 
+
 June 4 2020: [A Paradigm for Managing Computational Reproducibility in a Changing Software Package Landscape](https://kiegan.github.io/talks/sdss-2020-manager/sdss-manager.html), Symposium on Data Science and Statistics (SDSS) 2020, Virtual 
 
 May 5 2020: [Methods for Measuring Reproducibility of Data Collection and Analysis in Automated Forensic Firearms Analysis](https://kiegan.github.io/talks/defense-seminar-public/kiegan-public-seminar.html), Ph.D. Defense Seminar, Department of Statistics <br> 
