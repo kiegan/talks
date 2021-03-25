@@ -636,6 +636,51 @@ svg.selectAll('circle')
 &lt;iframe src="rendered/scatter6.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
 ]  
 
+
+
+
+---
+# Let's try it out! 
+
+
+
+.left-code[
+`scatter-hover.js`:  
+
+.smalmed[
+
+```r
+svg.selectAll('circle')
+  .data(data)
+  .enter().append('circle')
+    .attr('cx', function(d) { 
+      return x(d.flipper_length_mm); }) 
+#... 
+*   .style("stroke-width", 0)
+*   .style("stroke", "black")
+*   .style("opacity", 0.8)
+*   .on("mouseover", function(d){
+*       d3.select(this)
+*         .attr("r", 10)
+*         .style("stroke-width", 2)
+*         .style("opacity", 1);
+*   })
+*   .on("mouseout", function(d){
+*     d3.select(this)
+*       .attr("r", 5)
+*       .style("stroke-width", 0)
+*       .style("opacity", 0.8);
+*   })
+```
+]
+]
+
+
+.right-plot[
+&lt;iframe src="rendered/scatter7.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]  
+
+
 ---
 # Let's try it out! 
 
@@ -658,34 +703,34 @@ svg.selectAll('circle')
     .attr('cx', function(d) { 
       return x(d.flipper_length_mm); }) 
 #... 
-*   .style("stroke-width", 0)
-*   .style("stroke", "black")
-*   .style("opacity", 0.8)
-*   .on("mouseover", function(d){
-*       d3.select(this)
-*         .attr("r", 10)
-*         .style("stroke-width", 2)
-*         .style("opacity", 1);
+    .style("stroke-width", 0) 
+    .style("stroke", "black") 
+    .style("opacity", 0.8)
+    .on("mouseover", function(d){ 
+        d3.select(this)
+          .attr("r", 10) 
+          .style("stroke-width", 2) 
+          .style("opacity", 1); 
 *       ttip.style("opacity", 0.9);
 *       ttip.html("This is a " + d.species + " penguin" + "&lt;br/&gt;" +
 *                 "from " + d.island + " island")
 *           .style("left", (d3.event.pageX) + 5 + "px")
 *           .style("top", (d3.event.pageY) + "px");
-*   })
-*   .on("mouseout", function(d){
-*     d3.select(this)
-*       .attr("r", 5)
-*       .style("stroke-width", 0)
-*       .style("opacity", 0.8);
+    })
+    .on("mouseout", function(d){
+      d3.select(this)
+        .attr("r", 5)
+        .style("stroke-width", 0)
+        .style("opacity", 0.8);
 *     ttip.style("opacity", 0);
-*   })
+    })
 ```
 ]
 ]
 
 
 .right-plot[
-&lt;iframe src="rendered/scatter7.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+&lt;iframe src="rendered/scatter8.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
 ]  
 
 ---

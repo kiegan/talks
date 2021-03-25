@@ -1,0 +1,67 @@
+---
+title: "R2D3 demo plots"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(r2d3)
+library(dplyr)
+library(palmerpenguins)
+library(htmltools)
+library(htmlwidgets)
+```
+
+
+# Basic scatterplot  
+
+```{r, results = 'asis'}
+penguins %>%
+  r2d3(script = "js/scatter-basic.js", d3_version = "4", css = "js/scatter.css")
+```
+
+
+# Basic scatterplot  with colors by species  
+
+```{r, results = 'asis'}
+penguins %>%
+  r2d3(script = "js/scatter-color.js", d3_version = "4", css = "js/scatter.css")
+```
+
+
+
+## Scatterplot with x axis scaling  
+
+```{r, results = 'asis'}
+penguins %>%
+  r2d3(script = "js/scatter-xscale.js", d3_version = "4", css = "js/scatter.css")
+```
+
+
+## Scatterplot with both x and y axis scaling  
+
+```{r, results = 'asis'}
+penguins %>%
+  r2d3(script = "js/scatter-yscale.js", d3_version = "4", css = "js/scatter.css")
+```
+
+
+
+## Scatterplot with hover interaction + basic tooltip  
+
+```{r, echo = F, results = 'asis'}
+penguins %>%
+  r2d3(script = "js/scatter-tooltip.js", d3_version = "4", css = "js/scatter.css")
+```
+
+
+
+## Scatterplot with group highlighting  
+
+  - This plot also has margins, axes, dynamic sizing + scaling  
+  
+```{r, echo = T, results = 'asis'}
+penguins %>%
+  r2d3(script = "js/scatter.js", d3_version = "4", css = "js/scatter.css")
+```
+
