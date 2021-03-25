@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>These are[n’t] the plots you are looking for: interactive data viz with the  📦</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kiegan Rice" />
+    <meta name="date" content="2021-03-25" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# These are[n’t] the plots you are looking for: interactive data viz with the <img src='images/r2d3.png' width='40'/> 📦
+### Kiegan Rice
+### ISU Graphics Group
+### March 25, 2021
+
+---
+
+
+
+
+&lt;style&gt;
+
+/* colors: #EEB422, #8B0000, #191970, #00a8cc */
+/* define the new color palette here! */
+a, a &gt; code {
+  color: #EEB422;
+  text-decoration: none;
+}
+
+.remark-slide-content {
+  background-color: #FFFFFF;
+  border-top: 80px solid #696969;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 1em 2em 1em 2em
+}
+
+.inverse {
+  background-color: #696969;
+  border-top: 20px solid #696969;
+  text-shadow: none;
+	background-position: 50% 75%;
+  background-size: 150px;
+}
+
+.remark-slide-content &gt; h1 {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 45px;
+  margin-top: -95px;
+  margin-left: -00px;
+  color: #FFFFFF;
+}
+
+.title-slide {
+  background-color: #FFFFFF;
+  border-top: 15px solid #FFFFFF;
+  background-image: none;
+}
+
+.title-slide &gt; h1  {
+  color: #111111;
+  font-size: 40px;
+  text-shadow: none;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 80px;
+}
+.title-slide &gt; h2  {
+  margin-top: -25px;
+  padding-bottom: -20px;
+  color: #111111;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 35px;
+  text-align: left;
+  margin-left: 15px;
+}
+.title-slide &gt; h3  {
+  color: #111111;
+  text-shadow: none;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 15px;
+  margin-bottom: -20px;
+}
+
+body {
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+
+.remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Roboto';
+  color: #272822;
+  opacity: 1;
+}
+
+.inverse .remark-slide-number {
+  font-size: 13pt;
+  font-family: 'Roboto';
+  color: #FAFAFA;
+  opacity: 1;
+}
+
+&lt;!-- img { --&gt;
+&lt;!--   max-width: 50%; --&gt;
+&lt;!-- } --&gt;
+
+&lt;/style&gt;
+
+&lt;style type="text/css"&gt;
+.tiny{font-size: 30%}
+.small{font-size: 50%}
+.smalmed{font-size:65%}
+.medium{font-size: 75%}
+.giant{font-size: 300%} 
+
+.left-code {
+  color: #777;
+  width: 49%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 49%;
+  float: right;
+  padding-left: 1%;
+}
+
+.right-code {
+  color: #777;
+  width: 40%;
+  height: 92%;
+  float: right;
+}
+
+.left-col {
+  width: 30%;
+  float: left;
+  height: 92%;
+}
+
+.middle-col {
+  width: 30%;
+  float: center;
+  height: 92%;
+}
+
+.right-col {
+  width: 30%;
+  float: right;
+  height: 92%;
+}
+
+&lt;/style&gt;
+
+
+
+# Outline   
+
+&lt;br&gt;  
+
+&lt;br&gt;  
+
+**Who, what, and when:** background on the D3.js library  
+&lt;br&gt; 
+
+**Where** can you learn more about D3?  
+&lt;br&gt; 
+
+**Why** you should use D3 with R using the `r2d3` package   
+&lt;br&gt; 
+
+**How** do D3 and `r2d3` work?  
+&lt;br&gt; 
+
+and... let's use it! a mini-tutorial!  
+
+
+
+
+
+---
+
+# Background of D3      
+
+&lt;br&gt;  
+
+**Who:** Created by [Mike Bostock](https://observablehq.com/@mbostock) while working on graphics at the New York Times  
+
+
+&lt;br&gt;  
+
+**What:** Open-source JavaScript-based graphing framework  
+  - D3 = "Data-Driven Documents"  
+  - In some ways, **ggplot2** *is to* **R** *as* **D3.js** *is to* **JavaScript**  
+  - Functions for working with and manipulating data  
+  - Framework for binding objects and layers to plotting area  
+    + framework for movement and user interaction    
+
+&lt;br&gt;  
+
+**When:** D3 v1.0 released in 2011, D3.js recently celebrated it's 10th anniversary!  
+
+
+
+---
+
+# Resources on D3.js    
+
+**Where** can you learn more about D3?  
+
+
+1. The internet!  
+![](images/computer-cat.gif)  
+
+--
+
+   - https://www.d3-graph-gallery.com/, now superceded by https://observablehq.com/@d3/gallery   
+   - Online tutorials, resources, and courses    
+   - Twitter #dataviz community
+   - Observable community: https://observablehq.com/ambassadors     
+
+
+---
+
+# Features of D3   
+
+**Why** should you use D3?  
+
+.pull-left[
+.center[Animation]
+
+
+
+&lt;iframe src="rendered/scatter2.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+
+] 
+
+--
+
+
+.pull-right[
+.center[Hover interaction]
+
+
+
+&lt;iframe src="rendered/scatter1.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]
+
+
+.small[Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. https://allisonhorst.github.io/palmerpenguins/.]
+
+---
+
+# Features of D3   
+
+**Why** should you use D3?  
+
+  - Open source
+    - Lots of existing examples + formats
+  - Infrastructure works well for web development
+  - User interaction 
+    - Hovering
+      - Highlighting, annotating with tooltip information or others
+    - Clicking (+ driving transitions)
+      - Turning certain elements on or off
+    - Can integrate more (brushing, linking, etc.)
+  - Highly customizable 
+    - Styling, especially when paired with using CSS
+    - Tons of visualization formats - the sky is the limit!   
+    - Can integrate multiple plots together + transitions
+      - e.g., "scrollytelling"
+
+
+
+---
+
+# Features of D3   
+
+**Why** should you use D3?  
+
+  - Open source
+    - Lots of existing examples + formats
+  - Infrastructure works well for web development
+  - User interaction 
+    - Hovering
+      - Highlighting, annotating with tooltip information or others
+    - Clicking (+ driving transitions)
+      - Turning certain elements on or off
+    - Can integrate more (brushing, linking, etc.)
+  - **Highly customizable** 
+    - **Styling, especially when paired with using CSS**
+    - Tons of visualization formats - the sky is the limit!    
+    - **Can integrate multiple plots together + transitions**
+      - **e.g., "scrollytelling"**
+      
+...**features that plotly does not provide**  
+
+
+---
+
+# Features of D3   
+
+**Why** should you use D3? (continued)  
+&lt;br&gt;  
+
+  - Many interactive data visualizations on the web are built using D3 
+    - New York Times  
+    - FiveThirtyEight  
+    - Washington Post  
+    - Pew Research Center  
+
+&lt;br&gt;  
+
+... and, it's really easy to implement using r2d3!  
+
+
+---
+
+class: inverse, middle, center
+
+&lt;img src="images/r2d3.png" width="45%" /&gt;
+
+
+---
+
+# Relationship between D3 and R   
+
+**Why** should you use D3 *with R using the `r2d3` package?*  
+
+&lt;br&gt; 
+
+  - you can easily integrate a D3 visual into existing formats in R... 
+    - RMarkdown with HTML output  
+      - slides&lt;sup&gt;1&lt;/sup&gt;, HTML documents, blogdown
+    - Shiny applications (I find this especially impactful)  
+      - Example we worked on at NORC:  
+        - https://mcbs-interactives.norc.org/preventive.html  
+&lt;br&gt;  
+  - `r2d3` makes it easy to do your data processing in R, then apply D3.js code to visualize that data!  
+  
+.footnote[[1] Note: in xaringan slides, I had to save out as html and read back in into an iframe.]
+
+
+---
+
+# Relationship between D3 and R   
+
+
+**What** does the r2d3 package do?  
+
+&lt;br&gt;  
+
+  1. Converts data in R to JSON that can be interpreted by JavaScript   
+    - Object is named 'data'
+    - Columns can be accessed
+--
+  2. Sources D3 code library  
+    - Grabs version specified in function  
+--
+  3. Creates plot container (svg is default)  
+    - Or different container if specified  
+    - specifies width and height of plot container   
+--
+  4. Renders plot object using JavaScript and CSS files called in r2d3 call  
+
+
+
+---
+
+# Relationship between D3 and R   
+
+&lt;br&gt;  
+Literally all you have to do is... 
+&lt;br&gt;  
+  
+
+```r
+  r2d3(
+    data = penguins, 
+    script = "scatter.js", # this is the D3.js code! 
+    css = "scatter.css", # this is the CSS code to go with the scatter.js file
+    d3_version= "4" # specify which D3 version (3 - 6 supported)
+  )
+```
+  
+
+
+---
+
+class: inverse, center   
+
+By now you're probably wondering...  
+
+![](images/how-prudd.gif) 
+
+--
+
+And the answer is...  
+
+![](images/wizard-april.gif)  
+
+
+---
+
+class: inverse, center   
+
+By now you're probably wondering...  
+
+![](images/how-prudd.gif) 
+
+
+And the answer is...  
+
+&lt;img src="images/SVG_logo_h.svg" width="50%" /&gt;
+&lt;!-- ![](images/SVG_logo_h.svg)   --&gt;
+
+ 
+.small[By W3C, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=89557878]
+
+
+---
+
+# All About SVG   
+
+.center[**SVG**: **S**calable **V**ector **G**raphics  
+
+&lt;img src="images/svg-image.svg" width="50%" /&gt;
+&lt;!-- ![](images/svg-image.svg)   --&gt;
+
+.small[Yug, modifications by 3247, CC BY-SA 2.5 &lt;https://creativecommons.org/licenses/by-sa/2.5&gt;, via Wikimedia Commons]
+]
+
+
+- Scaling of vector graphics preserves the *shapes* rather than the pixels.  
+- XML (E**x**tensible **M**arkup **L**anguage)-based
+  - Human readable + machine readable  
+  - Interactivity + animation supported  
+- JavaScript for scripting, CSS for styling  
+  
+  
+  
+---
+
+# All About SVG   
+
+&lt;img src="images/svg-doodle.JPG" width="1000px" /&gt;
+
+
+---
+
+# All About SVG   
+
+&lt;img src="images/svg-doodle2.JPG" width="1000px" /&gt;
+
+
+---
+
+# All About SVG   
+
+&lt;img src="images/svg-doodle3.JPG" width="1000px" /&gt;
+
+
+---
+
+class: inverse, middle, center
+
+# Structure of D3     
+
+
+
+---
+
+# Grammar of D3  
+
+Just like ggplot2, D3 has a grammar!  
+  - elements (e.g., rect, circle, text, path)  
+    - attributes  
+    - styles  
+  - scales  
+    - These are not automatically assigned by D3 like they are in ggplot2
+  
+New things  
+  - animations  
+    - transitions, enters, exits  
+  - interactions  
+    - mouseover/mouseleave  
+
+
+
+---
+# Let's try it out! 
+
+
+
+.left-code[
+&lt;!-- R code:   --&gt;
+
+
+
+`scatter-basic.js`:  
+
+
+```r
+svg.selectAll('circle')
+  .data(data)
+  .enter().append('circle')
+    .attr('cx', function(d) { 
+      return d.flipper_length_mm; })
+    .attr('cy', function(d) {
+      return d.bill_length_mm; })
+    .attr('r', 5)
+    .attr('fill', 'steelblue');
+```
+]  
+
+.right-plot[
+&lt;iframe src="rendered/scatter3.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]
+
+---
+# Let's try it out! 
+
+
+
+.left-code[
+`scatter-color.js`:  
+
+
+```r
+* var color = d3.scaleOrdinal()
+*   .domain(["Adelie", "Chinstrap",
+*            "Gentoo" ])
+*   .range(["darkorange", "purple",
+*            "darkgreen"]);
+    
+svg.selectAll('circle')
+  .data(data)
+  .enter().append('circle')
+    .attr('cx', function(d) { 
+      return d.flipper_length_mm; })
+    .attr('cy', function(d) {
+      return d.bill_length_mm; })
+    .attr('r', 5)
+*   .style("fill", function (d) {
+*     return color(d.species) } );
+```
+]  
+
+.right-plot[
+&lt;iframe src="rendered/scatter4.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]
+
+
+
+---
+# Let's try it out! 
+
+
+
+.left-code[
+`scatter-xscale.js`:  
+
+```r
+*var x = d3.scaleLinear()
+*   .domain([165, 240])
+*   .range([ 0, width]);
+    
+    
+var color = d3.scaleOrdinal() 
+    .domain(["Adelie", "Chinstrap", 
+             "Gentoo" ]) 
+    .range(["darkorange", "purple", 
+             "darkgreen"]); 
+    
+svg.selectAll('circle')
+  .data(data)
+  .enter().append('circle')
+    .attr('cx', function(d) { 
+*     return x(d.flipper_length_mm); })
+    .attr('cy', function(d) {
+      return d.bill_length_mm; })
+    .attr('r', 5)
+    .style("fill", function (d) { 
+      return color(d.species) } ); 
+```
+]  
+
+.right-plot[
+&lt;iframe src="rendered/scatter5.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]
+
+---
+# Let's try it out! 
+
+
+
+.left-code[
+`scatter-yscale.js`:  
+
+```r
+var x = d3.scaleLinear() 
+    .domain([165, 240]) 
+    .range([ 0, width]);  
+    
+*var y = d3.scaleLinear()
+*   .domain([30, 60])
+*   .range([ height, 0]);
+# ... 
+    
+svg.selectAll('circle')
+  .data(data)
+  .enter().append('circle')
+    .attr('cx', function(d) { 
+      return x(d.flipper_length_mm); }) 
+    .attr('cy', function(d) {
+*     return y(d.bill_length_mm); })
+    .attr('r', 5)
+    .style("fill", function (d) { 
+      return color(d.species) } ); 
+```
+]  
+
+.right-plot[
+&lt;iframe src="rendered/scatter6.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]  
+
+---
+# Let's try it out! 
+
+
+
+.left-code[
+`scatter-tooltip.js`:  
+
+.smalmed[
+
+```r
+*var ttip = d3.select("body").append("div")
+*   .attr("class", "tooltip")
+*   .style("opacity", 0);
+# ... 
+    
+svg.selectAll('circle')
+  .data(data)
+  .enter().append('circle')
+    .attr('cx', function(d) { 
+      return x(d.flipper_length_mm); }) 
+#... 
+*   .style("stroke-width", 0)
+*   .style("stroke", "black")
+*   .style("opacity", 0.8)
+*   .on("mouseover", function(d){
+*       d3.select(this)
+*         .attr("r", 10)
+*         .style("stroke-width", 2)
+*         .style("opacity", 1);
+*       ttip.style("opacity", 0.9);
+*       ttip.html("This is a " + d.species + " penguin" + "&lt;br/&gt;" +
+*                 "from " + d.island + " island")
+*           .style("left", (d3.event.pageX) + 5 + "px")
+*           .style("top", (d3.event.pageY) + "px");
+*   })
+*   .on("mouseout", function(d){
+*     d3.select(this)
+*       .attr("r", 5)
+*       .style("stroke-width", 0)
+*       .style("opacity", 0.8);
+*     ttip.style("opacity", 0);
+*   })
+```
+]
+]
+
+
+.right-plot[
+&lt;iframe src="rendered/scatter7.html" width="100%" height="400" scrolling="no" seamless="seamless" frameBorder="0" padding="0"&gt; &lt;/iframe&gt;
+]  
+
+---
+# ...And more!!!  
+
+What else can you do? 
+
+  - axes  
+  - margins + padding to make space for axes  
+  - animation  
+  - dynamic scales + image sizing  
+  - tons of formats  
+    - dots, bars, lines, text, beeswarms, networks, sankeys, parallel sets, etc... 
+    - https://observablehq.com/@d3/gallery  
+
+... and so much more! 
+
+  - wizardry with CSS styling  
+    - interactivity can be coded in CSS too  
+    
+
+
+
+  
+
+---
+
+# Conclusions     
+
+&lt;br&gt;  
+
+  - D3 is amazing
+  - going from ggplot2 to D3 grammar is actually not the worst!  
+    - still takes time + energy to learn  
+    - a lot of googling  
+  - more customizable interaction + animation than plotly  
+    - steeper learning curve though  
+  - you can make beautiful interactive graphics!  
+  
+  
+
+---
+
+class: inverse, middle, center
+
+# Questions?    
+
+
+---
+
+# Appendix A  
+
+How to go from a D3 example to something that works with R2D3???
+
+Typically, you can do this in 3 easy steps!  
+
+1. Remove "call data" - often a d3.csv() call
+  - This is a wrapper and you can get rid of it! We already have our data! 
+2. Change where you are appending elements inside the JS file (they should be appended to SVG!)  
+3. Change specific variable calls to match the data you have.  
+
+
+"D3 examples will generally include code to load data, create an SVG or other root element, and establish a width and height for the visualization" (https://rstudio.github.io/r2d3/index.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
